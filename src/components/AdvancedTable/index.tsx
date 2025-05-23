@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react'
-import { MantineReactTable, type MRT_ColumnDef } from 'mantine-react-table'
-import { type Person, data as initialData, moreData } from './makeData'
+import { MantineReactTable, type MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { Button, Flex, Title } from '@mantine/core'
+import { type Person, data as initialData, moreData } from './makeData'
 
 const Table = () => {
   const [data, setData] = useState<Person[]>(initialData)
   const [isLoading, setIsLoading] = useState(false)
-  const columns = useMemo<MRT_ColumnDef<Person>[]>(
+
+  const columns = useMemo<MRTColumnDef<Person>[]>(
     () => [
       {
         accessorKey: 'firstName',
@@ -41,7 +42,9 @@ const Table = () => {
   const fetchLatestData = async () => {
     setIsLoading(true)
     // wait 2 seconds
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    await new Promise(resolve => {
+      setTimeout(resolve, 2000)
+    })
     setData([...data, ...moreData])
     setIsLoading(false)
   }
@@ -54,7 +57,7 @@ const Table = () => {
       <MantineReactTable
         columns={columns}
         data={data}
-        //optionally override the default column widths
+        // optionally override the default column widths
         defaultColumn={{
           maxSize: 400,
           minSize: 80,
@@ -68,12 +71,7 @@ const Table = () => {
         state={{ isLoading }}
       />
       <Flex justify="center" align="center" mt={20}>
-        <Button
-          onClick={fetchLatestData}
-          loading={isLoading}
-          m="20px auto 0"
-          align="center"
-        >
+        <Button onClick={fetchLatestData} loading={isLoading} m="20px auto 0" align="center">
           Fetch latest data
         </Button>
       </Flex>

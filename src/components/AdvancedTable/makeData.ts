@@ -1,10 +1,10 @@
 export type Person = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  timeInVerzion: number;
-  country: string;
-};
+  firstName: string
+  lastName: string
+  email: string
+  timeInVerzion: number
+  country: string
+}
 
 export const data: Person[] = [
   {
@@ -42,7 +42,7 @@ export const data: Person[] = [
     timeInVerzion: 6,
     country: 'Canada',
   },
-];
+]
 
 export const moreData: Person[] = [
   {
@@ -59,4 +59,4 @@ export const moreData: Person[] = [
     timeInVerzion: 18,
     country: 'Mexico',
   },
-];
+]
