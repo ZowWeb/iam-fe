@@ -1,7 +1,6 @@
-import './App.css'
 import { MantineProvider } from '@mantine/core'
 import { theme } from './theme'
-import Table from './components/Table'
+import Table from './components/AdvancedTable'
 import Layout from './components/Layout'
 
 function App() {

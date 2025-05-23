@@ -1,14 +1,12 @@
+import { AppShell } from '@mantine/core'
 import classes from './Layout.module.css'
 
 type Props = {
-  className?: string
   children?: React.ReactNode
 }
 
-const Layout = ({ children, className }: Props) => {
-  return (
-    <main className={classes.main}>{children}</main>
-  )
+const Layout = ({ children }: Props) => {
+  return <AppShell className={classes.main}>{children}</AppShell>
 }
 
 export default Layout
