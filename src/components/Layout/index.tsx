@@ -1,5 +1,5 @@
 import { AppShell } from '@mantine/core'
-import classes from './Layout.module.css'
+import classes from './Layout.module.scss'
 
 type Props = {
   children?: React.ReactNode
