@@ -1,0 +1,20 @@
+.layoutContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.layoutInnerContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    height: 100vh;
+}
+
+.layoutFirstColumn {
+    align-content: center;
+}
+
+.layoutSecondColumn {
+    align-content: center;
+    width: 100vh;
+}
