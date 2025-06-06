@@ -5,10 +5,11 @@ import Table from './components/AdvancedTable'
 import Layout from './components/Layout'
 import { VdsTabs, type VdsTabConfig } from './components/Vds/Tabs/VdsTabs'
 import { getSelectedElement } from './components/Vds/Tabs/VdsTabsUtils'
+import { Buttons } from './components/Vds/Buttons/Buttons'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'advanced-table', label: 'Advanced Table', selected: true },
-  { id: 'dummy', label: 'Element' },
+  { id: 'buttons', label: 'Buttons' },
 ]
 
 function App() {
@@ -20,8 +21,16 @@ function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
       <Layout>
-        <VdsTabs onSelection={handleTabSelect} config={tabsConfig} />
-        {selectedTab?.id === 'advanced-table' && <Table />}
+        <div className="flex-row">
+          <div className="flex-col flex-wrap">
+            <VdsTabs onSelection={handleTabSelect} config={tabsConfig} />
+          </div>
+
+          <div className="flex-col flex-wrap">
+            {selectedTab?.id === 'advanced-table' && <Table />}
+            {selectedTab?.id === 'buttons' && <Buttons />}
+          </div>
+        </div>
       </Layout>
     </MantineProvider>
   )
