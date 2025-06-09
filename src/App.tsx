@@ -23,20 +23,14 @@ function App() {
     <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
       <Layout>
         <div className={classes.layoutContainer}>
-          {/* HEADER COMPONENT */}
-
-          <div className={classes.layoutInnerContainer}>
-            <div className={classes.layoutFirstColumn}>
-              <VdsTabs onSelection={handleTabSelect} config={tabsConfig} />
-            </div>
-
-            <div className={classes.layoutSecondColumn}>
-              {selectedTab?.id === 'advanced-table' && <Table />}
-              {selectedTab?.id === 'buttons' && <Buttons />}
-            </div>
+          <div className={classes.layoutFirstColumn}>
+            <VdsTabs onSelection={handleTabSelect} config={tabsConfig} />
           </div>
 
-          {/* FOOTER COMPONENT */}
+          <div className={classes.layoutSecondColumn}>
+            {selectedTab?.id === 'advanced-table' && <Table />}
+            {selectedTab?.id === 'buttons' && <Buttons />}
+          </div>
         </div>
       </Layout>
     </MantineProvider>

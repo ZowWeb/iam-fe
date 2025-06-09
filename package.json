@@ -34,6 +34,7 @@
     "@vds/buttons": "^4.0.14",
     "@vds/icons": "4.7.0",
     "@vds/tabs": "4.1.8",
+    "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "mantine-react-table": "^1.3.4",
     "react": "^18.0.0",

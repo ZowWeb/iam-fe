@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { MantineReactTable, type MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { Button, Flex, Title } from '@mantine/core'
 import { type Person, data as initialData, moreData } from './makeData'
+import { ActionToolbar } from './ActionToolbar/ActionToolbar'
 
 const Table = () => {
   const [data, setData] = useState<Person[]>(initialData)
@@ -49,11 +50,14 @@ const Table = () => {
     setIsLoading(false)
   }
 
+  const handleAction = () => {}
+
   return (
     <>
       <Title order={1} align="center" m="30px">
         Advanced React Table
       </Title>
+      <ActionToolbar onAction={handleAction} actionButtonText="Action Button" />
       <MantineReactTable
         columns={columns}
         data={data}
