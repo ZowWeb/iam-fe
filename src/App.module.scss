@@ -1,10 +1,5 @@
 .layoutContainer {
     display: flex;
-    flex-direction: column;
-}
-
-.layoutInnerContainer {
-    display: flex;
     flex-direction: row;
     gap: 25px;
     height: 100vh;
