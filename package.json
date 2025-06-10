@@ -33,6 +33,7 @@
     "@vds/button-icons": "4.0.15",
     "@vds/buttons": "^4.0.14",
     "@vds/icons": "4.7.0",
+    "@vds/pagination": "^4.0.7",
     "@vds/tabs": "4.1.8",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",

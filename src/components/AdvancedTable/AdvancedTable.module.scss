@@ -1,0 +1,14 @@
+.table {
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}

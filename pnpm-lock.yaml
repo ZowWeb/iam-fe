@@ -38,6 +38,9 @@ importers:
       '@vds/icons':
         specifier: 4.7.0
         version: 4.7.0(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds/pagination':
+        specifier: ^4.0.7
+        version: 4.0.7(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@vds/tabs':
         specifier: 4.1.8
         version: 4.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
@@ -980,6 +983,12 @@ packages:
       react: ^17.0.0 || ^18.0.0
       styled-components: 4.x.x || 5.x.x || 6.x.x
 
+  '@vds-core/pagination@4.0.7':
+    resolution: {integrity: sha512-dPnAD0m/eV9t0+keJVdi6559ekHw0xby69KeBQtLvdyHNwUAsA9y+HiCcBw5fsgcOX/oTJZj8iYQiL/tLXt6Rw==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/npm-virtual/@vds-core/pagination/-/@vds-core/pagination-4.0.7.tgz}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0
+      styled-components: 4.x.x || 5.x.x || 6.x.x
+
   '@vds-core/tabs@4.1.8':
     resolution: {integrity: sha512-sBpSE4IxwicE5Y9/+T2g1Ghkr8aLujP6oJ9DptBRErmWc+1fBfCGDU/6nujqk8wuwxYES5n4XG4kfGy5VHFGag==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/npm-virtual/@vds-core/tabs/-/@vds-core/tabs-4.1.8.tgz}
     peerDependencies:
@@ -1029,6 +1038,12 @@ packages:
 
   '@vds/icons@4.7.0':
     resolution: {integrity: sha512-uVpnalhLLYiI5A9l8xwLS7xczgZWmfPdfHOOCjBKu7UlUoHKHKqKlFysMcMNDLiFPVapZ5b6wT/ga1UptNwhgg==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/npm-virtual/@vds/icons/-/@vds/icons-4.7.0.tgz}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0
+      styled-components: 4.x.x || 5.x.x || 6.x.x
+
+  '@vds/pagination@4.0.7':
+    resolution: {integrity: sha512-2/Q67Wb4NMU64dFLn4KwVrFAFfJyc8n/OwcMO+XqS6IzhODjZbCPWScaKFsIDpIged9Nn5GhiTyuF9c2RPTtPQ==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/npm-virtual/@vds/pagination/-/@vds/pagination-4.0.7.tgz}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0
       styled-components: 4.x.x || 5.x.x || 6.x.x
@@ -3877,6 +3892,17 @@ snapshots:
       react: 18.3.1
       styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
+  '@vds-core/pagination@4.0.7(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@vds-core/typography': 4.0.6(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-core/utilities': 4.0.3(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-tokens/accessibility': 2.0.5
+      '@vds-tokens/color': 2.2.0
+      '@vds-tokens/layout': 1.1.0
+      '@vds-tokens/typography': 3.0.2
+      react: 18.3.1
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
   '@vds-core/tabs@4.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
       '@vds-core/typography': 4.0.6(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
@@ -3931,6 +3957,12 @@ snapshots:
   '@vds/icons@4.7.0(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
       '@vds-core/icons': 4.7.0(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      react: 18.3.1
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  '@vds/pagination@4.0.7(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@vds-core/pagination': 4.0.7(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       react: 18.3.1
       styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 

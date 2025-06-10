@@ -1,8 +1,14 @@
 import { useMemo, useState } from 'react'
-import { MantineReactTable, type MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
+import {
+  MantineReactTable,
+  useMantineReactTable,
+  type MRT_ColumnDef as MRTColumnDef,
+} from 'mantine-react-table'
 import { Button, Flex, Title } from '@mantine/core'
 import { type Person, data as initialData, moreData } from './makeData'
 import { ActionToolbar } from './ActionToolbar/ActionToolbar'
+import classes from './AdvancedTable.module.scss'
+import { Pagination } from '../Vds/Pagination/Pagination'
 
 const Table = () => {
   const [data, setData] = useState<Person[]>(initialData)
@@ -40,6 +46,19 @@ const Table = () => {
     [],
   )
 
+  const table = useMantineReactTable({
+    columns,
+    data,
+    enableColumnActions: false,
+    enableColumnFilters: false,
+    enablePagination: false,
+    enableSorting: true,
+    enableRowSelection: true,
+    enableStickyHeader: false,
+    enableTopToolbar: false,
+    enableBottomToolbar: false,
+  })
+
   const fetchLatestData = async () => {
     setIsLoading(true)
     // wait 2 seconds
@@ -53,33 +72,21 @@ const Table = () => {
   const handleAction = () => {}
 
   return (
-    <>
+    <div className={classes.container}>
       <Title order={1} align="center" m="30px">
         Advanced React Table
       </Title>
       <ActionToolbar onAction={handleAction} actionButtonText="Action Button" />
-      <MantineReactTable
-        columns={columns}
-        data={data}
-        // optionally override the default column widths
-        defaultColumn={{
-          maxSize: 400,
-          minSize: 80,
-          size: 60,
-        }}
-        enableRowNumbers
-        enableColumnResizing
-        columnResizeMode="onChange"
-        enableColumnOrdering
-        enableColumnDragging
-        state={{ isLoading }}
-      />
+      <MantineReactTable table={table} />
+      <div className={classes.pagination}>
+        <Pagination />
+      </div>
       <Flex justify="center" align="center" mt={20}>
         <Button onClick={fetchLatestData} loading={isLoading} m="20px auto 0" align="center">
           Fetch latest data
         </Button>
       </Flex>
-    </>
+    </div>
   )
 }
 
