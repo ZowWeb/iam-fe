@@ -1,91 +1,46 @@
-import { useMemo, useState } from 'react'
-import {
-  MantineReactTable,
-  useMantineReactTable,
-  type MRT_ColumnDef as MRTColumnDef,
-} from 'mantine-react-table'
-import { Button, Flex, Title } from '@mantine/core'
-import { type Person, data as initialData, moreData } from './makeData'
+import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { ActionToolbar } from './ActionToolbar/ActionToolbar'
 import classes from './AdvancedTable.module.scss'
 import { Pagination } from '../Vds/Pagination/Pagination'
 
-const Table = () => {
-  const [data, setData] = useState<Person[]>(initialData)
-  const [isLoading, setIsLoading] = useState(false)
+export interface TableProps {
+  enableRowSelection: boolean
+  enableSorting: boolean
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  columns: any
+}
 
-  const columns = useMemo<MRTColumnDef<Person>[]>(
-    () => [
-      {
-        accessorKey: 'firstName',
-        header: 'First Name',
-        size: 100,
-      },
-      {
-        accessorKey: 'lastName',
-        header: 'Last Name',
-        enableResizing: false, // disable resizing for this column
-        size: 100,
-      },
-      {
-        accessorKey: 'email',
-        header: 'Email Address',
-        size: 200,
-      },
-      {
-        accessorKey: 'timeInVerzion',
-        header: 'Time in Verzion (months)',
-        size: 120,
-      },
-      {
-        accessorKey: 'country',
-        header: 'Country',
-        size: 100,
-      },
-    ],
-    [],
-  )
-
+const Table = ({ enableRowSelection = false, enableSorting = false, data, columns }: TableProps) => {
   const table = useMantineReactTable({
     columns,
     data,
     enableColumnActions: false,
     enableColumnFilters: false,
     enablePagination: false,
-    enableSorting: true,
-    enableRowSelection: true,
     enableStickyHeader: false,
     enableTopToolbar: false,
     enableBottomToolbar: false,
+    enableSorting,
+    enableRowSelection,
+    mantinePaperProps: {
+      shadow: '',
+      withBorder: false,
+    },
   })
-
-  const fetchLatestData = async () => {
-    setIsLoading(true)
-    // wait 2 seconds
-    await new Promise(resolve => {
-      setTimeout(resolve, 2000)
-    })
-    setData([...data, ...moreData])
-    setIsLoading(false)
-  }
 
   const handleAction = () => {}
 
   return (
     <div className={classes.container}>
-      <Title order={1} align="center" m="30px">
-        Advanced React Table
-      </Title>
-      <ActionToolbar onAction={handleAction} actionButtonText="Action Button" />
+      <div className={classes.toolbar}>
+        <ActionToolbar onAction={handleAction} actionButtonText="Action Button" />
+      </div>
       <MantineReactTable table={table} />
       <div className={classes.pagination}>
         <Pagination />
       </div>
-      <Flex justify="center" align="center" mt={20}>
-        <Button onClick={fetchLatestData} loading={isLoading} m="20px auto 0" align="center">
-          Fetch latest data
-        </Button>
-      </Flex>
     </div>
   )
 }

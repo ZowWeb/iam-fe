@@ -1,12 +1,12 @@
 import { MantineProvider } from '@mantine/core'
 import { useState } from 'react'
 import { theme } from './theme'
-import Table from './components/AdvancedTable'
 import Layout from './components/Layout'
 import { VdsTabs, type VdsTabConfig } from './components/Vds/Tabs/VdsTabs'
 import { getSelectedElement } from './components/Vds/Tabs/VdsTabsUtils'
-import { Buttons } from './components/Vds/Buttons/Buttons'
 import classes from './App.module.scss'
+import { AdvancedTablePage } from './pages/AdvancedTablePage'
+import { ButtonsPage } from './pages/ButtonsPage'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'advanced-table', label: 'Advanced Table', selected: true },
@@ -28,8 +28,8 @@ function App() {
           </div>
 
           <div className={classes.layoutSecondColumn}>
-            {selectedTab?.id === 'advanced-table' && <Table />}
-            {selectedTab?.id === 'buttons' && <Buttons />}
+            {selectedTab?.id === 'advanced-table' && <AdvancedTablePage />}
+            {selectedTab?.id === 'buttons' && <ButtonsPage />}
           </div>
         </div>
       </Layout>

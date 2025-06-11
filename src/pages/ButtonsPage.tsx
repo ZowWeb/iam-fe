@@ -1,11 +1,12 @@
 import { ButtonIcon } from '@vds/button-icons'
 import { Button } from '@vds/buttons'
 import { Icon, type IconProps } from '@vds/icons'
-import classes from './Buttons.module.scss'
+import clsx from 'clsx'
+import classes from './Pages.module.scss'
 
-export function Buttons() {
+export function ButtonsPage() {
   return (
-    <div className={classes.container}>
+    <div className={clsx(classes.container, classes.buttons_page)}>
       <Button size="large" disabled={false} use="primary">
         Button 1
       </Button>
