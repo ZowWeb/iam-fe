@@ -44,7 +44,7 @@ const Table = ({ enableRowSelection = false, enableSorting = false, data, column
         <MantineReactTable table={table} />
       </div>
       <div className={classes.pagination}>
-        <Pagination />
+        <Pagination total={table.getPageCount()} />
       </div>
     </div>
   )
