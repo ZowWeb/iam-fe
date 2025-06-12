@@ -1,5 +1,5 @@
 import { Container, MantineProvider } from '@mantine/core'
-import { theme } from './theme'
+import { theme } from '@/styles/theme'
 import Layout from './components/Layout'
 import MainHeader from './components/Section/Header'
 import { BaseTable } from './components/AdvancedTable/BaseTable'

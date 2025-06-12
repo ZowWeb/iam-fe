@@ -1,7 +1,10 @@
-import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
-import { ActionToolbar } from './ActionToolbar/ActionToolbar'
+import {
+  MantineReactTable,
+  useMantineReactTable,
+} from 'mantine-react-table'
+import ActionToolbar from './ActionToolbar'
 import classes from './AdvancedTable.module.scss'
-import { Pagination } from '../Vds/Pagination/Pagination'
+import Pagination from '../Vds/Pagination'
 
 export interface TableProps {
   enableRowSelection: boolean
@@ -37,7 +40,9 @@ const Table = ({ enableRowSelection = false, enableSorting = false, data, column
       <div className={classes.toolbar}>
         <ActionToolbar onAction={handleAction} actionButtonText="Action Button" />
       </div>
-      <MantineReactTable table={table} />
+      <div className={classes.tableWrapper}>
+        <MantineReactTable table={table} />
+      </div>
       <div className={classes.pagination}>
         <Pagination />
       </div>

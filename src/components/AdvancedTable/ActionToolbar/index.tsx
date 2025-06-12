@@ -3,7 +3,7 @@ import { ButtonIcon } from '@vds/button-icons'
 import { Icon, type IconProps } from '@vds/icons'
 import { Button } from '@vds/buttons'
 import classes from './ActionToolbar.module.scss'
-import SearchInput from '@/components/SearchInput/SearchInput'
+import SearchInput from '@/components/SearchInput'
 
 export interface ActionToolbarProps {
   onAction: (action: string, data?: string) => void
@@ -11,7 +11,11 @@ export interface ActionToolbarProps {
   actionButtonText: string
 }
 
-export function ActionToolbar({ onAction, searchPlaceHolderText, actionButtonText }: ActionToolbarProps) {
+export default function ActionToolbar({
+  onAction,
+  searchPlaceHolderText,
+  actionButtonText,
+}: ActionToolbarProps) {
   const [searchText, setSearchText] = useState('')
   const [showFilters, setShowFilters] = useState(false)
 
