@@ -56,20 +56,12 @@ code {
     }
 
     &--text {
-        font-size: 1.75rem;
-  flex-grow: 1;
+      font-size: 1.75rem;
+      flex-grow: 1;
     }
   }
 
   &__breadcrumb {
     background-color: variables.$primary;
   }
-
-  &__navigation-grid,
-  &__content-grid,
-  &__breadcrumb-grid,
-  &__table-grid {
-    margin: auto 12%;
-  }
 }
-

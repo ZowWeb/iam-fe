@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Grid } from '@mantine/core'
 import { AdvancedTablePage } from '@/pages/AdvancedTablePage'
 import { ButtonsPage } from '@/pages/ButtonsPage'
 import { VdsTabs, type VdsTabConfig } from '@/components/Vds/Tabs/VdsTabs'
@@ -18,17 +17,14 @@ export const BaseTable = () => {
   }
 
   return (
-    <Grid className="main__table-grid">
-      <div className={classes.layoutContainer}>
-        <div className={classes.layoutFirstColumn}>
-          <VdsTabs onSelection={handleTabSelect} config={tabsConfig} />
-        </div>
-
-        <div className={classes.layoutSecondColumn}>
-          {selectedTab?.id === 'advanced-table' && <AdvancedTablePage />}
-          {selectedTab?.id === 'buttons' && <ButtonsPage />}
-        </div>
+    <div className={classes.layoutContainer}>
+      <div className={classes.layoutFirstColumn}>
+        <VdsTabs onSelection={handleTabSelect} config={tabsConfig} />
       </div>
-    </Grid>
+      <div className={classes.layoutSecondColumn}>
+        {selectedTab?.id === 'advanced-table' && <AdvancedTablePage />}
+        {selectedTab?.id === 'buttons' && <ButtonsPage />}
+      </div>
+    </div>
   )
 }

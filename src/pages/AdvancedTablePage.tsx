@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { type MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
-import { Button, Title, Checkbox } from '@mantine/core'
+import { Button, Checkbox } from '@mantine/core'
 import { type Person, data as initialData, moreData } from '../mocks/makeData'
 import Table from '@/components/AdvancedTable'
 import classes from './Pages.module.scss'
@@ -55,9 +55,6 @@ export function AdvancedTablePage() {
 
   return (
     <div className={classes.container}>
-      <Title order={1} align="center" m="30px">
-        Advanced React Table
-      </Title>
       <Table
         columns={columns}
         data={data}
