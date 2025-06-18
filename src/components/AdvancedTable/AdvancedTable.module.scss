@@ -12,20 +12,13 @@
   justify-content: flex-end;
 }
 
-.toolbar {
-  margin-bottom: 3rem;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
-}
-
 .tableWrapper {
-    :global(.mantine-Paper-root) {
-        border: none;
-        box-shadow: none;
-    }
+  .mantine-Paper-root {
+    border: none;
+    box-shadow: none;
+  }
 
-    table > tbody > tr > td:nth-child(2) {
-        font-weight: 700;
-    }
+  table > tbody > tr > td:nth-child(2) {
+    font-weight: 700;
+  }
 }

@@ -17,7 +17,7 @@ import { IconChevronRight, IconExternalLink } from '@tabler/icons-react'
 
 const items = [
   { title: 'Home', href: '#' },
-  { title: 'Janes First Team ', href: '#' },
+  { title: `Jane's First Team`, href: '#' },
 ].map((item, index) => (
   <Anchor href={item.href} key={index}>
     {item.title}
@@ -107,7 +107,7 @@ const MainHeader = () => {
               className="main__content-flex"
               direction={{ base: 'column', sm: 'row' }}
               gap={{ base: 'sm', sm: 'lg' }}
-              //   justify={{ lg: '' }}
+              align={{ base: 'center' }}
             >
               <Image className="main__content-flex--image" />
               <Text className="main__content-flex--text" size="lg">

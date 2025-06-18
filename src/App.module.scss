@@ -1,14 +1,15 @@
 .layoutContainer {
-    display: flex;
-    flex-direction: row;
-    gap: 25px;
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  margin-top: 4rem;
 }
 
 .layoutFirstColumn {
-    align-content: center;
+  align-content: start;
 }
 
 .layoutSecondColumn {
-    align-content: center;
-    flex: 1;
+  align-content: center;
+  flex: 1;
 }
