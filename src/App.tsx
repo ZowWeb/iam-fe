@@ -1,8 +1,9 @@
 import { Container, MantineProvider } from '@mantine/core'
-import { theme } from '@/styles/theme'
+
+import { theme } from '~/styles/theme'
+import { BaseTable } from './components/AdvancedTable/BaseTable'
 import Layout from './components/Layout'
 import MainHeader from './components/Section/Header'
-import { BaseTable } from './components/AdvancedTable/BaseTable'
 
 function App() {
   return (

@@ -7,11 +7,8 @@ interface Props {
   surface?: 'light' | 'dark'
 }
 
-export default function Pagination({
-  selectPage = () => {},
-  total = 20,
-  showArrow = true,
-  surface = 'light',
-}: Props) {
+const Pagination = ({ selectPage = () => {}, total = 20, showArrow = true, surface = 'light' }: Props) => {
   return <VdsPagination {...{ selectPage, total, showArrow, surface }} />
 }
+
+export default Pagination

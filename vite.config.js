@@ -1,7 +1,8 @@
-import { defineConfig } from 'vite'
-import viteReact from '@vitejs/plugin-react'
 import { resolve } from 'node:path'
+
+import viteReact from '@vitejs/plugin-react'
 import linaria from '@wyw-in-js/vite'
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,7 +21,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
+      '~': resolve(__dirname, './src'),
     },
   },
   css: {

@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { AdvancedTablePage } from '@/pages/AdvancedTablePage'
-import { ButtonsPage } from '@/pages/ButtonsPage'
-import { VdsTabs, type VdsTabConfig } from '@/components/Vds/Tabs/VdsTabs'
-import classes from '@/App.module.scss'
-import { getSelectedElement } from '@/components/Vds/Tabs/VdsTabsUtils'
+
+import classes from '~/App.module.scss'
+import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
+import { getSelectedElement } from '~/components/Vds/Tabs/VdsTabsUtils'
+import { AdvancedTablePage } from '~/pages/AdvancedTablePage'
+import { ButtonsPage } from '~/pages/ButtonsPage'
 
 export const BaseTable = () => {
   const tabsConfig: VdsTabConfig[] = [

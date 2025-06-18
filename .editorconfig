@@ -1,0 +1,16 @@
+root = true
+
+[*.{js,jsx,ts,tsx,json,md,yml,yaml,css,scss,htm,html}]
+tab_width = 2
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+charset = utf-8
+
+[*.{js,jsx,ts,tsx}]
+max_line_length = 100
+
+[*.md]
+max_line_length = 80
+trim_trailing_whitespace = false

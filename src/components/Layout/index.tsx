@@ -1,4 +1,5 @@
 import { AppShell } from '@mantine/core'
+
 import classes from './Layout.module.scss'
 
 type Props = {

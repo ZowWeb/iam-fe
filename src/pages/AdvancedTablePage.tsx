@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react'
-import { type MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { Button, Checkbox } from '@mantine/core'
+import { type MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
+import { useMemo, useState } from 'react'
+
+import Table from '~/components/AdvancedTable'
 import { type Person, data as initialData, moreData } from '../mocks/makeData'
-import Table from '@/components/AdvancedTable'
 import classes from './Pages.module.scss'
 
 export function AdvancedTablePage() {

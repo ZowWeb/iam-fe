@@ -1,5 +1,6 @@
-import { Tab, Tabs } from '@vds/tabs'
 import { useState } from 'react'
+import { Tab, Tabs } from '@vds/tabs'
+
 import { getSelectedElement } from './VdsTabsUtils'
 
 export interface VdsTabConfig {

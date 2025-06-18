@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import {
   Anchor,
   Avatar,
@@ -12,7 +13,6 @@ import {
   Text,
   UnstyledButton,
 } from '@mantine/core'
-import { forwardRef } from 'react'
 import { IconChevronRight, IconExternalLink } from '@tabler/icons-react'
 
 const items = [

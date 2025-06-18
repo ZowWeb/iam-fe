@@ -1,15 +1,16 @@
-import { defineConfig } from 'eslint/config'
-import reactHooks from 'eslint-plugin-react-hooks'
-import react from 'eslint-plugin-react'
-import typescriptEslint from '@typescript-eslint/eslint-plugin'
-import prettier from 'eslint-plugin-prettier'
-import jsxA11Y from 'eslint-plugin-jsx-a11y'
-import { fixupPluginRules } from '@eslint/compat'
-import tsParser from '@typescript-eslint/parser'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import js from '@eslint/js'
+
+import { fixupPluginRules } from '@eslint/compat'
 import { FlatCompat } from '@eslint/eslintrc'
+import js from '@eslint/js'
+import typescriptEslint from '@typescript-eslint/eslint-plugin'
+import tsParser from '@typescript-eslint/parser'
+import jsxA11Y from 'eslint-plugin-jsx-a11y'
+import prettier from 'eslint-plugin-prettier'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import { defineConfig } from 'eslint/config'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -178,6 +179,31 @@ export default defineConfig([
 
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 0,
+
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'internal', 'index'],
+          'newlines-between': 'always',
+          named: true,
+          pathGroups: [
+            {
+              pattern: '^react$|^[a-z]',
+              group: 'external',
+              position: 'before',
+            },
+            {
+              pattern: '~/**|./*',
+              group: 'internal',
+              position: 'after',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['external', 'react', 'react-dom', 'eslint', '@eslint'],
+        },
+      ],
+
+      'eol-last': 0,
+      'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
     },
   },
 ])

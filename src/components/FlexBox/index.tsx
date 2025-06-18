@@ -19,16 +19,16 @@ export const FlexBoxContainer = styled.div<FlexBoxProps>`
   display: flex;
   flex-direction: ${props => props.direction || 'row'};
   justify-content: ${props => props.justifyContent || 'flex-start'};
-  align-items: ${props => props.alignItems || 'stretch'};
+  align-items: ${props => props.alignItems || 'normal'};
   flex-wrap: ${props => (props.wrap ? 'wrap' : 'nowrap')};
   gap: ${props => props.gap || '0.25rem'};
   flex: ${props => props.flex || 'initial'};
   cursor: ${props => (props.onClick ? 'pointer' : 'default')};
 `
 
-const FlexBox = ({ children, className, customStyle, ...props }: FlexBoxProps) => {
+const FlexBox = ({ children, className, onClick = () => {}, customStyle, ...props }: FlexBoxProps) => {
   return (
-    <FlexBoxContainer className={className} style={customStyle} {...props}>
+    <FlexBoxContainer className={className} style={customStyle} onClick={onClick} {...props}>
       {children}
     </FlexBoxContainer>
   )

@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client'
 import { Outlet, RouterProvider, createRootRoute, createRoute, createRouter } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
-import './styles/global.scss'
+import App from './App.tsx'
 import reportWebVitals from './reportWebVitals.ts'
 
-import App from './App.tsx'
+import './styles/global.scss'
 
 const rootRoute = createRootRoute({
   component: () => (
