@@ -1,5 +1,10 @@
 root = true
 
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
 [*.{js,jsx,ts,tsx,json,md,yml,yaml,css,scss,htm,html}]
 tab_width = 2
 indent_style = space
