@@ -1,26 +1,6 @@
 /* Font-size */
-$base-font-size: 14px; // global size
+$base-font-size: 16px; // global size
 $nav-anchor-fs: 1rem; // 14px
 
 /* Color */
 $primary: #f6f6f6;
-
-/* Breakpoints */
-
-$sm: 576px; // Small devices (landscape phones, 576px and up)
-$md: 768px; // Medium devices (tablets, 768px and up)
-$lg: 992px; // Large devices (desktops, 992px and up)
-$xl: 1200px; // Extra large devices (large desktops, 1200px and up)
-$xxl: 1440px; // Extra extra large (4K screens, 1440px+)
-
-// iPhones (portrait)
-$iphone-se: 320px;
-$iphone-12: 390px;
-
-// iPads (portrait)
-$ipad-mini: 768px;
-$ipad-air: 820px;
-
-// MacBooks & larger screens
-$macbook-13: 1280px;
-$imac-24: 1920px;
