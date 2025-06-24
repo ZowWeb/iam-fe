@@ -12,3 +12,6 @@ export const FONT_WEIGHTS = {
   medium: 400,
   normal: 300,
 } as const
+
+export const STD_LAYOUT_MAX_WIDTH = '1232px'
+export const FLUID_LAYOUT_MAX_WIDTH = '1580px'
