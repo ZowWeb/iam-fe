@@ -9,6 +9,6 @@ export const COLORS = {
 export const FONT_WEIGHTS = {
   bold: 700,
   semibold: 600,
-  medium: 500,
-  normal: 400,
+  medium: 400,
+  normal: 300,
 } as const
