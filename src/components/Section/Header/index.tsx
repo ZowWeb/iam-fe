@@ -2,7 +2,6 @@ import { forwardRef } from 'react'
 import {
   Anchor,
   Avatar,
-  Breadcrumbs,
   Divider,
   Flex,
   Grid,
@@ -15,14 +14,7 @@ import {
 } from '@mantine/core'
 import { IconChevronRight, IconExternalLink } from '@tabler/icons-react'
 
-const items = [
-  { title: 'Home', href: '#' },
-  { title: `Jane's First Team`, href: '#' },
-].map((item, index) => (
-  <Anchor href={item.href} key={index}>
-    {item.title}
-  </Anchor>
-))
+import Breadcrumbs from '~/components/Breadcrumbs'
 
 interface UserButtonProps extends React.ComponentPropsWithoutRef<'button'> {
   image: string
@@ -150,22 +142,7 @@ const MainHeader = () => {
           </Grid.Col>
         </Grid>
       </div>
-      <div className="main__breadcrumb">
-        <Grid className="main__breadcrumb-grid">
-          <Grid.Col span={12}>
-            <Flex
-              className="main__breadcrumb-flex"
-              direction={{ base: 'column', sm: 'row' }}
-              gap={{ base: 'sm', sm: 'lg' }}
-              justify={{ lg: 'flex-start' }}
-            >
-              <Breadcrumbs separator="/" mt="xs">
-                {items}
-              </Breadcrumbs>
-            </Flex>
-          </Grid.Col>
-        </Grid>
-      </div>
+      <Breadcrumbs />
     </>
   )
 }

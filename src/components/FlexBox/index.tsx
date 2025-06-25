@@ -11,7 +11,6 @@ type FlexBoxProps = Partial<{
   wrap: boolean
   gap: string | number
   flex: string | number
-  onClick: React.MouseEventHandler<HTMLDivElement>
 }>
 
 export const FlexBoxContainer = styled.div<FlexBoxProps>`
@@ -23,12 +22,11 @@ export const FlexBoxContainer = styled.div<FlexBoxProps>`
   flex-wrap: ${props => (props.wrap ? 'wrap' : 'nowrap')};
   gap: ${props => props.gap || '0.25rem'};
   flex: ${props => props.flex || 'initial'};
-  cursor: ${props => (props.onClick ? 'pointer' : 'default')};
 `
 
-const FlexBox = ({ children, className, onClick = () => {}, customStyle, ...props }: FlexBoxProps) => {
+const FlexBox = ({ children, className, customStyle, ...props }: FlexBoxProps) => {
   return (
-    <FlexBoxContainer className={className} style={customStyle} onClick={onClick} {...props}>
+    <FlexBoxContainer className={className} style={customStyle} {...props}>
       {children}
     </FlexBoxContainer>
   )
