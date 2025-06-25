@@ -8,7 +8,8 @@ import { ButtonsPage } from '~/pages/ButtonsPage'
 
 export const BaseTable = () => {
   const tabsConfig: VdsTabConfig[] = [
-    { id: 'advanced-table', label: 'Advanced Table', selected: true },
+    { id: 'teamDetails', label: 'Team Details' },
+    { id: 'members', label: 'Members', selected: true },
     { id: 'buttons', label: 'Buttons' },
   ]
 
@@ -23,7 +24,7 @@ export const BaseTable = () => {
         <VdsTabs onSelection={handleTabSelect} config={tabsConfig} />
       </div>
       <div className={classes.layoutSecondColumn}>
-        {selectedTab?.id === 'advanced-table' && <AdvancedTablePage />}
+        {selectedTab?.id === 'members' && <AdvancedTablePage />}
         {selectedTab?.id === 'buttons' && <ButtonsPage />}
       </div>
     </div>
