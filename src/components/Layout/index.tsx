@@ -1,5 +1,7 @@
 import type { LayoutType } from '~/types'
-import { Main } from './styles'
+import { LayoutWrapper } from './styles'
+import Breadcrumbs from '../Breadcrumbs'
+import Header from './Header'
 
 type Props = {
   children?: React.ReactNode
@@ -8,11 +10,12 @@ type Props = {
 
 const Layout = ({ children, type = 'standard' }: Props) => {
   return (
-    <>
-      <header />
-      <Main type={type}>{children}</Main>
+    <LayoutWrapper className={`layout--${type}`}>
+      <Header />
+      <Breadcrumbs />
+      <main>{children}</main>
       <footer />
-    </>
+    </LayoutWrapper>
   )
 }
 
