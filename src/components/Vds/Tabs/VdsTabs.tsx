@@ -23,7 +23,7 @@ export function VdsTabs({ config, onSelection, orientation = 'vertical' }: VdsTa
   }
 
   return (
-    <Tabs orientation={orientation} indicatorPosition="bottom" borderLine={false} size="medium" width="100%">
+    <Tabs orientation={orientation} indicatorPosition="bottom" borderLine={false} size="large" width="100%">
       {config.map(tab => {
         const isSelected: boolean = tab.label === selected?.label
         return (

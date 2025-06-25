@@ -40,7 +40,7 @@ export default function ActionToolbar({
   }
 
   return (
-    <FlexBox justifyContent="space-between" alignItems="center" customStyle={{ margin: '1rem 0 2rem' }}>
+    <FlexBox justifyContent="space-between" alignItems="center" customStyle={{ margin: '2.5rem 0 2rem' }}>
       <FlexBox gap="0.5rem">
         {showFilters && (
           <div className={classes.closeFiltersButton}>

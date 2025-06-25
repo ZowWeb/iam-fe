@@ -3,6 +3,7 @@ import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import Pagination from '../Vds/Pagination'
 import ActionToolbar from './ActionToolbar'
 import classes from './AdvancedTable.module.scss'
+import IamHero from '../IamHero'
 
 export interface TableProps {
   enableRowSelection: boolean
@@ -35,6 +36,7 @@ const Table = ({ enableRowSelection = false, enableSorting = false, data, column
 
   return (
     <div className={classes.container}>
+      <IamHero />
       <ActionToolbar onAction={handleAction} actionButtonText="Invite members" />
       <div className={classes.tableWrapper}>
         <MantineReactTable table={table} />
