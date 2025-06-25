@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
-import classes from '~/App.module.scss'
+import FlexBox from '~/components/FlexBox'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
 import { getSelectedElement } from '~/components/Vds/Tabs/VdsTabsUtils'
 import { AdvancedTablePage } from '~/pages/AdvancedTablePage'
 import { ButtonsPage } from '~/pages/ButtonsPage'
+import { TabColumn, TableColumn } from './styles'
 
 export const BaseTable = () => {
   const tabsConfig: VdsTabConfig[] = [
@@ -19,14 +20,14 @@ export const BaseTable = () => {
   }
 
   return (
-    <div className={classes.layoutContainer}>
-      <div className={classes.layoutFirstColumn}>
+    <FlexBox gap="1.5rem" customStyle={{ margin: '1.5rem 0' }} alignItems="flex-start">
+      <TabColumn>
         <VdsTabs onSelection={handleTabSelect} config={tabsConfig} />
-      </div>
-      <div className={classes.layoutSecondColumn}>
+      </TabColumn>
+      <TableColumn>
         {selectedTab?.id === 'members' && <AdvancedTablePage />}
         {selectedTab?.id === 'buttons' && <ButtonsPage />}
-      </div>
-    </div>
+      </TableColumn>
+    </FlexBox>
   )
 }
