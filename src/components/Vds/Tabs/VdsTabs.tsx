@@ -7,6 +7,7 @@ export interface VdsTabConfig {
   id: string
   label: string
   selected?: boolean
+  link?: string
 }
 
 export interface VdsTabsProps {
