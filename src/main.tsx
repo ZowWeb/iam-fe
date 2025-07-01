@@ -1,39 +1,16 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
-import { Outlet, RouterProvider, createRootRoute, createRoute, createRouter } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-
-import App from './App.tsx'
-import reportWebVitals from './reportWebVitals.ts'
-
+import { RouterProvider, createRouter } from '@tanstack/react-router'
 import './styles/global.scss'
 
-const rootRoute = createRootRoute({
-  component: () => (
-    <>
-      <Outlet />
-      <TanStackRouterDevtools />
-    </>
-  ),
-})
+import reportWebVitals from './reportWebVitals'
+// Import the generated route tree
+import { routeTree } from './routeTree.gen'
 
-const indexRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/',
-  component: App,
-})
+// Create a new router instance
+const router = createRouter({ routeTree })
 
-const routeTree = rootRoute.addChildren([indexRoute])
-
-const router = createRouter({
-  routeTree,
-  context: {},
-  defaultPreload: 'intent',
-  scrollRestoration: true,
-  defaultStructuralSharing: true,
-  defaultPreloadStaleTime: 0,
-})
-
+// Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface Register {
     router: typeof router
