@@ -1,7 +1,7 @@
 import React from 'react'
 import { styled } from '@linaria/react'
 
-type FlexBoxProps = Partial<{
+export type FlexBoxProps = Partial<{
   children: React.ReactNode
   className: string
   customStyle: React.CSSProperties
@@ -13,7 +13,7 @@ type FlexBoxProps = Partial<{
   flex: string | number
 }>
 
-export const FlexBoxContainer = styled.div<FlexBoxProps>`
+const FlexBoxContainer = styled.div<FlexBoxProps>`
   width: 100%;
   display: flex;
   flex-direction: ${props => props.direction || 'row'};

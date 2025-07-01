@@ -1,20 +1,52 @@
-import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
+import {
+  MantineReactTable,
+  useMantineReactTable,
+  type MRT_ColumnDef as MRTColumnDef,
+} from 'mantine-react-table'
+import { useMemo } from 'react'
 
 import Pagination from '../Vds/Pagination'
-import ActionToolbar from './ActionToolbar'
-import classes from './AdvancedTable.module.scss'
-import IamHero from '../IamHero'
+import { TableWrapper } from './styles'
+import type { Person } from '~/mocks/makeData'
 
 export interface TableProps {
-  enableRowSelection: boolean
-  enableSorting: boolean
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columns: any
 }
 
-const Table = ({ enableRowSelection = false, enableSorting = false, data, columns }: TableProps) => {
+const Table = ({ data }: TableProps) => {
+  const columns = useMemo<MRTColumnDef<Person>[]>(
+    () => [
+      {
+        accessorKey: 'firstName',
+        header: 'First Name',
+        size: 100,
+      },
+      {
+        accessorKey: 'lastName',
+        header: 'Last Name',
+        enableResizing: false, // disable resizing for this column
+        size: 100,
+      },
+      {
+        accessorKey: 'email',
+        header: 'Email Address',
+        size: 200,
+      },
+      {
+        accessorKey: 'timeInVerzion',
+        header: 'Time in Verzion (months)',
+        size: 120,
+      },
+      {
+        accessorKey: 'country',
+        header: 'Country',
+        size: 100,
+      },
+    ],
+    [],
+  )
+
   const table = useMantineReactTable({
     columns,
     data,
@@ -24,27 +56,21 @@ const Table = ({ enableRowSelection = false, enableSorting = false, data, column
     enableStickyHeader: false,
     enableTopToolbar: false,
     enableBottomToolbar: false,
-    enableSorting,
-    enableRowSelection,
     mantinePaperProps: {
       shadow: '',
       withBorder: false,
     },
   })
 
-  const handleAction = () => {}
-
   return (
-    <div className={classes.container}>
-      <IamHero />
-      <ActionToolbar onAction={handleAction} actionButtonText="Invite members" />
-      <div className={classes.tableWrapper}>
+    <TableWrapper>
+      <div className="table-container">
         <MantineReactTable table={table} />
       </div>
-      <div className={classes.pagination}>
+      <div className="pagination-wrapper">
         <Pagination total={table.getPageCount()} />
       </div>
-    </div>
+    </TableWrapper>
   )
 }
 

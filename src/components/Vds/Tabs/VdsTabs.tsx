@@ -14,9 +14,10 @@ export interface VdsTabsProps {
   config: VdsTabConfig[]
   onSelection: (tab: VdsTabConfig) => void
   orientation?: 'vertical' | 'horizontal'
+  className?: string
 }
 
-export function VdsTabs({ config, onSelection, orientation = 'vertical' }: VdsTabsProps) {
+export function VdsTabs({ config, onSelection, orientation = 'vertical', className }: VdsTabsProps) {
   const [selected, setSelected] = useState(getSelectedElement(config))
   const handleSelect = (tab: VdsTabConfig) => {
     onSelection(tab)
@@ -24,13 +25,15 @@ export function VdsTabs({ config, onSelection, orientation = 'vertical' }: VdsTa
   }
 
   return (
-    <Tabs orientation={orientation} indicatorPosition="bottom" borderLine={false} size="large" width="100%">
-      {config.map(tab => {
-        const isSelected: boolean = tab.label === selected?.label
-        return (
-          <Tab key={tab.label} label={tab.label} selected={isSelected} onClick={() => handleSelect(tab)} />
-        )
-      })}
-    </Tabs>
+    <div className={className}>
+      <Tabs orientation={orientation} indicatorPosition="bottom" borderLine={false} size="large" width="100%">
+        {config.map(tab => {
+          const isSelected: boolean = tab.label === selected?.label
+          return (
+            <Tab key={tab.label} label={tab.label} selected={isSelected} onClick={() => handleSelect(tab)} />
+          )
+        })}
+      </Tabs>
+    </div>
   )
 }

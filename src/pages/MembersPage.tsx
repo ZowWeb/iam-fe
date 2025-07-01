@@ -1,48 +1,38 @@
-import { Button, Checkbox } from '@mantine/core'
-import { type MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
-import { useMemo, useState } from 'react'
+import { Button } from '@mantine/core'
+import { useState } from 'react'
+import { styled } from '@linaria/react'
 
 import Table from '~/components/AdvancedTable'
 import { type Person, data as initialData, moreData } from '../mocks/makeData'
-import classes from './Pages.module.scss'
+import Block from '~/components/Block'
+import IamHero from '~/components/IamHero'
+import ActionToolbar from '~/components/AdvancedTable/ActionToolbar'
+import FlexBox from '~/components/FlexBox'
+import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
+
+const BlockWrapper = styled(Block)`
+  align-items: flex-start;
+  gap: 2.5rem;
+
+  .letf-section {
+    flex: 1 0 20%;
+  }
+
+  .right-section {
+    flex: 1 0 80%;
+  }
+`
+
+const tabsConfig: VdsTabConfig[] = [
+  { id: 'teamDetails', label: 'Team Details' },
+  { id: 'members', label: 'Members', selected: true },
+  { id: 'policies', label: 'Policies' },
+  { id: 'serviceAccounts', label: 'Service accounts' },
+]
 
 const MembersPage = () => {
   const [data, setData] = useState<Person[]>(initialData)
   const [isLoading, setIsLoading] = useState(false)
-  const [enableRowSelection, setEnableRowSelection] = useState(true)
-  const [enableSorting, setEnableSorting] = useState(false)
-
-  const columns = useMemo<MRTColumnDef<Person>[]>(
-    () => [
-      {
-        accessorKey: 'firstName',
-        header: 'First Name',
-        size: 100,
-      },
-      {
-        accessorKey: 'lastName',
-        header: 'Last Name',
-        enableResizing: false, // disable resizing for this column
-        size: 100,
-      },
-      {
-        accessorKey: 'email',
-        header: 'Email Address',
-        size: 200,
-      },
-      {
-        accessorKey: 'timeInVerzion',
-        header: 'Time in Verzion (months)',
-        size: 120,
-      },
-      {
-        accessorKey: 'country',
-        header: 'Country',
-        size: 100,
-      },
-    ],
-    [],
-  )
 
   const fetchLatestData = async () => {
     setIsLoading(true)
@@ -55,29 +45,19 @@ const MembersPage = () => {
   }
 
   return (
-    <div className={classes.container}>
-      <Table
-        columns={columns}
-        data={data}
-        enableRowSelection={enableRowSelection}
-        enableSorting={enableSorting}
-      />
-      <div className={classes.advanced_table_page_bottom}>
-        <Button onClick={fetchLatestData} loading={isLoading}>
-          Fetch latest data
-        </Button>
-        <Checkbox
-          checked={enableRowSelection}
-          label="Enable Row Selection"
-          onChange={() => setEnableRowSelection(!enableRowSelection)}
-        />
-        <Checkbox
-          checked={enableSorting}
-          label="Enable Sorting"
-          onChange={() => setEnableSorting(!enableSorting)}
-        />
-      </div>
-    </div>
+    <BlockWrapper>
+      <VdsTabs className="left-section" onSelection={() => {}} config={tabsConfig} />
+      <FlexBox direction="column" className="right-section">
+        <IamHero />
+        <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
+        <Table data={data} />
+        <div className="my-4">
+          <Button onClick={fetchLatestData} loading={isLoading}>
+            Fetch latest data
+          </Button>
+        </div>
+      </FlexBox>
+    </BlockWrapper>
   )
 }
 
