@@ -9,12 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AdvancedTableRouteImport } from './routes/advanced-table'
+import { Route as MembersRouteImport } from './routes/members'
 import { Route as IndexRouteImport } from './routes/index'
 
-const AdvancedTableRoute = AdvancedTableRouteImport.update({
-  id: '/advanced-table',
-  path: '/advanced-table',
+const MembersRoute = MembersRouteImport.update({
+  id: '/members',
+  path: '/members',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,37 +25,37 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/advanced-table': typeof AdvancedTableRoute
+  '/members': typeof MembersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/advanced-table': typeof AdvancedTableRoute
+  '/members': typeof MembersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/advanced-table': typeof AdvancedTableRoute
+  '/members': typeof MembersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/advanced-table'
+  fullPaths: '/' | '/members'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/advanced-table'
-  id: '__root__' | '/' | '/advanced-table'
+  to: '/' | '/members'
+  id: '__root__' | '/' | '/members'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdvancedTableRoute: typeof AdvancedTableRoute
+  MembersRoute: typeof MembersRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/advanced-table': {
-      id: '/advanced-table'
-      path: '/advanced-table'
-      fullPath: '/advanced-table'
-      preLoaderRoute: typeof AdvancedTableRouteImport
+    '/members': {
+      id: '/members'
+      path: '/members'
+      fullPath: '/members'
+      preLoaderRoute: typeof MembersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +70,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdvancedTableRoute: AdvancedTableRoute,
+  MembersRoute: MembersRoute,
 }
 export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()

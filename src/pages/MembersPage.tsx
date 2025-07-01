@@ -6,7 +6,7 @@ import Table from '~/components/AdvancedTable'
 import { type Person, data as initialData, moreData } from '../mocks/makeData'
 import classes from './Pages.module.scss'
 
-export function AdvancedTablePage() {
+const MembersPage = () => {
   const [data, setData] = useState<Person[]>(initialData)
   const [isLoading, setIsLoading] = useState(false)
   const [enableRowSelection, setEnableRowSelection] = useState(true)
@@ -80,3 +80,5 @@ export function AdvancedTablePage() {
     </div>
   )
 }
+
+export default MembersPage
