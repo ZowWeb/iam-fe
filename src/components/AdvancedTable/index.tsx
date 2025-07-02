@@ -3,50 +3,45 @@ import {
   useMantineReactTable,
   type MRT_ColumnDef as MRTColumnDef,
 } from 'mantine-react-table'
-import { useMemo } from 'react'
 
 import Pagination from '../Vds/Pagination'
 import { TableWrapper } from './styles'
 import type { Person } from '~/mocks/makeData'
 
 export interface TableProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any
+  data: Person[]
 }
 
-const Table = ({ data }: TableProps) => {
-  const columns = useMemo<MRTColumnDef<Person>[]>(
-    () => [
-      {
-        accessorKey: 'firstName',
-        header: 'First Name',
-        size: 100,
-      },
-      {
-        accessorKey: 'lastName',
-        header: 'Last Name',
-        enableResizing: false, // disable resizing for this column
-        size: 100,
-      },
-      {
-        accessorKey: 'email',
-        header: 'Email Address',
-        size: 200,
-      },
-      {
-        accessorKey: 'timeInVerzion',
-        header: 'Time in Verzion (months)',
-        size: 120,
-      },
-      {
-        accessorKey: 'country',
-        header: 'Country',
-        size: 100,
-      },
-    ],
-    [],
-  )
+const columns: MRTColumnDef<Person>[] = [
+  {
+    accessorKey: 'firstName',
+    header: 'First Name',
+    size: 100,
+  },
+  {
+    accessorKey: 'lastName',
+    header: 'Last Name',
+    enableResizing: false, // disable resizing for this column
+    size: 100,
+  },
+  {
+    accessorKey: 'email',
+    header: 'Email Address',
+    size: 200,
+  },
+  {
+    accessorKey: 'timeInVerzion',
+    header: 'Time in Verzion (months)',
+    size: 120,
+  },
+  {
+    accessorKey: 'country',
+    header: 'Country',
+    size: 100,
+  },
+]
 
+const Table = ({ data }: TableProps) => {
   const table = useMantineReactTable({
     columns,
     data,

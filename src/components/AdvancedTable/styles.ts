@@ -9,7 +9,7 @@ export const TableWrapper = styled.div`
     align-self: flex-end;
   }
 
-  table > tbody > tr > td:nth-child(2) {
+  table > tbody > tr > td:first-child {
     font-weight: 700;
   }
 `
