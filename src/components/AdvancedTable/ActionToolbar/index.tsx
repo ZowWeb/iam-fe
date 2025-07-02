@@ -1,11 +1,11 @@
+import { useMemo, useState } from 'react'
 import { ButtonIcon } from '@vds/button-icons'
-import { Button } from '@vds/buttons'
 import { Icon, type IconProps } from '@vds/icons'
-import { useState } from 'react'
+import { Button } from '@vds/buttons'
 
+import { Right } from './styles'
 import FlexBox from '~/components/FlexBox'
 import SearchInput from '~/components/SearchInput'
-import classes from './ActionToolbar.module.scss'
 
 export interface ActionToolbarProps {
   onAction: (action: string, data?: string) => void
@@ -39,21 +39,32 @@ export default function ActionToolbar({
     setShowFilters(false)
   }
 
+  const ActionButton = () =>
+    useMemo(
+      () => (
+        <Button size="large" disabled={false} use="secondary" onClick={handleActionBClick}>
+          {actionButtonText}
+        </Button>
+      ),
+      [actionButtonText],
+    )
+
   return (
-    <FlexBox justifyContent="space-between" alignItems="center" customStyle={{ margin: '2.5rem 0 2rem' }}>
-      <FlexBox gap="0.5rem">
-        {showFilters && (
-          <div className={classes.closeFiltersButton}>
-            <ButtonIcon
-              kind="ghost"
-              size="large"
-              renderIcon={(props: IconProps) => <Icon name="close" {...props} />}
-              onClick={handleCloseFilters}
-            />
-          </div>
-        )}
-        {!showFilters && (
-          <>
+    <FlexBox customStyle={{ margin: '2.5rem 0 2rem' }}>
+      {showFilters && (
+        <Right>
+          <ButtonIcon
+            kind="ghost"
+            size="large"
+            renderIcon={(props: IconProps) => <Icon name="close" {...props} />}
+            onClick={handleCloseFilters}
+          />
+          <ActionButton />
+        </Right>
+      )}
+      {!showFilters && (
+        <>
+          <FlexBox>
             <SearchInput
               clearSearch={handleClear}
               onChange={value => handleSearch(value)}
@@ -68,14 +79,12 @@ export default function ActionToolbar({
               renderIcon={(props: IconProps) => <Icon name="filter" {...props} />}
               onClick={handleActionAClick}
             />
-          </>
-        )}
-      </FlexBox>
-      <div className={classes.actionButton}>
-        <Button size="large" disabled={false} use="secondary" onClick={handleActionBClick}>
-          {actionButtonText}
-        </Button>
-      </div>
+          </FlexBox>
+          <Right>
+            <ActionButton />
+          </Right>
+        </>
+      )}
     </FlexBox>
   )
 }
