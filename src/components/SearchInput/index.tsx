@@ -1,9 +1,8 @@
-/* eslint-disable */
 import { Icon } from '@vds/icons'
-import classes from './SearchInput.module.scss'
-import { clsx } from 'clsx'
 
-export interface SearchInputProps {
+import { ClearIcon, Form, Input, SearchIcon } from './styles'
+
+interface SearchInputProps {
   value: string
   onChange: (query: string) => void
   clearSearch: () => void
@@ -13,11 +12,16 @@ export interface SearchInputProps {
   searchPlaceHolderText?: string
 }
 
+export interface InputProps {
+  variant: 'primary' | 'secondary'
+  fullWidth: boolean
+}
+
 const SearchInput = ({
   value,
   onChange,
   clearSearch,
-  variant = 'secondary',
+  variant = 'primary',
   fullWidth = false,
   showClearSearchIcon = true,
   searchPlaceHolderText = 'Search',
@@ -27,29 +31,26 @@ const SearchInput = ({
   }
 
   return (
-    <form onSubmit={e => e.preventDefault()} className={classes.form}>
-      <input
+    <Form onSubmit={e => e.preventDefault()}>
+      <Input
         placeholder={searchPlaceHolderText}
-        className={clsx(classes.input, {
-          [classes.inputWidthFull]: fullWidth,
-          [classes.inputWidthFixed]: !fullWidth,
-          [classes.inputPrimary]: variant === 'primary',
-          [classes.inputSecondary]: variant === 'secondary',
-        })}
         id="input"
         type="text"
         value={value}
         onChange={handleInputChange}
+        fullWidth={fullWidth}
+        variant={variant}
       />
-      <span className={classes.searchIcon}>
-        <Icon name="search" size={20} variant={variant} />
-      </span>
+
+      <SearchIcon>
+        <Icon name="search" size={20} color={variant === 'primary' ? 'black' : 'white'} />
+      </SearchIcon>
       {showClearSearchIcon && (
-        <span className={classes.closeIcon} onClick={clearSearch}>
-          <Icon name="close" size={20} />
-        </span>
+        <ClearIcon onClick={clearSearch}>
+          <Icon name="close" size={20} color={variant === 'primary' ? 'black' : 'white'} />
+        </ClearIcon>
       )}
-    </form>
+    </Form>
   )
 }
 
