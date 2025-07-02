@@ -24,14 +24,14 @@ export const HeaderContainer = styled(FlexBox)`
 
 export const Left = styled(FlexBox)`
   width: auto;
-  flex: 1 1 0;
+  flex: 1 0 auto;
   align-items: center;
   flex-wrap: nowrap;
 `
 
 export const Right = styled(FlexBox)`
   width: auto;
-  flex: 1 0 auto;
+  flex: 0 0 auto;
   align-items: center;
   gap: 1.5rem;
 
@@ -54,7 +54,6 @@ export const Right = styled(FlexBox)`
 export const AvatarWrapper = styled(FlexBox)`
   flex: 1 auto;
   gap: 0.5rem;
-  width: auto;
 
   .mantine-Avatar-placeholder {
     background-color: ${COLORS.black};

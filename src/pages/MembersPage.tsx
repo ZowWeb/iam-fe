@@ -14,8 +14,8 @@ const BlockWrapper = styled(Block)`
   align-items: flex-start;
   gap: 2.5rem;
 
-  .letf-section {
-    flex: 1 0 20%;
+  .left-section {
+    flex: 1 1 20%;
   }
 
   .right-section {
@@ -47,7 +47,7 @@ const MembersPage = () => {
   return (
     <BlockWrapper>
       <VdsTabs className="left-section" onSelection={() => {}} config={tabsConfig} />
-      <FlexBox direction="column" className="right-section">
+      <FlexBox className="right-section" direction="column">
         <IamHero />
         <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
         <Table data={data} />

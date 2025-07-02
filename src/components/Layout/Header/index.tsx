@@ -10,12 +10,12 @@ const LOGO_HEIGHT = '25px'
 const Header = () => {
   return (
     <HeaderWrapper>
-      <HeaderContainer justifyContent="space-between">
-        <Left justifyContent="flex-start">
+      <HeaderContainer>
+        <Left>
           <Image src="/vz.svg" alt="VZ Logo" height={LOGO_HEIGHT} fit="contain" width="auto" />
           <Typography.Span size={LOGO_HEIGHT}>API Developer</Typography.Span>
         </Left>
-        <Right justifyContent="flex-end">
+        <Right>
           <ul>
             <li>
               <Link to="#" bold>
@@ -38,7 +38,7 @@ const Header = () => {
               </Link>
             </li>
           </ul>
-          <AvatarWrapper className="avatar" justifyContent="flex-end" flex="0 1 100%">
+          <AvatarWrapper className="avatar" justifyContent="flex-end">
             <Avatar radius="xl">JD</Avatar>
             <FlexBox direction="column" alignItems="flex-start">
               <span className="avatar__name">John Doe</span>
