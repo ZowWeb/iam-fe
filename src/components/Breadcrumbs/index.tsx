@@ -16,13 +16,14 @@ const getLinksFromPages = (pages: string[]) => {
     }
 
     const isCurrent = index === pages.length - 1
-    const LinkOrSpan = isCurrent ? 'span' : Link
     const title = titleCase(page)
 
-    return (
-      <LinkOrSpan key={`breadcrumb-${page}`} to={page}>
-        {isCurrent ? <strong>{title}</strong> : title}
-      </LinkOrSpan>
+    return isCurrent ? (
+      <span key={`breadcrumb-${page}`}>{isCurrent ? <strong>{title}</strong> : title}</span>
+    ) : (
+      <Link key={`breadcrumb-${page}`} to={`/${page}`}>
+        {title}
+      </Link>
     )
   })
 }
