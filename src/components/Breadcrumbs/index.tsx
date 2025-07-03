@@ -1,27 +1,39 @@
 import { Breadcrumbs as MantineBreadcrumbs } from '@mantine/core'
-import { Link } from '@tanstack/react-router'
+import { useLocation } from '@tanstack/react-router'
 
 import { BreadcrumbsContainer } from './styles'
+import { titleCase } from '~/utils'
+import Link from '../Link'
 
-const items = [
-  { title: 'Home', to: '#' },
-  { title: 'Identity & Access Management', to: '#' },
-  { title: 'Teamname', to: '#' },
-  { title: 'Members', to: '#', isCurrent: true },
-].map((item, index) => {
-  const LinkOrSpan = item.isCurrent ? 'span' : Link
+const getLinksFromPages = (pages: string[]) => {
+  return pages.map((page, index) => {
+    if (page === '') {
+      return (
+        <Link key="breadcrumb-home" to="/">
+          Home / Identity & Access Management
+        </Link>
+      )
+    }
 
-  return (
-    <LinkOrSpan to={item.to} key={index}>
-      {item.isCurrent ? <strong>{item.title}</strong> : item.title}
-    </LinkOrSpan>
-  )
-})
+    const isCurrent = index === pages.length - 1
+    const LinkOrSpan = isCurrent ? 'span' : Link
+    const title = titleCase(page)
+
+    return (
+      <LinkOrSpan key={`breadcrumb-${page}`} to={page}>
+        {isCurrent ? <strong>{title}</strong> : title}
+      </LinkOrSpan>
+    )
+  })
+}
 
 const Breadcrumbs = () => {
+  const path = useLocation({ select: location => location.pathname }) // /members
+  const pages = path.split('/') // ['', 'members']
+
   return (
     <BreadcrumbsContainer>
-      <MantineBreadcrumbs aria-label="Breadcrumbs">{items}</MantineBreadcrumbs>
+      <MantineBreadcrumbs aria-label="Breadcrumbs">{getLinksFromPages(pages)}</MantineBreadcrumbs>
     </BreadcrumbsContainer>
   )
 }
