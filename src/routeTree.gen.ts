@@ -9,55 +9,58 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as MembersRouteImport } from './routes/members'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TeamsTeamIdUsersIndexRouteImport } from './routes/teams/$teamId/users/index'
+import { Route as TeamsTeamIdUsersUserIdRouteImport } from './routes/teams/$teamId/users/$userId'
 
-const MembersRoute = MembersRouteImport.update({
-  id: '/members',
-  path: '/members',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeamsTeamIdUsersIndexRoute = TeamsTeamIdUsersIndexRouteImport.update({
+  id: '/teams/$teamId/users/',
+  path: '/teams/$teamId/users/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamsTeamIdUsersUserIdRoute = TeamsTeamIdUsersUserIdRouteImport.update({
+  id: '/teams/$teamId/users/$userId',
+  path: '/teams/$teamId/users/$userId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/members': typeof MembersRoute
+  '/teams/$teamId/users/$userId': typeof TeamsTeamIdUsersUserIdRoute
+  '/teams/$teamId/users': typeof TeamsTeamIdUsersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/members': typeof MembersRoute
+  '/teams/$teamId/users/$userId': typeof TeamsTeamIdUsersUserIdRoute
+  '/teams/$teamId/users': typeof TeamsTeamIdUsersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/members': typeof MembersRoute
+  '/teams/$teamId/users/$userId': typeof TeamsTeamIdUsersUserIdRoute
+  '/teams/$teamId/users/': typeof TeamsTeamIdUsersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/members'
+  fullPaths: '/' | '/teams/$teamId/users/$userId' | '/teams/$teamId/users'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/members'
-  id: '__root__' | '/' | '/members'
+  to: '/' | '/teams/$teamId/users/$userId' | '/teams/$teamId/users'
+  id: '__root__' | '/' | '/teams/$teamId/users/$userId' | '/teams/$teamId/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  MembersRoute: typeof MembersRoute
+  TeamsTeamIdUsersUserIdRoute: typeof TeamsTeamIdUsersUserIdRoute
+  TeamsTeamIdUsersIndexRoute: typeof TeamsTeamIdUsersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/members': {
-      id: '/members'
-      path: '/members'
-      fullPath: '/members'
-      preLoaderRoute: typeof MembersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -65,13 +68,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/teams/$teamId/users/': {
+      id: '/teams/$teamId/users/'
+      path: '/teams/$teamId/users'
+      fullPath: '/teams/$teamId/users'
+      preLoaderRoute: typeof TeamsTeamIdUsersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teams/$teamId/users/$userId': {
+      id: '/teams/$teamId/users/$userId'
+      path: '/teams/$teamId/users/$userId'
+      fullPath: '/teams/$teamId/users/$userId'
+      preLoaderRoute: typeof TeamsTeamIdUsersUserIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  MembersRoute: MembersRoute,
+  TeamsTeamIdUsersUserIdRoute: TeamsTeamIdUsersUserIdRoute,
+  TeamsTeamIdUsersIndexRoute: TeamsTeamIdUsersIndexRoute,
 }
-export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
