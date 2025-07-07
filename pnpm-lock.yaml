@@ -57,8 +57,8 @@ importers:
         specifier: ^1.11.13
         version: 1.11.13
       mantine-react-table:
-        specifier: ^1.3.4
-        version: 1.3.4(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/core@6.0.21(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/dates@6.0.21(@mantine/core@6.0.21(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(dayjs@1.11.13)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@tabler/icons-react@3.33.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 2.0.0-beta.9
+        version: 2.0.0-beta.9(@mantine/core@6.0.21(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/dates@6.0.21(@mantine/core@6.0.21(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(dayjs@1.11.13)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@tabler/icons-react@3.33.0(react@18.3.1))(clsx@2.1.1)(dayjs@1.11.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.0.0
         version: 18.3.1
@@ -942,8 +942,8 @@ packages:
     resolution: {integrity: sha512-YL8dGi5ZU+xvtav2boRlw4zrRghkY6hvdcmHhA0RGSJ/CBgzv+cbADW9eYJLx74XMZvIQ1pp6VMbrpXnnM5gHA==}
     engines: {node: '>=12'}
 
-  '@tanstack/match-sorter-utils@8.8.4':
-    resolution: {integrity: sha512-rKH8LjZiszWEvmi01NR72QWZ8m4xmXre0OOwlRGnjU01Eqz/QnN+cqpty2PJ0efHblq09+KilvyR7lsbzmXVEw==}
+  '@tanstack/match-sorter-utils@8.19.4':
+    resolution: {integrity: sha512-Wo1iKt2b9OT7d+YGhvEPD3DXvPv2etTusIMhMUoG7fbhmxcXCtIjJDEygy91Y2JFlwGyjqiBPRozme7UD8hoqg==}
     engines: {node: '>=12'}
 
   '@tanstack/react-router-devtools@1.120.7':
@@ -967,17 +967,18 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@tanstack/react-table@8.10.6':
-    resolution: {integrity: sha512-D0VEfkIYnIKdy6SHiBNEaMc4SxO+MV7ojaPhRu8jP933/gbMi367+Wul2LxkdovJ5cq6awm0L1+jgxdS/unzIg==}
+  '@tanstack/react-table@8.20.5':
+    resolution: {integrity: sha512-WEHopKw3znbUZ61s9i0+i9g8drmDo6asTWbrQh8Us63DAk/M0FkmIqERew6P71HI75ksZ2Pxyuf4vvKh9rAkiA==}
     engines: {node: '>=12'}
     peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
+      react: '>=16.8'
+      react-dom: '>=16.8'
 
-  '@tanstack/react-virtual@3.0.0-beta.63':
-    resolution: {integrity: sha512-n4aaZs3g9U2oZjFp8dAeT1C2g4rr/3lbCo2qWbD9NquajKnGx7R+EfLBAHJ6pVMmfsTMZ0XCBwkIs7U74R/s0A==}
+  '@tanstack/react-virtual@3.11.2':
+    resolution: {integrity: sha512-OuFzMXPF4+xZgx8UzJha0AieuMihhhaWG0tCqpp6tDzlFwOmNBPYMuLOtMJ1Tr4pXLHmgjcWhG6RlknY2oNTdQ==}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   '@tanstack/router-core@1.120.7':
     resolution: {integrity: sha512-CAoRZtDJv5XIn4dBNsg/JqCfG1/ioMJjPR+G71ZhwUgPOBt7gmAGEAwdXD0gwdcBoOupL4//6/NPArNdMJj7yg==}
@@ -1031,12 +1032,12 @@ packages:
   '@tanstack/store@0.7.0':
     resolution: {integrity: sha512-CNIhdoUsmD2NolYuaIs8VfWM467RK6oIBAW4nPEKZhg1smZ+/CwtCdpURgp7nxSqOaV9oKkzdWD80+bC66F/Jg==}
 
-  '@tanstack/table-core@8.10.6':
-    resolution: {integrity: sha512-9t8brthhAmCBIjzk7fCDa/kPKoLQTtA31l9Ir76jYxciTlHU61r/6gYm69XF9cbg9n88gVL5y7rNpeJ2dc1AFA==}
+  '@tanstack/table-core@8.20.5':
+    resolution: {integrity: sha512-P9dF7XbibHph2PFRz8gfBKEXEY/HJPOhym8CHmjF8y3q5mWpKx9xtZapXQUWCgkqvsK0R46Azuz+VaxD4Xl+Tg==}
     engines: {node: '>=12'}
 
-  '@tanstack/virtual-core@3.0.0-beta.63':
-    resolution: {integrity: sha512-KhhfRYSoQpl0y+2axEw+PJZd/e/9p87PDpPompxcXnweNpt9ZHCT/HuNx7MKM9PVY/xzg9xJSWxwnSCrO+d6PQ==}
+  '@tanstack/virtual-core@3.11.2':
+    resolution: {integrity: sha512-vTtpNt7mKCiZ1pwU9hfKPhpdVO2sVzFQsxoVBGtOSHxlrRRzYr8iQ2TlwbAcRYCcEiZ9ECAM8kBzH0v2+VzfKw==}
 
   '@tanstack/virtual-file-routes@1.121.21':
     resolution: {integrity: sha512-3nuYsTyaq6ZN7jRZ9z6Gj3GXZqBOqOT0yzd/WZ33ZFfv4yVNIvsa5Lw+M1j3sgyEAxKMqGu/FaNi7FCjr3yOdw==}
@@ -2421,15 +2422,16 @@ packages:
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
 
-  mantine-react-table@1.3.4:
-    resolution: {integrity: sha512-rD0CaeC4RCU7k/ZKvfj5ijFFMd4clGpeg/EwMcogYFioZjj8aNfD78osTNNYr90AnOAFGnd7ZnderLK89+W1ZQ==}
-    engines: {node: '>=14'}
+  mantine-react-table@2.0.0-beta.9:
+    resolution: {integrity: sha512-ZdfcwebWaPERoDvAuk43VYcBCzamohARVclnbuepT0PHZ0wRcDPMBR+zgaocL+pFy8EXUGwvWTOKNh25ITpjNQ==}
+    engines: {node: '>=16'}
     peerDependencies:
-      '@emotion/react': '>=11'
-      '@mantine/core': ^6.0
-      '@mantine/dates': ^6.0
-      '@mantine/hooks': ^6.0
-      '@tabler/icons-react': '>=2.23'
+      '@mantine/core': ^7.9
+      '@mantine/dates': ^7.9
+      '@mantine/hooks': ^7.9
+      '@tabler/icons-react': '>=2.23.0'
+      clsx: '>=2'
+      dayjs: '>=1.11'
       react: '>=18.0'
       react-dom: '>=18.0'
 
@@ -2705,8 +2707,8 @@ packages:
     resolution: {integrity: sha512-dYqgNSZbDwkaJ2ceRd9ojCGjBq+mOm9LmtXnAnEGyHhN/5R7iDW2TRw3h+o/jCFxus3P2LfWIIiwowAjANm7IA==}
     engines: {node: '>= 0.4'}
 
-  remove-accents@0.4.2:
-    resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
+  remove-accents@0.5.0:
+    resolution: {integrity: sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A==}
 
   resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
@@ -4277,9 +4279,9 @@ snapshots:
 
   '@tanstack/history@1.121.34': {}
 
-  '@tanstack/match-sorter-utils@8.8.4':
+  '@tanstack/match-sorter-utils@8.19.4':
     dependencies:
-      remove-accents: 0.4.2
+      remove-accents: 0.5.0
 
   '@tanstack/react-router-devtools@1.120.7(@tanstack/react-router@1.120.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@tanstack/router-core@1.121.34)(csstype@3.1.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tiny-invariant@1.3.3)':
     dependencies:
@@ -4311,16 +4313,17 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       use-sync-external-store: 1.5.0(react@18.3.1)
 
-  '@tanstack/react-table@8.10.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@tanstack/react-table@8.20.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@tanstack/table-core': 8.10.6
+      '@tanstack/table-core': 8.20.5
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@tanstack/react-virtual@3.0.0-beta.63(react@18.3.1)':
+  '@tanstack/react-virtual@3.11.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@tanstack/virtual-core': 3.0.0-beta.63
+      '@tanstack/virtual-core': 3.11.2
       react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@tanstack/router-core@1.120.7':
     dependencies:
@@ -4392,9 +4395,9 @@ snapshots:
 
   '@tanstack/store@0.7.0': {}
 
-  '@tanstack/table-core@8.10.6': {}
+  '@tanstack/table-core@8.20.5': {}
 
-  '@tanstack/virtual-core@3.0.0-beta.63': {}
+  '@tanstack/virtual-core@3.11.2': {}
 
   '@tanstack/virtual-file-routes@1.121.21': {}
 
@@ -6038,16 +6041,17 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  mantine-react-table@1.3.4(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/core@6.0.21(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/dates@6.0.21(@mantine/core@6.0.21(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(dayjs@1.11.13)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@tabler/icons-react@3.33.0(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  mantine-react-table@2.0.0-beta.9(@mantine/core@6.0.21(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/dates@6.0.21(@mantine/core@6.0.21(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(dayjs@1.11.13)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@tabler/icons-react@3.33.0(react@18.3.1))(clsx@2.1.1)(dayjs@1.11.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@emotion/react': 11.14.0(@types/react@18.3.23)(react@18.3.1)
       '@mantine/core': 6.0.21(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mantine/dates': 6.0.21(@mantine/core@6.0.21(@emotion/react@11.14.0(@types/react@18.3.23)(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@6.0.21(react@18.3.1))(dayjs@1.11.13)(react@18.3.1)
       '@mantine/hooks': 6.0.21(react@18.3.1)
       '@tabler/icons-react': 3.33.0(react@18.3.1)
-      '@tanstack/match-sorter-utils': 8.8.4
-      '@tanstack/react-table': 8.10.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tanstack/react-virtual': 3.0.0-beta.63(react@18.3.1)
+      '@tanstack/match-sorter-utils': 8.19.4
+      '@tanstack/react-table': 8.20.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-virtual': 3.11.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      clsx: 2.1.1
+      dayjs: 1.11.13
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -6322,7 +6326,7 @@ snapshots:
       gopd: 1.2.0
       set-function-name: 2.0.2
 
-  remove-accents@0.4.2: {}
+  remove-accents@0.5.0: {}
 
   resolve-from@4.0.0: {}
 
