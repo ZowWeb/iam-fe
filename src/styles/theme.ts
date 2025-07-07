@@ -1,7 +1,6 @@
-import { type MantineThemeOverride } from '@mantine/core'
+import { createTheme } from '@mantine/core'
 
-export const theme: MantineThemeOverride = {
-  colorScheme: 'light',
+export const theme = createTheme({
   fontFamily:
     '"Verizon-NHG-eDS", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
   fontSizes: {
@@ -43,4 +42,4 @@ export const theme: MantineThemeOverride = {
     x8: '2rem', // 32px
     x12: '3rem', // 48px
   },
-}
+})

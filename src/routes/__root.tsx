@@ -7,7 +7,7 @@ import { theme } from '~/styles/theme'
 
 function RootComponent() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
+    <MantineProvider theme={theme}>
       <Layout>
         <Outlet />
       </Layout>
