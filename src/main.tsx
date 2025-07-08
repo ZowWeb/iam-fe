@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 
+import '@mantine/core/styles/global.css'
 import '@mantine/core/styles.css'
 import '@mantine/dates/styles.css' // if using mantine date picker features
 import 'mantine-react-table/styles.css' // make sure MRT styles were imported in your app root (once)

@@ -1,6 +1,4 @@
-import { createTheme } from '@mantine/core'
-
-export const theme = createTheme({
+export const theme = {
   fontFamily:
     '"Verizon-NHG-eDS", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
   fontSizes: {
@@ -10,6 +8,28 @@ export const theme = createTheme({
     lg: '2rem', // 32px
     xl: '3rem', // 48px
     '2xl': '4rem', // 64px
+  },
+  headings: {
+    sizes: {
+      h1: {
+        fontSize: '4rem',
+      },
+      h2: {
+        fontSize: '3rem',
+      },
+      h3: {
+        fontSize: '2rem',
+      },
+      h4: {
+        fontSize: '1rem',
+      },
+      h5: {
+        fontSize: '0.875rem',
+      },
+      h6: {
+        fontSize: '0.75rem',
+      },
+    },
   },
   breakpoints: {
     xs: '30rem', // 480px
@@ -42,4 +62,4 @@ export const theme = createTheme({
     x8: '2rem', // 32px
     x12: '3rem', // 48px
   },
-})
+}
