@@ -1,18 +1,31 @@
-import { type GridProps, Col } from '@mantine/core'
+import { type GridProps, type GridColProps, Grid as MantineGrid } from '@mantine/core'
 
-import { FluidGridWrapper, StandardGridWrapper } from './styles'
-import type { LayoutType } from '~/types'
+import { GridWrapper } from './styles'
 
-type Props = GridProps & {
-  layout?: LayoutType
-}
-
-const Grid = ({ layout = 'standard', ...props }: Props) => {
-  const Wrapper = layout === 'standard' ? StandardGridWrapper : FluidGridWrapper
-
-  return <Wrapper {...props} />
+/**
+ * A custom Grid component that wraps the Mantine Grid and styles it according to the VDS design spec.
+ *
+ * This grid has 12 columns (default gutter: 2.5rem). Make sure to use the Col component to define the columns.
+ *
+ * @example
+ * import Grid, { Col } from '~/components/Grid'
+ *
+ * const MyComponent = () => {
+ *   return (
+ *     <Grid>
+ *       <Col span={4}>Foo</Col>
+ *       <Col span={4}>Bar</Col>
+ *       <Col span={4}>Baz</Col>
+ *     </Grid>
+ *   )
+ * }
+ *
+ * @see https://v7.mantine.dev/core/grid/
+ */
+const Grid = (props: GridProps) => {
+  return <GridWrapper gutter={props.gutter ?? '2.5rem'} {...props} />
 }
 
 export default Grid
-export { Col }
-export type { GridProps }
+export const { Col } = MantineGrid
+export type { GridProps, GridColProps }

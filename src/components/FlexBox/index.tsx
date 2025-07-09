@@ -24,6 +24,20 @@ const FlexBoxContainer = styled.div<FlexBoxProps>`
   flex: ${props => props.flex || 'initial'};
 `
 
+/**
+ * FlexBox is a generic flexbox container that can be used to position elements
+ * with a variety of flexbox styles.
+ *
+ * @param {React.ReactNode} children - The children to be rendered inside the
+ *   flexbox container.
+ * @param {string} className - An optional class name to be added to the
+ *   container.
+ * @param {React.CSSProperties} customStyle - An optional custom style to be
+ *   applied to the container.
+ * @param {FlexBoxProps} props - Optional props that can be used to customize the
+ *   flexbox container.
+ * @returns {React.JSX.Element} The rendered flexbox container.
+ */
 const FlexBox = ({ children, className, customStyle, ...props }: FlexBoxProps) => {
   return (
     <FlexBoxContainer className={className} style={customStyle} {...props}>

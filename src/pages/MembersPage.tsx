@@ -1,6 +1,5 @@
 import { Button } from '@mantine/core'
 import { useState } from 'react'
-import { styled } from '@linaria/react'
 
 import Table from '~/components/AdvancedTable'
 import { type Person, data as initialData, moreData } from '../mocks/makeData'
@@ -9,19 +8,7 @@ import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/AdvancedTable/ActionToolbar'
 import FlexBox from '~/components/FlexBox'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
-
-const BlockWrapper = styled(Block)`
-  align-items: flex-start;
-  gap: 2.5rem;
-
-  .left-section {
-    flex: 1 1 20%;
-  }
-
-  .right-section {
-    flex: 1 0 80%;
-  }
-`
+import Grid, { Col } from '~/components/Grid'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -45,19 +32,25 @@ const MembersPage = () => {
   }
 
   return (
-    <BlockWrapper>
-      <VdsTabs className="left-section" onSelection={() => {}} config={tabsConfig} />
-      <FlexBox className="right-section" direction="column">
-        <IamHero />
-        <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
-        <Table data={data} />
-        <div className="my-4">
-          <Button onClick={fetchLatestData} loading={isLoading}>
-            Fetch latest data
-          </Button>
-        </div>
-      </FlexBox>
-    </BlockWrapper>
+    <Block>
+      <Grid>
+        <Col span={3}>
+          <VdsTabs className="left-section" onSelection={() => {}} config={tabsConfig} />
+        </Col>
+        <Col span={9}>
+          <FlexBox className="right-section" direction="column">
+            <IamHero />
+            <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
+            <Table data={data} />
+            <div className="my-4">
+              <Button onClick={fetchLatestData} loading={isLoading}>
+                Fetch latest data
+              </Button>
+            </div>
+          </FlexBox>
+        </Col>
+      </Grid>
+    </Block>
   )
 }
 
