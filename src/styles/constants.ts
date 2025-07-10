@@ -2,8 +2,10 @@ export const COLORS = {
   white: '#FFFFFF',
   black: '#000000',
   primary: '#000000',
-  secondary: '#6F7171',
+  secondary: '#F6F6F6',
+  highlight: '#EE0000',
   vdsGray85: '#D8DADA',
+  vdsRed: '#EE0000',
 } as const
 
 export const FONT_WEIGHTS = {

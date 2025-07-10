@@ -1,3 +1,7 @@
+import { colorsTuple } from '@mantine/core'
+
+import { COLORS } from './constants'
+
 export const theme = {
   fontFamily:
     '"Verizon-NHG-eDS", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
@@ -7,7 +11,7 @@ export const theme = {
     md: '1rem', // 16px
     lg: '2rem', // 32px
     xl: '3rem', // 48px
-    '2xl': '4rem', // 64px
+    xxl: '4rem', // 64px
   },
   headings: {
     sizes: {
@@ -62,4 +66,8 @@ export const theme = {
     x8: '2rem', // 32px
     x12: '3rem', // 48px
   },
-}
+  colors: {
+    vdsRed: colorsTuple(COLORS.vdsRed),
+    highlight: colorsTuple(COLORS.vdsRed),
+  },
+} as const
