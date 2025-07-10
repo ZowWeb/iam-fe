@@ -64,11 +64,10 @@ export const AvatarWrapper = styled(FlexBox)`
     &__name {
       font-size: 0.875rem;
       font-weight: 500;
-      margin-top: 0.25rem;
     }
 
     &__team {
-      font-size: 0.625rem;
+      font-size: 0.75rem;
       color: ${COLORS.secondary};
     }
   }
