@@ -1,13 +1,13 @@
 import { Button } from '@mantine/core'
 import { useState } from 'react'
 
-import Table from '~/components/AdvancedTable'
+import Grid, { Col } from '~/components/Grid'
 import { type Person, data as initialData, moreData } from '../mocks/makeData'
 import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/AdvancedTable/ActionToolbar'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
-import Grid, { Col } from '~/components/Grid'
+import MembersTable from '~/components/MembersTable'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -39,7 +39,7 @@ const MembersPage = () => {
         <Col span={9}>
           <IamHero />
           <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
-          <Table data={data} />
+          <MembersTable data={data} />
           <div className="my-4">
             <Button onClick={fetchLatestData} loading={isLoading}>
               Fetch latest data
