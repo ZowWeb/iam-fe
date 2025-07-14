@@ -50,7 +50,11 @@ export interface FileRouteTypes {
   fullPaths: '/' | '/teams/$teamId/users/$userId' | '/teams/$teamId/users'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/teams/$teamId/users/$userId' | '/teams/$teamId/users'
-  id: '__root__' | '/' | '/teams/$teamId/users/$userId' | '/teams/$teamId/users/'
+  id:
+    | '__root__'
+    | '/'
+    | '/teams/$teamId/users/$userId'
+    | '/teams/$teamId/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -90,4 +94,6 @@ const rootRouteChildren: RootRouteChildren = {
   TeamsTeamIdUsersUserIdRoute: TeamsTeamIdUsersUserIdRoute,
   TeamsTeamIdUsersIndexRoute: TeamsTeamIdUsersIndexRoute,
 }
-export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()

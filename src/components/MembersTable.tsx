@@ -13,15 +13,21 @@ const StyledMenuDropdown = styled(Menu.Dropdown)`
 const StyledMenuItem = styled(Menu.Item)`
   padding: 0.7rem 1.25rem;
   font-size: 1rem;
+`
+
+const StyledActionButton = styled(ActionIcon)`
   background-color: white;
+  &:hover {
+    background-color: white;
+  }
 `
 
 const ActionColumn = () => (
   <Menu>
     <Menu.Target>
-      <ActionIcon>
+      <StyledActionButton>
         <MoreHorizontal size="medium" />
-      </ActionIcon>
+      </StyledActionButton>
     </Menu.Target>
     <StyledMenuDropdown>
       <StyledMenuItem>Resend invite</StyledMenuItem>
