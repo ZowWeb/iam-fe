@@ -1,24 +1,36 @@
+import React from 'react'
 import { styled } from '@linaria/react'
-import { Link as RouterLink } from '@tanstack/react-router'
+import { createLink, type LinkComponent } from '@tanstack/react-router'
 
 import { COLORS } from '~/styles/constants'
 
-interface Props {
-  to: string
-  children: React.ReactNode
-  bold?: boolean
-  className?: string
-}
-
-const StyledLink = styled(RouterLink)<{ bold?: boolean }>`
+const StyledLink = styled.a`
   text-decoration: none;
   color: ${COLORS.black};
 
-  font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
+  &.active,
+  &.bold,
+  &:active,
+  &:hover {
+    font-weight: 700;
+  }
 `
 
-const Link = ({ children, ...props }: Props) => {
-  return <StyledLink {...props}>{children}</StyledLink>
+interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  children: React.ReactNode
+  className?: string
+  external?: boolean
+}
+
+const CustomLinkComponent = React.forwardRef<HTMLAnchorElement, Props>(({ className, ...props }, ref) => {
+  return <StyledLink ref={ref} {...props} className={className} />
+})
+
+const CreatedLinkComponent = createLink(CustomLinkComponent)
+
+const Link: LinkComponent<typeof CustomLinkComponent> = props => {
+  return <CreatedLinkComponent preload={false} activeOptions={{ exact: true }} {...props} />
 }
 
 export default Link
+export const ExternalLink = StyledLink

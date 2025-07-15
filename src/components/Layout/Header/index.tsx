@@ -3,7 +3,7 @@ import { Avatar, Image } from '@mantine/core'
 import FlexBox from '~/components/FlexBox'
 import { AvatarWrapper, HeaderContainer, HeaderWrapper, Left, Right } from './styles'
 import Typography from '~/components/Typography'
-import Link from '~/components/Link'
+import { ExternalLink } from '~/components/Link'
 
 const LOGO_HEIGHT = '25px'
 
@@ -18,24 +18,24 @@ const Header = () => {
         <Right>
           <ul>
             <li>
-              <Link to="#" bold>
+              <ExternalLink href="#" className="bold">
                 Dashboard
-              </Link>
+              </ExternalLink>
             </li>
             <li>
-              <Link to="#" bold>
+              <ExternalLink href="#" className="bold">
                 Documentation
-              </Link>
+              </ExternalLink>
             </li>
             <li>
-              <Link to="#" bold>
+              <ExternalLink href="#" className="bold">
                 Identity & Access Management
-              </Link>
+              </ExternalLink>
             </li>
             <li>
-              <Link to="#" bold>
+              <ExternalLink href="#" className="bold">
                 Support
-              </Link>
+              </ExternalLink>
             </li>
           </ul>
           <AvatarWrapper className="avatar" justifyContent="flex-end">
