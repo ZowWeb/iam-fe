@@ -3,6 +3,9 @@ import { colorsTuple } from '@mantine/core'
 import { COLORS } from './constants'
 
 export const theme = {
+  white: COLORS.white,
+  black: COLORS.black,
+  primaryColor: 'vdsRed',
   fontFamily:
     '"Verizon-NHG-eDS", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
   fontSizes: {
@@ -68,6 +71,6 @@ export const theme = {
   },
   colors: {
     vdsRed: colorsTuple(COLORS.vdsRed),
-    highlight: colorsTuple(COLORS.vdsRed),
+    brandHighlight: colorsTuple(COLORS.brandHighlight),
   },
-} as const
+}

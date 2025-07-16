@@ -18,4 +18,7 @@ function RootComponent() {
 export const Route = createRootRoute({
   component: RootComponent,
   notFoundComponent: NotFoundPage,
+  loader: () => ({
+    crumbTitle: 'Home / Identity & Access Management',
+  }),
 })
