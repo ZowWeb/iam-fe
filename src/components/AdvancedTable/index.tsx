@@ -5,20 +5,32 @@ import {
   type MRT_ColumnDef as MRTColumnDef,
 } from 'mantine-react-table'
 
-import Pagination from '../Vds/Pagination'
 import { TableWrapper } from './styles'
+import Pagination from '../Vds/Pagination'
 
 export interface TableProps<T extends MRTRowData> {
   data: T[]
   columns: MRTColumnDef<T>[]
+  enableRowActions?: boolean
+  renderRowActionMenuItems?: React.ReactNode
 }
 
-export default function Table<T extends MRTRowData>({ data, columns }: TableProps<T>) {
+export default function Table<T extends MRTRowData>({
+  data,
+  columns,
+  enableRowActions = false,
+  renderRowActionMenuItems,
+}: TableProps<T>) {
   const table = useMantineReactTable({
     columns,
     data,
-    enableColumnActions: false,
-    enableRowActions: false,
+    enableRowActions,
+    positionActionsColumn: 'last',
+    displayColumnDefOptions: {
+      'mrt-row-actions': {
+        header: '', // Remove actions column text
+      },
+    },
     enableColumnFilters: false,
     enablePagination: false,
     enableStickyHeader: false,
@@ -28,6 +40,7 @@ export default function Table<T extends MRTRowData>({ data, columns }: TableProp
       shadow: '',
       withBorder: false,
     },
+    renderRowActionMenuItems: () => renderRowActionMenuItems,
   })
 
   return (

@@ -7,7 +7,7 @@ import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/AdvancedTable/ActionToolbar'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
-import MembersTable from '~/components/MembersTable'
+import MembersTable from '~/components/Pages/Members/MembersTable'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
