@@ -32,8 +32,4 @@ export const StyledPillsInput = styled(PillsInput)`
   }
 `
 
-export const StyledPillGroup = styled(Pill.Group)`
-  .mantine-Pill-label {
-    height: auto;
-  }
-`
+export const StyledPillGroup = styled(Pill.Group)``

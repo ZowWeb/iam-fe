@@ -19,7 +19,7 @@ import { sleep } from '~/utils'
 import { handleErrorMessage } from '~/utils/errors'
 import { Route } from '~/routes/teams/$teamId/users/route'
 import useMembers from '~/hooks/useMembers'
-import InviteMembersModal from '~/components/members/InviteMembersModal'
+import InviteMembersModal from '~/components/pages/members/InviteMembersModal'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
