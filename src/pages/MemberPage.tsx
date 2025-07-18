@@ -2,6 +2,7 @@ import { IconChevronLeft } from '@tabler/icons-react'
 import { TitleLockup } from '@vds/type-lockups'
 import { styled } from '@linaria/react'
 import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
+import { useNavigate } from '@tanstack/react-router'
 
 import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
@@ -101,6 +102,14 @@ const columns: MRTColumnDef<Policy>[] = [
 ]
 
 const MemberPage = () => {
+  const navigate = useNavigate()
+
+  const handleManagePolicies = (action: string) => {
+    if (action === 'action-b-click') {
+      navigate({ to: '/teams/$teamId/users/$userId/policies', params: { teamId: 'x', userId: 'x' } })
+    }
+  }
+
   return (
     <Block>
       <Grid>
@@ -147,7 +156,7 @@ const MemberPage = () => {
                 },
               }}
             />
-            <ActionToolbar onAction={() => {}} actionButtonText="Manage policies" />
+            <ActionToolbar onAction={handleManagePolicies} actionButtonText="Manage policies" />
             <Table {...{ data, columns }} />
           </FlexBox>
         </Col>

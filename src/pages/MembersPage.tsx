@@ -2,6 +2,7 @@ import { Button } from '@mantine/core'
 import { useCallback, useState } from 'react'
 import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { Notification } from '@vds/notifications'
+import { useNavigate } from '@tanstack/react-router'
 
 import Table from '~/components/AdvancedTable'
 import { data as initialData, moreData } from '../mocks/makeData'
@@ -72,6 +73,7 @@ const MembersPage = () => {
     message: '',
   })
   const _loaderData = Route.useLoaderData()
+  const navigate = useNavigate()
 
   const fetchLatestData = async () => {
     setIsLoading(true)
@@ -120,6 +122,19 @@ const MembersPage = () => {
     )
   }, [])
 
+  const handleRowClick = () => {
+    navigate({ to: '/teams/$teamId/users/$userId', params: { teamId: 'x', userId: 'x' } })
+  }
+
+  const options = {
+    mantineTableBodyRowProps: () => ({
+      onClick: () => {
+        // row.getToggleSelectedHandler()
+        handleRowClick()
+      },
+    }),
+  }
+
   return (
     <Block>
       <Grid>
@@ -137,7 +152,7 @@ const MembersPage = () => {
             )}
             <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
             <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
-            <Table {...{ data, columns, isLoading, enableRowActions: true, rowActionMenuItems }} />
+            <Table {...{ data, columns, isLoading, enableRowActions: true, rowActionMenuItems, options }} />
             <Button onClick={fetchLatestData} loading={isLoading}>
               Fetch latest data
             </Button>

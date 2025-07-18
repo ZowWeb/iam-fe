@@ -10,13 +10,13 @@ import SearchInput from '~/components/SearchInput'
 export interface ActionToolbarProps {
   onAction: (action: string, data?: string) => void
   searchPlaceHolderText?: string
-  actionButtonText: string
+  actionButtonText?: string | null
 }
 
 export default function ActionToolbar({
   onAction,
   searchPlaceHolderText,
-  actionButtonText,
+  actionButtonText = null,
 }: ActionToolbarProps) {
   const [searchText, setSearchText] = useState('')
   const [showFilters, setShowFilters] = useState(false)
@@ -59,7 +59,7 @@ export default function ActionToolbar({
             renderIcon={(props: IconProps) => <Icon name="close" {...props} />}
             onClick={handleCloseFilters}
           />
-          <ActionButton />
+          {actionButtonText && <ActionButton />}
         </Right>
       )}
       {!showFilters && (
@@ -80,9 +80,11 @@ export default function ActionToolbar({
               onClick={handleActionAClick}
             />
           </FlexBox>
-          <Right>
-            <ActionButton />
-          </Right>
+          {actionButtonText && (
+            <Right>
+              <ActionButton />
+            </Right>
+          )}
         </>
       )}
     </FlexBox>
