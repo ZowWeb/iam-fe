@@ -1,6 +1,7 @@
 import { IconChevronLeft } from '@tabler/icons-react'
 import { TitleLockup } from '@vds/type-lockups'
 import { styled } from '@linaria/react'
+import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 
 import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
@@ -11,6 +12,8 @@ import Typography from '~/components/Typography'
 import Link from '~/components/Link'
 import { COLORS } from '~/styles/constants'
 import ActionToolbar from '~/components/AdvancedTable/ActionToolbar'
+import Table from '~/components/AdvancedTable'
+import type { Policy } from '~/types/data'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -50,7 +53,7 @@ const footerItems = [
   },
   {
     label: 'Last signed in',
-    value: 'July 21, 2025 12:24 PM UTC',
+    value: 'July 21, 2025 12:24 PM',
   },
 ]
 
@@ -64,6 +67,38 @@ const footerItemsJSX = (
     ))}
   </FooterContainer>
 )
+
+const policyTableData: Policy[] = [
+  {
+    name: 'Team access',
+    description: 'Can log in to this team and view public details',
+    lastUpdated: 'June 22, 2025 12:24 PM',
+    applied: 'July 18, 2025 12:24 PM',
+  },
+]
+
+const columns: MRTColumnDef<Policy>[] = [
+  {
+    accessorKey: 'name',
+    header: 'Name',
+    size: 100,
+  },
+  {
+    accessorKey: 'description',
+    header: 'Description',
+    size: 100,
+  },
+  {
+    accessorKey: 'lastUpdated',
+    header: 'Last updated',
+    size: 100,
+  },
+  {
+    accessorKey: 'applied',
+    header: 'Applied',
+    size: 100,
+  },
+]
 
 const MembersPage = () => {
   return (
@@ -94,7 +129,7 @@ const MembersPage = () => {
                 },
               }}
             />
-            <IamHero title="Jane Doe" showActionButton>
+            <IamHero title="John Doe" showActionButton>
               {footerItemsJSX}
             </IamHero>
             <TitleLockup
@@ -113,6 +148,7 @@ const MembersPage = () => {
               }}
             />
             <ActionToolbar onAction={() => {}} actionButtonText="Manage policies" />
+            <Table columns={columns} data={policyTableData} />
           </FlexBox>
         </Col>
       </Grid>

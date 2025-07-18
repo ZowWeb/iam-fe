@@ -1,6 +1,6 @@
 import { DefaultMantineColor, MantineColorsTuple, type DefaultMantineSize } from '@mantine/core'
 
-import { theme } from './styles/theme'
+import { theme } from '../styles/theme'
 
 type ExtendedCustomColors = DefaultMantineColor | keyof typeof theme.colors
 type ExtendedCustomSpacing = DefaultMantineSize | keyof typeof theme.spacing

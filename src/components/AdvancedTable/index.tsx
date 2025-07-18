@@ -1,47 +1,20 @@
 import {
   MantineReactTable,
   useMantineReactTable,
+  type MRT_TableOptions as MRTTableOptions,
   type MRT_ColumnDef as MRTColumnDef,
 } from 'mantine-react-table'
 
 import Pagination from '../Vds/Pagination'
 import { TableWrapper } from './styles'
-import type { Person } from '~/mocks/makeData'
 
-export interface TableProps {
-  data: Person[]
+export interface TableProps<T extends object> {
+  columns: MRTColumnDef<T>[]
+  data: T[]
+  options?: MRTTableOptions<T>
 }
 
-const columns: MRTColumnDef<Person>[] = [
-  {
-    accessorKey: 'firstName',
-    header: 'First Name',
-    size: 100,
-  },
-  {
-    accessorKey: 'lastName',
-    header: 'Last Name',
-    enableResizing: false, // disable resizing for this column
-    size: 100,
-  },
-  {
-    accessorKey: 'email',
-    header: 'Email Address',
-    size: 200,
-  },
-  {
-    accessorKey: 'timeInVerzion',
-    header: 'Time in Verzion (months)',
-    size: 120,
-  },
-  {
-    accessorKey: 'country',
-    header: 'Country',
-    size: 100,
-  },
-]
-
-const Table = ({ data }: TableProps) => {
+const Table = <T extends object>({ columns, data, options }: TableProps<T>) => {
   const table = useMantineReactTable({
     columns,
     data,
@@ -55,6 +28,7 @@ const Table = ({ data }: TableProps) => {
       shadow: '',
       withBorder: false,
     },
+    ...options,
   })
 
   return (
