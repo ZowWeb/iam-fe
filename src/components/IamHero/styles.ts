@@ -2,6 +2,7 @@ import { styled } from '@linaria/react'
 
 import FlexBox from '../FlexBox'
 import Typography from '../Typography'
+import { COLORS } from '~/styles/constants'
 
 export const Wrapper = styled(FlexBox)`
   background: #f6f6f6;
@@ -9,8 +10,12 @@ export const Wrapper = styled(FlexBox)`
   padding: 2rem 1.5rem;
 `
 
+export const TitleWithActionWrapper = styled(FlexBox)`
+  justify-content: space-between;
+`
+
 export const Title = styled(Typography.H3)``
 
 export const Subtitle = styled(Typography.Paragraph)`
-  color: #6f7171;
+  color: ${COLORS.secondary};
 `

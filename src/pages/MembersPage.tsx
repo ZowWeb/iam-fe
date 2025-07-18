@@ -8,6 +8,7 @@ import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/AdvancedTable/ActionToolbar'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
 import Grid, { Col } from '~/components/Grid'
+import FlexBox from '~/components/FlexBox'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -37,14 +38,14 @@ const MembersPage = () => {
           <VdsTabs className="left-section" onSelection={() => {}} config={tabsConfig} />
         </Col>
         <Col span={9}>
-          <IamHero />
-          <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
-          <Table data={data} />
-          <div className="my-4">
+          <FlexBox direction="column" gap="2.5rem">
+            <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
+            <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
+            <Table data={data} />
             <Button onClick={fetchLatestData} loading={isLoading}>
               Fetch latest data
             </Button>
-          </div>
+          </FlexBox>
         </Col>
       </Grid>
     </Block>
