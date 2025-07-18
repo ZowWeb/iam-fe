@@ -100,7 +100,7 @@ const columns: MRTColumnDef<Policy>[] = [
   },
 ]
 
-const MembersPage = () => {
+const MemberPage = () => {
   return (
     <Block>
       <Grid>
@@ -156,4 +156,4 @@ const MembersPage = () => {
   )
 }
 
-export default MembersPage
+export default MemberPage
