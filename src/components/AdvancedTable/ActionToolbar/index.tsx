@@ -50,7 +50,7 @@ export default function ActionToolbar({
     )
 
   return (
-    <FlexBox customStyle={{ margin: '2.5rem 0 2rem' }}>
+    <FlexBox>
       {showFilters && (
         <Right>
           <ButtonIcon

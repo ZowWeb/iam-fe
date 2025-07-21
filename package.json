@@ -37,6 +37,7 @@
     "@vds/icons": "4.7.0",
     "@vds/pagination": "^4.0.7",
     "@vds/tabs": "4.1.8",
+    "@vds/type-lockups": "4.1.21",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "mantine-react-table": "2.0.0-beta.9",

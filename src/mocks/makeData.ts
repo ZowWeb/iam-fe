@@ -1,10 +1,4 @@
-export type Person = {
-  firstName: string
-  lastName: string
-  email: string
-  timeInVerzion: number
-  country: string
-}
+import type { Person } from '~/types/data'
 
 export const data: Person[] = [
   {
