@@ -1,7 +1,6 @@
-import { Button, Menu } from '@mantine/core'
+import { Button } from '@mantine/core'
 import { useState } from 'react'
 import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
-import { styled } from '@linaria/react'
 
 import Table from '~/components/AdvancedTable'
 import { data as initialData, moreData } from '../mocks/makeData'
@@ -12,6 +11,7 @@ import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
 import Grid, { Col } from '~/components/Grid'
 import FlexBox from '~/components/FlexBox'
 import type { Person } from '~/types/data'
+import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -49,17 +49,12 @@ const columns: MRTColumnDef<Person>[] = [
   },
 ]
 
-const StyledMenuItem = styled(Menu.Item)`
-  padding: 0.7rem 1.25rem;
-  font-size: 1rem;
-`
-
-const renderRowActionMenuItems = () => (
-  <>
+const rowActionMenuItems = (
+  <MenuDropdown>
     {['Resend invite', 'Cancel invite'].map(item => (
-      <StyledMenuItem>{item}</StyledMenuItem>
+      <MenuItem key={item}>{item}</MenuItem>
     ))}
-  </>
+  </MenuDropdown>
 )
 
 const MembersPage = () => {
@@ -86,7 +81,7 @@ const MembersPage = () => {
           <FlexBox direction="column" gap="2.5rem">
             <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
             <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
-            <Table {...{ data, columns, isLoading, enableRowActions: true, renderRowActionMenuItems }} />
+            <Table {...{ data, columns, isLoading, enableRowActions: true, rowActionMenuItems }} />
             <Button onClick={fetchLatestData} loading={isLoading}>
               Fetch latest data
             </Button>
