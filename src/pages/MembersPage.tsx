@@ -86,7 +86,7 @@ const MembersPage = () => {
           <FlexBox direction="column" gap="2.5rem">
             <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
             <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
-            <Table {...{ data, columns, enableRowActions: true, renderRowActionMenuItems }} />
+            <Table {...{ data, columns, isLoading, enableRowActions: true, renderRowActionMenuItems }} />
             <Button onClick={fetchLatestData} loading={isLoading}>
               Fetch latest data
             </Button>

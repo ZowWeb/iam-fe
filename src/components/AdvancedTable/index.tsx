@@ -8,17 +8,17 @@ import {
 import { TableWrapper } from './styles'
 import Pagination from '../Vds/Pagination'
 
-export default function Table<T extends MRTRowData>({
+const Table = <T extends MRTRowData>({
   data,
   columns,
+  isLoading = false,
   enableRowActions = false,
   renderRowActionMenuItems,
   ...options
-}: MRTTableOptions<T>) {
+}: MRTTableOptions<T> & { isLoading?: boolean }) => {
   const table = useMantineReactTable({
     columns,
     data,
-    enableRowActions,
     positionActionsColumn: 'last',
     displayColumnDefOptions: {
       'mrt-row-actions': {
@@ -27,13 +27,16 @@ export default function Table<T extends MRTRowData>({
     },
     enableColumnFilters: false,
     enablePagination: false,
-    enableStickyHeader: false,
+    rowCount: data.length,
     enableTopToolbar: false,
-    enableBottomToolbar: false,
     mantinePaperProps: {
       shadow: '',
       withBorder: false,
     },
+    state: {
+      isLoading,
+    },
+    enableRowActions,
     renderRowActionMenuItems,
     ...options,
   })
@@ -49,3 +52,5 @@ export default function Table<T extends MRTRowData>({
     </TableWrapper>
   )
 }
+
+export default Table
