@@ -68,7 +68,7 @@ const footerItemsJSX = (
   </FooterContainer>
 )
 
-const policyTableData: Policy[] = [
+const data: Policy[] = [
   {
     name: 'Team access',
     description: 'Can log in to this team and view public details',
@@ -148,7 +148,7 @@ const MemberPage = () => {
               }}
             />
             <ActionToolbar onAction={() => {}} actionButtonText="Manage policies" />
-            <Table columns={columns} data={policyTableData} />
+            <Table {...{ data, columns }} />
           </FlexBox>
         </Col>
       </Grid>

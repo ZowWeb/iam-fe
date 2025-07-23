@@ -7,6 +7,7 @@ export const COLORS = {
   vdsGray85: '#D8DADA',
   vdsRed: '#EE0000',
   brandHighlight: '#EE0000',
+  dropdownBorder: '#B4B4B4',
 } as const
 
 export const FONT_WEIGHTS = {
@@ -18,3 +19,6 @@ export const FONT_WEIGHTS = {
 
 export const STD_LAYOUT_MAX_WIDTH = '1232px'
 export const FLUID_LAYOUT_MAX_WIDTH = '1580px'
+
+export const BUTTON_ICON_DROP_SHADOW =
+  '0px 1px 10px 0px rgba(0, 0, 0, 0.12), 0px 2px 4px 0px rgba(0, 0, 0, 0.05)'

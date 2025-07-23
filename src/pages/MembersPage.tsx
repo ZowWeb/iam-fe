@@ -11,6 +11,7 @@ import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
 import Grid, { Col } from '~/components/Grid'
 import FlexBox from '~/components/FlexBox'
 import type { Person } from '~/types/data'
+import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -18,10 +19,6 @@ const tabsConfig: VdsTabConfig[] = [
   { id: 'policies', label: 'Policies' },
   { id: 'serviceAccounts', label: 'Service accounts' },
 ]
-
-export interface TableProps {
-  data: Person[]
-}
 
 const columns: MRTColumnDef<Person>[] = [
   {
@@ -52,6 +49,14 @@ const columns: MRTColumnDef<Person>[] = [
   },
 ]
 
+const rowActionMenuItems = (
+  <MenuDropdown>
+    {['Resend invite', 'Cancel invite'].map(item => (
+      <MenuItem key={item}>{item}</MenuItem>
+    ))}
+  </MenuDropdown>
+)
+
 const MembersPage = () => {
   const [data, setData] = useState<Person[]>(initialData)
   const [isLoading, setIsLoading] = useState(false)
@@ -76,7 +81,7 @@ const MembersPage = () => {
           <FlexBox direction="column" gap="2.5rem">
             <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
             <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
-            <Table columns={columns} data={data} />
+            <Table {...{ data, columns, isLoading, enableRowActions: true, rowActionMenuItems }} />
             <Button onClick={fetchLatestData} loading={isLoading}>
               Fetch latest data
             </Button>
