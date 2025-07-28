@@ -44,6 +44,9 @@ importers:
       '@vds/icons':
         specifier: 4.7.0
         version: 4.7.0(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds/notifications':
+        specifier: 4.0.32
+        version: 4.0.32(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@vds/pagination':
         specifier: ^4.0.7
         version: 4.0.7(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
@@ -1112,8 +1115,21 @@ packages:
       react: ^17.0.0 || ^18.0.0
       styled-components: 4.x.x || 5.x.x || 6.x.x
 
+  '@vds-core/badges@4.1.9':
+    resolution: {integrity: sha512-HCNnfy7IZ3grq1A+DnmNh6tJGMNUyg1lPRFI4k48Gom7GXIW471fjCw6isJJL573sVjsClMvBT0lOUshYGd9Sg==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/AAVB_Vrepair-virtual/@vds-core/badges/-/@vds-core/badges-4.1.9.tgz}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0
+      styled-components: 4.x.x || 5.x.x || 6.x.x
+
   '@vds-core/button-icons@4.0.15':
     resolution: {integrity: sha512-kdQ7bejlqNUd53ZSvv9D1zn6M74ub7jOluuToDn92/ckvuPxt2Cy+EXfOzEYZASWaT86o2gb1CavVyEn0O4kkQ==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/npm-virtual/@vds-core/button-icons/-/@vds-core/button-icons-4.0.15.tgz}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0
+      react-dom: ^17.0.0 || ^18.0.0
+      styled-components: 4.x.x || 5.x.x || 6.x.x
+
+  '@vds-core/button-icons@4.0.16':
+    resolution: {integrity: sha512-6yDVEEH9pIscuv21b2XHjpaEShbBDGLLwFmbCxe2y0EUf5W2uUN53300+b0+yyF8D4wzKjeIXF9Tw2aggsXjfA==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/AAVB_Vrepair-virtual/@vds-core/button-icons/-/@vds-core/button-icons-4.0.16.tgz}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
@@ -1125,8 +1141,26 @@ packages:
       react: ^17.0.0 || ^18.0.0
       styled-components: 4.x.x || 5.x.x || 6.x.x
 
+  '@vds-core/buttons@4.0.16':
+    resolution: {integrity: sha512-emh8SxWUpy9BkbM4WPHfEborncbCkOm3E9Qxtjg6OuBpTBUvUTTNrFfbZz5sfoXK0go+95d7ZHLFwqcCva4O3Q==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/AAVB_Vrepair-virtual/@vds-core/buttons/-/@vds-core/buttons-4.0.16.tgz}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0
+      styled-components: 4.x.x || 5.x.x || 6.x.x
+
   '@vds-core/icons@4.7.0':
     resolution: {integrity: sha512-9D2rFZpn4nBApD+Zlh+H7ojGcY4/uJshMXo3edSQxve3OmmXMVC4owZgrjIJjENSLis6mXquzmHxahwa3TuKag==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/npm-virtual/@vds-core/icons/-/@vds-core/icons-4.7.0.tgz}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0
+      styled-components: 4.x.x || 5.x.x || 6.x.x
+
+  '@vds-core/icons@4.7.1':
+    resolution: {integrity: sha512-wLHMBiH3B446J7aVlHcZi5+FjwAFPmi+/3iTgTHvza0T7WpOxdep4D/gDuG6/Yrn3Ro38+RLofZy6Spu68GoDw==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/AAVB_Vrepair-virtual/@vds-core/icons/-/@vds-core/icons-4.7.1.tgz}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0
+      styled-components: 4.x.x || 5.x.x || 6.x.x
+
+  '@vds-core/notifications@4.0.31':
+    resolution: {integrity: sha512-7kJ5aj6G4QLaVay2fxA+4D5FuYh6/Q/XVaI3eGOQzEfSpIl3t+daHHbN5bNA18j12pn6oTQfc2pueiZYnxgC8A==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/AAVB_Vrepair-virtual/@vds-core/notifications/-/@vds-core/notifications-4.0.31.tgz}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0
       styled-components: 4.x.x || 5.x.x || 6.x.x
@@ -1170,8 +1204,20 @@ packages:
       react: ^17.0.0 || ^18.0.0
       styled-components: 4.x.x || 5.x.x || 6.x.x
 
+  '@vds-core/typography@4.0.7':
+    resolution: {integrity: sha512-uVMLe0twxO/1OiAawduzClyHD/Ym68sQyXr9xuHihi1gEEHDmcwXAQFJSaga8o3asxi9kC0xIQcKYjS/rflLsA==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/AAVB_Vrepair-virtual/@vds-core/typography/-/@vds-core/typography-4.0.7.tgz}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0
+      styled-components: 4.x.x || 5.x.x || 6.x.x
+
   '@vds-core/utilities@4.0.3':
     resolution: {integrity: sha512-ZRnEsXl/iSpvVfkxb1LhC9eSmOcJWROnnaAbCNQWg5FfP2ZdOYIfoaCFrSce0gv6iR8f7xLBFb6EM/JCkoSMrg==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/npm-virtual/@vds-core/utilities/-/@vds-core/utilities-4.0.3.tgz}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0
+      styled-components: 4.x.x || 5.x.x || 6.x.x
+
+  '@vds-core/utilities@4.0.4':
+    resolution: {integrity: sha512-gwgs48XH1msTZf2u08uZbYTj5gx2mLBPAllm/V9w4T9drieCSv7K+ey5WvOb669iukF4ybC9d/tR1yCS+8iskA==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/AAVB_Vrepair-virtual/@vds-core/utilities/-/@vds-core/utilities-4.0.4.tgz}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0
       styled-components: 4.x.x || 5.x.x || 6.x.x
@@ -1204,8 +1250,20 @@ packages:
       react: ^17.0.0 || ^18.0.0
       styled-components: 4.x.x || 5.x.x || 6.x.x
 
+  '@vds/buttons@4.0.16':
+    resolution: {integrity: sha512-9s7vEhQL8+agYnetIcVc6nVkVWMapze4q4rhwKP8k2a3UzmFLkSVNOE2Cd8y2B4krygwG4V6a//1TEZODbE3FA==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/AAVB_Vrepair-virtual/@vds/buttons/-/@vds/buttons-4.0.16.tgz}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0
+      styled-components: 4.x.x || 5.x.x || 6.x.x
+
   '@vds/icons@4.7.0':
     resolution: {integrity: sha512-uVpnalhLLYiI5A9l8xwLS7xczgZWmfPdfHOOCjBKu7UlUoHKHKqKlFysMcMNDLiFPVapZ5b6wT/ga1UptNwhgg==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/npm-virtual/@vds/icons/-/@vds/icons-4.7.0.tgz}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0
+      styled-components: 4.x.x || 5.x.x || 6.x.x
+
+  '@vds/notifications@4.0.32':
+    resolution: {integrity: sha512-pqrh2jAPvFzXU5t8ISBRThH1dBkRNT+eB48uo+Clr5op+yAWyekKvMTnVnjLUlb5yMoDaUzpGV+RP2HDfFG33g==, tarball: https://oneartifactoryci.verizon.com/artifactory/api/npm/AAVB_Vrepair-virtual/@vds/notifications/-/@vds/notifications-4.0.32.tgz}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0
       styled-components: 4.x.x || 5.x.x || 6.x.x
@@ -4518,10 +4576,32 @@ snapshots:
       react: 18.3.1
       styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
+  '@vds-core/badges@4.1.9(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@vds-core/typography': 4.0.7(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-core/utilities': 4.0.4(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-tokens/color': 2.2.0
+      '@vds-tokens/component': 1.1.0
+      '@vds-tokens/layout': 1.1.0
+      '@vds-tokens/typography': 3.0.2
+      react: 18.3.1
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
   '@vds-core/button-icons@4.0.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
       '@vds-core/badges': 4.1.8(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@vds-core/utilities': 4.0.3(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-tokens/accessibility': 2.0.5
+      '@vds-tokens/color': 2.2.0
+      '@vds-tokens/component': 1.1.0
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  '@vds-core/button-icons@4.0.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@vds-core/badges': 4.1.9(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-core/utilities': 4.0.4(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@vds-tokens/accessibility': 2.0.5
       '@vds-tokens/color': 2.2.0
       '@vds-tokens/component': 1.1.0
@@ -4540,6 +4620,17 @@ snapshots:
       react: 18.3.1
       styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
+  '@vds-core/buttons@4.0.16(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@vds-core/typography': 4.0.7(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-core/utilities': 4.0.4(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-tokens/accessibility': 2.0.5
+      '@vds-tokens/color': 2.2.0
+      '@vds-tokens/layout': 1.1.0
+      '@vds-tokens/typography': 3.0.2
+      react: 18.3.1
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
   '@vds-core/icons@4.7.0(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
       '@vds-core/utilities': 4.0.3(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
@@ -4547,6 +4638,29 @@ snapshots:
       lz-string: 1.5.0
       react: 18.3.1
       styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  '@vds-core/icons@4.7.1(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@vds-core/utilities': 4.0.4(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-tokens/color': 2.2.0
+      lz-string: 1.5.0
+      react: 18.3.1
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  '@vds-core/notifications@4.0.31(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@vds-core/button-icons': 4.0.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-core/buttons': 4.0.16(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-core/icons': 4.7.1(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-core/typography': 4.0.7(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-core/utilities': 4.0.4(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-tokens/color': 2.2.0
+      '@vds-tokens/layout': 1.1.0
+      '@vds-tokens/typography': 3.0.2
+      react: 18.3.1
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    transitivePeerDependencies:
+      - react-dom
 
   '@vds-core/pagination@4.0.7(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
@@ -4630,7 +4744,22 @@ snapshots:
       styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       webfontloader: 1.6.28
 
+  '@vds-core/typography@4.0.7(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@vds-core/utilities': 4.0.4(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds-tokens/color': 2.2.0
+      '@vds-tokens/typography': 3.0.2
+      react: 18.3.1
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      webfontloader: 1.6.28
+
   '@vds-core/utilities@4.0.3(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      enquire.js: 2.1.6
+      react: 18.3.1
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  '@vds-core/utilities@4.0.4(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
       enquire.js: 2.1.6
       react: 18.3.1
@@ -4659,11 +4788,26 @@ snapshots:
       react: 18.3.1
       styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
+  '@vds/buttons@4.0.16(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@vds-core/buttons': 4.0.16(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      react: 18.3.1
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
   '@vds/icons@4.7.0(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
       '@vds-core/icons': 4.7.0(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       react: 18.3.1
       styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  '@vds/notifications@4.0.32(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@vds-core/notifications': 4.0.31(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      '@vds/buttons': 4.0.16(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      react: 18.3.1
+      styled-components: 6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    transitivePeerDependencies:
+      - react-dom
 
   '@vds/pagination@4.0.7(react@18.3.1)(styled-components@6.1.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
     dependencies:
