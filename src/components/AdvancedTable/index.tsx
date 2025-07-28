@@ -1,6 +1,7 @@
 import {
   MantineReactTable,
   useMantineReactTable,
+  type MRT_Row as MRTRow,
   type MRT_RowData as MRTRowData,
   type MRT_TableOptions as MRTTableOptions,
 } from 'mantine-react-table'
@@ -10,7 +11,7 @@ import { Icon } from '@vds/icons'
 import { TableWrapper } from './styles'
 import Pagination from '../Vds/Pagination'
 
-type RowActionProps =
+type RowActionProps<T extends MRTRowData> =
   | {
       enableRowActions: true
       /**
@@ -19,18 +20,18 @@ type RowActionProps =
        * - use `MenuDropdown` and `MenuItem` from `..AdvancedTable/styles.ts` for consistent styling
        * @example
        * <MenuDropdown>
-       *   <MenuItem>Action 1</MenuItem>
-       *   <MenuItem>Action 2</MenuItem>
+       *   <MenuItem onClick={handleRowAction1}>Action 1</MenuItem>
+       *   <MenuItem onClick={handleRowAction2}>Action 2</MenuItem>
        * </MenuDropdown>
        */
-      rowActionMenuItems: React.ReactNode
+      rowActionMenuItems: (row: MRTRow<T>) => React.ReactNode
     }
   | {
       enableRowActions?: false
       rowActionMenuItems?: never
     }
 
-type ExtraProps = RowActionProps & {
+type ExtraProps<T extends MRTRowData> = RowActionProps<T> & {
   isLoading?: boolean
 }
 
@@ -40,7 +41,7 @@ const Table = <T extends MRTRowData>({
   isLoading = false,
   rowActionMenuItems,
   ...options
-}: MRTTableOptions<T> & ExtraProps) => {
+}: MRTTableOptions<T> & ExtraProps<T>) => {
   const table = useMantineReactTable({
     columns,
     data,
@@ -64,14 +65,14 @@ const Table = <T extends MRTRowData>({
     state: {
       isLoading,
     },
-    renderRowActions: () => (
+    renderRowActions: ({ row }) => (
       <Menu>
         <Menu.Target>
           <Button variant="transparent">
             <Icon name="more-horizontal" size={24} />
           </Button>
         </Menu.Target>
-        {rowActionMenuItems}
+        {rowActionMenuItems && rowActionMenuItems(row)}
       </Menu>
     ),
     ...options,
