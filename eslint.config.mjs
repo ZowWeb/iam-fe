@@ -55,6 +55,7 @@ export default defineConfig([
       'no-debugger': 0,
       'no-alert': 0,
 
+      'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
@@ -62,6 +63,7 @@ export default defineConfig([
           args: 'after-used',
           ignoreRestSiblings: true,
           argsIgnorePattern: 'res|next|^err|_.*',
+          caughtErrorsIgnorePattern: '^_',
         },
       ],
 

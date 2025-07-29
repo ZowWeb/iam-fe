@@ -13,6 +13,8 @@ import Grid, { Col } from '~/components/Grid'
 import FlexBox from '~/components/FlexBox'
 import type { Person } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
+import { sleep } from '~/utils'
+import { handleErrorMessage } from '~/utils/errors'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -62,6 +64,7 @@ const MembersPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [notificationConfig, setNotificationConfig] = useState<{
     opened: boolean
+    type?: 'success' | 'error' | 'info' | 'warning'
     message: string
   }>({
     opened: false,
@@ -70,33 +73,38 @@ const MembersPage = () => {
 
   const fetchLatestData = async () => {
     setIsLoading(true)
-    // wait 2 seconds
-    await new Promise(resolve => {
-      setTimeout(resolve, 2000)
-    })
+    await sleep()
     setData([...data, ...moreData])
     setIsLoading(false)
   }
 
   const rowActionMenuItems = useCallback((row: MRTRow<Person>) => {
     const handleRowAction = async (action: RowActionType) => {
-      setIsLoading(true)
-      // wait 2 seconds
-      await new Promise(resolve => {
-        setTimeout(resolve, 2000)
-      })
-      if (action === 'RESEND_INVITE') {
+      try {
+        setIsLoading(true)
+        await sleep()
+        if (action === 'RESEND_INVITE') {
+          setNotificationConfig({
+            opened: true,
+            type: 'success',
+            message: `Invite resent to ${row.original.email}.`,
+          })
+        } else if (action === 'CANCEL_INVITE') {
+          setNotificationConfig({
+            opened: true,
+            type: 'success',
+            message: `Invite to ${row.original.email} was cancelled.`,
+          })
+        }
+      } catch (err) {
         setNotificationConfig({
           opened: true,
-          message: `Invite resent to ${row.original.email}.`,
+          type: 'error',
+          message: handleErrorMessage(err),
         })
-      } else if (action === 'CANCEL_INVITE') {
-        setNotificationConfig({
-          opened: true,
-          message: `Invite to ${row.original.email} was cancelled.`,
-        })
+      } finally {
+        setIsLoading(false)
       }
-      setIsLoading(false)
     }
 
     return (
@@ -120,7 +128,7 @@ const MembersPage = () => {
           <FlexBox direction="column" gap="2.5rem">
             {notificationConfig.opened && (
               <Notification
-                type="success"
+                type={notificationConfig.type}
                 title={notificationConfig.message}
                 onCloseButtonClick={() => setNotificationConfig({ opened: false, message: '' })}
               />
