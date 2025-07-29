@@ -122,7 +122,7 @@ const MembersPage = () => {
     <Block>
       <Grid>
         <Col span={3}>
-          <VdsTabs className="left-section" onSelection={() => {}} config={tabsConfig} />
+          <VdsTabs onSelection={() => {}} config={tabsConfig} />
         </Col>
         <Col span={9}>
           <FlexBox direction="column" gap="2.5rem">
