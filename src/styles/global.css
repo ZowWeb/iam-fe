@@ -1,8 +1,6 @@
-@use 'variables';
-
 html {
   box-sizing: border-box;
-  font-size: variables.$base-font-size;
+  font-size: 16px;
   line-height: 1.15;
 }
 
