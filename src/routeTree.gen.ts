@@ -80,7 +80,11 @@ export interface FileRouteTypes {
     | '/teams/$teamId/users/$userId'
     | '/teams/$teamId/users/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/teams/$teamId' | '/teams/$teamId/users/$userId' | '/teams/$teamId/users'
+  to:
+    | '/'
+    | '/teams/$teamId'
+    | '/teams/$teamId/users/$userId'
+    | '/teams/$teamId/users'
   id:
     | '__root__'
     | '/'
@@ -153,9 +157,10 @@ const TeamsTeamIdUsersRouteRouteChildren: TeamsTeamIdUsersRouteRouteChildren = {
   TeamsTeamIdUsersIndexRoute: TeamsTeamIdUsersIndexRoute,
 }
 
-const TeamsTeamIdUsersRouteRouteWithChildren = TeamsTeamIdUsersRouteRoute._addFileChildren(
-  TeamsTeamIdUsersRouteRouteChildren,
-)
+const TeamsTeamIdUsersRouteRouteWithChildren =
+  TeamsTeamIdUsersRouteRoute._addFileChildren(
+    TeamsTeamIdUsersRouteRouteChildren,
+  )
 
 interface TeamsTeamIdRouteRouteChildren {
   TeamsTeamIdUsersRouteRoute: typeof TeamsTeamIdUsersRouteRouteWithChildren
@@ -167,12 +172,13 @@ const TeamsTeamIdRouteRouteChildren: TeamsTeamIdRouteRouteChildren = {
   TeamsTeamIdIndexRoute: TeamsTeamIdIndexRoute,
 }
 
-const TeamsTeamIdRouteRouteWithChildren = TeamsTeamIdRouteRoute._addFileChildren(
-  TeamsTeamIdRouteRouteChildren,
-)
+const TeamsTeamIdRouteRouteWithChildren =
+  TeamsTeamIdRouteRoute._addFileChildren(TeamsTeamIdRouteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TeamsTeamIdRouteRoute: TeamsTeamIdRouteRouteWithChildren,
 }
-export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>()
+export const routeTree = rootRouteImport
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
