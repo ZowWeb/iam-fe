@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react'
 import {
   MantineReactTable,
   useMantineReactTable,
+  type MRT_RowSelectionState as MRTRowSelectionState,
   type MRT_Row as MRTRow,
   type MRT_RowData as MRTRowData,
   type MRT_TableOptions as MRTTableOptions,
@@ -33,15 +35,18 @@ type RowActionProps<T extends MRTRowData> =
 
 type ExtraProps<T extends MRTRowData> = RowActionProps<T> & {
   isLoading?: boolean
+  onRowSelection?: (rows: MRTRowSelectionState) => void
 }
 
 const Table = <T extends MRTRowData>({
   data,
   columns,
   isLoading = false,
+  onRowSelection = () => {},
   rowActionMenuItems,
   ...options
 }: MRTTableOptions<T> & ExtraProps<T>) => {
+  const [rowSelection, setRowSelection] = useState<MRTRowSelectionState>({})
   const table = useMantineReactTable({
     columns,
     data,
@@ -61,9 +66,16 @@ const Table = <T extends MRTRowData>({
     mantinePaperProps: {
       shadow: '',
       withBorder: false,
+      style: {
+        '--mrt-row-hover-background-color': 'var(--mrt-base-background-color)',
+        '--mrt-selected-row-background-color': 'var(--mrt-base-background-color)',
+        '--mrt-selected-row-hover-background-color': 'var(--mrt-base-background-color)',
+      },
     },
+    onRowSelectionChange: setRowSelection,
     state: {
       isLoading,
+      rowSelection,
     },
     renderRowActions: ({ row }) => (
       <Menu>
@@ -75,8 +87,15 @@ const Table = <T extends MRTRowData>({
         {rowActionMenuItems && rowActionMenuItems(row)}
       </Menu>
     ),
+    mantineTableBodyRowProps: ({ row }) => ({
+      onClick: row.getToggleSelectedHandler(), // To select a row by clicking anywhere on the row
+    }),
     ...options,
   })
+
+  useEffect(() => {
+    onRowSelection(rowSelection)
+  }, [rowSelection])
 
   return (
     <TableWrapper>
