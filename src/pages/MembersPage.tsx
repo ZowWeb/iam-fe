@@ -126,14 +126,12 @@ const MembersPage = () => {
     navigate({ to: '/teams/$teamId/users/$userId', params: { teamId: 'x', userId: 'x' } })
   }
 
-  const options = {
-    mantineTableBodyRowProps: () => ({
-      onClick: () => {
-        // row.getToggleSelectedHandler()
-        handleRowClick()
-      },
-    }),
-  }
+  const mantineTableBodyRowProps = () => ({
+    onClick: () => {
+      // row.getToggleSelectedHandler()
+      handleRowClick()
+    },
+  })
 
   return (
     <Block>
@@ -152,7 +150,16 @@ const MembersPage = () => {
             )}
             <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
             <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
-            <Table {...{ data, columns, isLoading, enableRowActions: true, rowActionMenuItems, options }} />
+            <Table
+              {...{
+                data,
+                columns,
+                isLoading,
+                enableRowActions: true,
+                rowActionMenuItems,
+                mantineTableBodyRowProps,
+              }}
+            />
             <Button onClick={fetchLatestData} loading={isLoading}>
               Fetch latest data
             </Button>

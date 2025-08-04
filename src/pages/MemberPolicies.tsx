@@ -3,7 +3,6 @@ import { TitleLockup } from '@vds/type-lockups'
 import { styled } from '@linaria/react'
 import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { Button } from '@vds/buttons'
-import { Badge } from '@mantine/core'
 
 import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
@@ -15,6 +14,8 @@ import { COLORS } from '~/styles/constants'
 import ActionToolbar from '~/components/AdvancedTable/ActionToolbar'
 import Table from '~/components/AdvancedTable'
 import type { Policy } from '~/types/data'
+import { policies as data } from '~/mocks/policiesData'
+import Badge from '~/components/Badge'
 
 const IamHeroContent = styled(FlexBox)``
 const IamHeroSubtitle = styled.div``
@@ -24,34 +25,6 @@ const tabsConfig: VdsTabConfig[] = [
   { id: 'members', label: 'Members', selected: true },
   { id: 'policies', label: 'Policies' },
   { id: 'serviceAccounts', label: 'Service accounts' },
-]
-
-const policyTableData: Policy[] = [
-  {
-    name: 'Team admin',
-    description: 'All CRUD operations of this team',
-    lastUpdated: 'Jun 22, 2025 12:24 PM',
-  },
-  {
-    name: 'Team access',
-    description: 'Can log in to this team and view public details',
-    lastUpdated: 'Jun 22, 2025 12:24 PM',
-  },
-  {
-    name: 'Dev lead',
-    description: 'Can invite and manage members',
-    lastUpdated: 'Jun 22, 2025 12:24 PM',
-  },
-  {
-    name: 'VZ Public API 1',
-    description: 'See documentation and use credentials for VZ publ',
-    lastUpdated: 'Jun 22, 2025 12:24 PM',
-  },
-  {
-    name: 'VZ Public API 2',
-    description: 'See documentation and use credentials for VZ publ',
-    lastUpdated: 'Jun 22, 2025 12:24 PM',
-  },
 ]
 
 const columns: MRTColumnDef<Policy>[] = [
@@ -108,12 +81,12 @@ export default function MemberPolicies() {
               }}
             />
 
-            <IamHero title="John Smith" showActionButton={false}>
-              <IamHeroContent direction="column" alignItems="flex-start">
+            <IamHero title="John Smith" showActionButton={false} gap="0">
+              <IamHeroContent direction="column" alignItems="flex-start" gap="1rem">
                 <IamHeroSubtitle>john.smith@email.com</IamHeroSubtitle>
-                <FlexBox alignItems="flex-end">
+                <FlexBox>
                   <FlexBox>
-                    <Badge color="blue">3 Policies assigned</Badge>
+                    <Badge value="3&nbsp;&nbsp;Policies assigned" color="blue" />
                   </FlexBox>
                   <FlexBox justifyContent="end" gap="1rem">
                     <Button size="small">Save</Button>
@@ -126,7 +99,7 @@ export default function MemberPolicies() {
             </IamHero>
 
             <ActionToolbar onAction={() => {}} />
-            <Table columns={columns} data={policyTableData} options={options} />
+            <Table {...{ columns, data, options }} />
           </FlexBox>
         </Col>
       </Grid>

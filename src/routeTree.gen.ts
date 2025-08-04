@@ -42,16 +42,18 @@ const TeamsTeamIdUsersIndexRoute = TeamsTeamIdUsersIndexRouteImport.update({
   path: '/',
   getParentRoute: () => TeamsTeamIdUsersRouteRoute,
 } as any)
-const TeamsTeamIdUsersUserIdIndexRoute = TeamsTeamIdUsersUserIdIndexRouteImport.update({
-  id: '/$userId/',
-  path: '/$userId/',
-  getParentRoute: () => TeamsTeamIdUsersRouteRoute,
-} as any)
-const TeamsTeamIdUsersUserIdPoliciesIndexRoute = TeamsTeamIdUsersUserIdPoliciesIndexRouteImport.update({
-  id: '/$userId/policies/',
-  path: '/$userId/policies/',
-  getParentRoute: () => TeamsTeamIdUsersRouteRoute,
-} as any)
+const TeamsTeamIdUsersUserIdIndexRoute =
+  TeamsTeamIdUsersUserIdIndexRouteImport.update({
+    id: '/$userId/',
+    path: '/$userId/',
+    getParentRoute: () => TeamsTeamIdUsersRouteRoute,
+  } as any)
+const TeamsTeamIdUsersUserIdPoliciesIndexRoute =
+  TeamsTeamIdUsersUserIdPoliciesIndexRouteImport.update({
+    id: '/$userId/policies/',
+    path: '/$userId/policies/',
+    getParentRoute: () => TeamsTeamIdUsersRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -175,7 +177,8 @@ interface TeamsTeamIdUsersRouteRouteChildren {
 const TeamsTeamIdUsersRouteRouteChildren: TeamsTeamIdUsersRouteRouteChildren = {
   TeamsTeamIdUsersIndexRoute: TeamsTeamIdUsersIndexRoute,
   TeamsTeamIdUsersUserIdIndexRoute: TeamsTeamIdUsersUserIdIndexRoute,
-  TeamsTeamIdUsersUserIdPoliciesIndexRoute: TeamsTeamIdUsersUserIdPoliciesIndexRoute,
+  TeamsTeamIdUsersUserIdPoliciesIndexRoute:
+    TeamsTeamIdUsersUserIdPoliciesIndexRoute,
 }
 
 const TeamsTeamIdUsersRouteRouteWithChildren =

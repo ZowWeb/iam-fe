@@ -6,6 +6,8 @@ export const COLORS = {
   gray44: '#6F7171',
   vdsGray85: '#D8DADA',
   vdsRed: '#EE0000',
+  vdsBlue: '#006FC1',
+  vdsYellow: '#FED60E',
   brandHighlight: '#EE0000',
   dropdownBorder: '#B4B4B4',
 } as const
