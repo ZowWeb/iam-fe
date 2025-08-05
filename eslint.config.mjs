@@ -64,6 +64,7 @@ export default defineConfig([
           ignoreRestSiblings: true,
           argsIgnorePattern: 'res|next|^err|_.*',
           caughtErrorsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
         },
       ],
 
