@@ -122,16 +122,12 @@ const MembersPage = () => {
     )
   }, [])
 
-  const handleRowClick = () => {
-    navigate({ to: '/teams/$teamId/users/$userId', params: { teamId: 'x', userId: 'x' } })
+  const handleRowClick = (row: MRTRow<Person>) => {
+    navigate({
+      to: '/teams/$teamId/users/$userId',
+      params: { teamId: 'team1', userId: row.original.firstName },
+    })
   }
-
-  const mantineTableBodyRowProps = () => ({
-    onClick: () => {
-      // row.getToggleSelectedHandler()
-      handleRowClick()
-    },
-  })
 
   return (
     <Block>
@@ -157,7 +153,7 @@ const MembersPage = () => {
                 isLoading,
                 enableRowActions: true,
                 rowActionMenuItems,
-                mantineTableBodyRowProps,
+                handleRowClick,
               }}
             />
             <Button onClick={fetchLatestData} loading={isLoading}>

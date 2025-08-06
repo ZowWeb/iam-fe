@@ -19,6 +19,7 @@ import Table from '~/components/AdvancedTable'
 import type { Policy } from '~/types/data'
 import { policies as data } from '~/mocks/policiesData'
 import Badge from '~/components/Badge'
+import { theme } from '~/styles/theme'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -45,17 +46,15 @@ const columns: MRTColumnDef<Policy>[] = [
   },
 ]
 
-const options = {
+const tableOptions = {
   enableRowSelection: true,
-  mantineSelectCheckboxProps: { color: 'black' },
-  mantineSelectAllCheckboxProps: { color: 'black' },
+  mantineSelectCheckboxProps: { color: theme.black },
+  mantineSelectAllCheckboxProps: { color: theme.black },
 }
 
 export default function MemberPolicies() {
-  const [selectedQty, setSelectedQty] = useState(0)
-  const handleRowSelection = (rows: MRTRowSelectionState) => {
-    setSelectedQty(Object.entries(rows).length)
-  }
+  const [rowSelection, setRowSelection] = useState<MRTRowSelectionState>({})
+  const selectedRowsQty = Object.values(rowSelection).filter(Boolean).length
 
   return (
     <Block>
@@ -85,16 +84,15 @@ export default function MemberPolicies() {
                 },
               }}
             />
-
             <IamHero title="John Smith" showActionButton={false} gap="0">
               <FlexBox alignItems="flex-end">
                 <FlexBox direction="column" alignItems="flex-start" gap="1rem">
                   <div>john.smith@email.com</div>
                   <FlexBox alignItems="flex-end">
                     <FlexBox gap="0.5rem">
-                      {selectedQty > 0 && (
+                      {selectedRowsQty > 0 && (
                         <Badge
-                          value={`${selectedQty} ${selectedQty === 1 ? 'Policy' : 'Policies'} assigned`}
+                          value={`${selectedRowsQty} ${selectedRowsQty === 1 ? 'Policy' : 'Policies'} assigned`}
                           color="blue"
                         />
                       )}
@@ -112,7 +110,9 @@ export default function MemberPolicies() {
             </IamHero>
 
             <ActionToolbar onAction={() => {}} />
-            <Table {...{ columns, data, onRowSelection: handleRowSelection, ...options }} />
+            <Table
+              {...{ columns, data, rowSelection, onRowSelectionChange: setRowSelection, ...tableOptions }}
+            />
           </FlexBox>
         </Col>
       </Grid>
