@@ -1,53 +1,34 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { ButtonIcon } from '@vds/button-icons'
 import { Icon, type IconProps } from '@vds/icons'
-import { Button } from '@vds/buttons'
 
 import { Right } from './styles'
 import FlexBox from '~/components/FlexBox'
 import SearchInput from '~/components/SearchInput'
 
-export interface ActionToolbarProps {
-  onAction: (action: string, data?: string) => void
+export type ActionToolbarProps = {
+  onSearch: (data: string) => void
   searchPlaceHolderText?: string
-  actionButtonText?: string | null
+  children: React.ReactNode
 }
 
-export default function ActionToolbar({
-  onAction,
-  searchPlaceHolderText,
-  actionButtonText = null,
-}: ActionToolbarProps) {
+export default function ActionToolbar({ onSearch, searchPlaceHolderText, children }: ActionToolbarProps) {
   const [searchText, setSearchText] = useState('')
   const [showFilters, setShowFilters] = useState(false)
 
-  const handleSearch = (value: string) => {
+  const handleSearchChange = (value: string) => {
     setSearchText(value)
-    onAction('search', value)
+    onSearch(value)
   }
   const handleClear = () => {
     setSearchText('')
   }
-  const handleActionAClick = () => {
-    onAction('action-a-click')
+  const handleOpenFilters = () => {
     setShowFilters(true)
-  }
-  const handleActionBClick = () => {
-    onAction('action-b-click')
   }
   const handleCloseFilters = () => {
     setShowFilters(false)
   }
-
-  const ActionButton = () =>
-    useMemo(
-      () => (
-        <Button size="large" disabled={false} use="secondary" onClick={handleActionBClick}>
-          {actionButtonText}
-        </Button>
-      ),
-      [actionButtonText],
-    )
 
   return (
     <FlexBox>
@@ -59,7 +40,7 @@ export default function ActionToolbar({
             renderIcon={(props: IconProps) => <Icon name="close" {...props} />}
             onClick={handleCloseFilters}
           />
-          {actionButtonText && <ActionButton />}
+          {children}
         </Right>
       )}
       {!showFilters && (
@@ -67,7 +48,7 @@ export default function ActionToolbar({
           <FlexBox>
             <SearchInput
               clearSearch={handleClear}
-              onChange={value => handleSearch(value)}
+              onChange={value => handleSearchChange(value)}
               value={searchText}
               variant="primary"
               searchPlaceHolderText={searchPlaceHolderText}
@@ -77,14 +58,10 @@ export default function ActionToolbar({
               size="large"
               surfaceType="colorFill"
               renderIcon={(props: IconProps) => <Icon name="filter" {...props} />}
-              onClick={handleActionAClick}
+              onClick={handleOpenFilters}
             />
           </FlexBox>
-          {actionButtonText && (
-            <Right>
-              <ActionButton />
-            </Right>
-          )}
+          <Right>{children}</Right>
         </>
       )}
     </FlexBox>

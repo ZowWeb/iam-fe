@@ -3,6 +3,7 @@ import { TitleLockup } from '@vds/type-lockups'
 import { styled } from '@linaria/react'
 import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { useNavigate } from '@tanstack/react-router'
+import { Button } from '@vds/buttons'
 
 import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
@@ -12,7 +13,7 @@ import FlexBox from '~/components/FlexBox'
 import Typography from '~/components/Typography'
 import Link from '~/components/Link'
 import { COLORS } from '~/styles/constants'
-import ActionToolbar from '~/components/AdvancedTable/ActionToolbar'
+import ActionToolbar from '~/components/ActionToolbar'
 import Table from '~/components/AdvancedTable'
 import type { Policy } from '~/types/data'
 
@@ -103,11 +104,8 @@ const columns: MRTColumnDef<Policy>[] = [
 
 const MemberPage = () => {
   const navigate = useNavigate()
-
-  const handleManagePolicies = (action: string) => {
-    if (action === 'action-b-click') {
-      navigate({ to: '/teams/$teamId/users/$userId/policies', params: { teamId: 'x', userId: 'x' } })
-    }
+  const handleManagePoliciesClick = () => {
+    navigate({ to: '/teams/$teamId/users/$userId/policies', params: { teamId: 'team1', userId: 'x' } })
   }
 
   return (
@@ -156,7 +154,11 @@ const MemberPage = () => {
                 },
               }}
             />
-            <ActionToolbar onAction={handleManagePolicies} actionButtonText="Manage policies" />
+            <ActionToolbar onSearch={() => {}}>
+              <Button size="large" disabled={false} use="secondary" onClick={handleManagePoliciesClick}>
+                Manage policies
+              </Button>
+            </ActionToolbar>
             <Table {...{ data, columns }} />
           </FlexBox>
         </Col>

@@ -1,23 +1,30 @@
 import { styled } from '@linaria/react'
 
 import { COLORS } from '~/styles/constants'
+import Typography from '../Typography'
 
 export const colorMap: { [key: string]: string } = {
-  blue: COLORS.vdsBlue,
+  blue: COLORS.vdsBlue38,
   yellow: COLORS.vdsYellow,
 }
 
-const getBackgroundColor = (colorName: string | undefined) => {
-  return colorName ? colorMap[colorName] || 'black' : 'black'
+export type BadgeContainerProps = {
+  size?: string | number
+  weight?: number
+  color: string
 }
 
-const getTextColor = (colorName: string | undefined) => {
+const getBackgroundColor = (colorName: string) => {
+  return colorMap[colorName]
+}
+
+const getTextColor = (colorName: string) => {
   return colorName === 'yellow' ? 'black' : 'white'
 }
 
-export const BadgeContainer = styled.div`
+export const BadgeContainer = styled(Typography.Span)<BadgeContainerProps>`
   background-color: ${props => getBackgroundColor(props.color)};
   color: ${props => getTextColor(props.color)};
-  border-radius: 25px;
-  padding: 0 0.5rem;
+  border-radius: 0.75rem;
+  padding: 0.25rem 0.5rem;
 `
