@@ -34,12 +34,14 @@ export default function IamPill({
 
   const ErrorPill = useMemo(
     () => (
-      <StyledPillSecondary withRemoveButton={withRemoveButton} onRemove={() => handleRemovePill(text)}>
-        <FlexBox>
-          <Icon name="error" color="#B95319" size="small" />
-          {text}
-        </FlexBox>
-      </StyledPillSecondary>
+      <FlexBox>
+        <StyledPillSecondary withRemoveButton={withRemoveButton} onRemove={() => handleRemovePill(text)}>
+          <FlexBox>
+            <Icon name="error" color="#B95319" size="small" />
+            {text}
+          </FlexBox>
+        </StyledPillSecondary>
+      </FlexBox>
     ),
     [withRemoveButton, onRemove, text],
   )

@@ -1,19 +1,26 @@
-/* eslint-disable */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Modal, PillsInput } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import type { ZodType } from 'zod'
 
 import { StyledButton, StyledButtons, StyledPillGroup, StyledPillsInput, TeamName, TeamTitle } from './styles'
 import { FONT_WEIGHTS } from '~/styles/constants'
 import Typography from '~/components/Typography'
 import IamPill from '../../../IamPill'
 import FlexBox from '~/components/FlexBox'
-import { truncateMaxedOutText } from '~/utils'
+import { usePills, type Pill } from '~/hooks/pages/members/usePills'
+import IamIconMessage from '~/components/IamIconMessage'
+
+const uniqueArray = (schema: ZodType) => {
+  return z.array(schema).refine(items => new Set(items).size === items.length, {
+    message: 'All items must be unique, no duplicate values allowed',
+  })
+}
 
 const formSchema = z.object({
-  emailList: z.array(z.email('Invalid email')).min(1, 'Please add at least one email'),
+  emailList: uniqueArray(z.email('Invalid email')).min(1, 'Please add at least one email'),
 })
 type FormSchema = z.infer<typeof formSchema>
 type InviteMembersModalProps = {
@@ -23,11 +30,11 @@ type InviteMembersModalProps = {
 
 export default function InviteMembersModal({ opened, onClose }: InviteMembersModalProps) {
   const [inputValue, setInputValue] = useState<string>('')
-
+  const { pills, errorMessage, addPill, removePill, resetPills } = usePills()
   const {
     control,
     handleSubmit,
-    getValues,
+    reset,
     formState: { isValid },
   } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -35,13 +42,18 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
     defaultValues: { emailList: ['dummy@verizoncom'] },
   })
 
+  const handleRemovePillClick = (pill: Pill, fieldOnChange: (value: string[]) => void) => {
+    removePill(pill, fieldOnChange)
+  }
+
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLInputElement>,
     fieldOnChange: (value: string[]) => void,
   ) => {
-    if (event.key === 'Enter' && inputValue) {
+    if (event.key === 'Enter' && inputValue.trim()) {
       event.preventDefault()
-      addEmail(inputValue, fieldOnChange)
+      addPill(inputValue.trim(), fieldOnChange)
+      setInputValue('')
     }
   }
 
@@ -53,24 +65,20 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
     onClose()
   }
 
-  const onSubmit = data => {
+  const onSubmit = () => {
     handleCloseModal()
   }
 
-  const addEmail = (email: string, fieldOnChange: (value: string[]) => void) => {
-    if (email?.trim()) {
-      const currentEmails = getValues('emailList')
-      const updatedEmails = [...currentEmails, email.trim()]
-      fieldOnChange(updatedEmails)
-      setInputValue('')
+  /**
+   * Reset form when open state changes.
+   * TODO: Remove when integrating with API
+   */
+  useEffect(() => {
+    if (opened) {
+      reset() // Reset the form state
+      resetPills() // Reset the inner pills state
     }
-  }
-
-  const removeEmail = (emailToRemove: string, fieldOnChange: (value: string[]) => void) => {
-    const currentEmails = getValues('emailList')
-    const updatedEmails = currentEmails.filter(email => email !== emailToRemove)
-    fieldOnChange(updatedEmails)
-  }
+  }, [opened])
 
   return (
     <Modal
@@ -92,28 +100,32 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
             name="emailList"
             control={control}
             render={({ field }) => (
-              <StyledPillsInput label="Email address(es)">
-                <StyledPillGroup>
-                  {field.value.map((element, idx) => {
-                    const variant = 'dark'
-                    const truncated = truncateMaxedOutText(element)
-                    return (
-                      <IamPill
-                        key={`${idx}${element}`}
-                        withRemoveButton
-                        onRemove={e => removeEmail(e, field.onChange)}
-                        text={truncated}
-                        variant={variant}
-                      />
-                    )
-                  })}
-                  <PillsInput.Field
-                    onKeyDown={e => handleKeyDown(e, field.onChange)}
-                    value={inputValue}
-                    onChange={e => handleTextChange(e)}
-                  />
-                </StyledPillGroup>
-              </StyledPillsInput>
+              <>
+                <StyledPillsInput label="Email address(es)">
+                  <StyledPillGroup>
+                    {pills.map(pill => {
+                      const hasErrors = pill.errors.length > 0 // Checks the errors array
+                      const variant = hasErrors ? 'error' : 'dark'
+
+                      return (
+                        <IamPill
+                          key={pill.id}
+                          withRemoveButton
+                          onRemove={() => handleRemovePillClick(pill, field.onChange)}
+                          text={pill.shortenedEmail}
+                          variant={variant}
+                        />
+                      )
+                    })}
+                    <PillsInput.Field
+                      onKeyDown={e => handleKeyDown(e, field.onChange)}
+                      value={inputValue}
+                      onChange={e => handleTextChange(e)}
+                    />
+                  </StyledPillGroup>
+                </StyledPillsInput>
+                {errorMessage && <IamIconMessage text={errorMessage} />}
+              </>
             )}
           />
 
