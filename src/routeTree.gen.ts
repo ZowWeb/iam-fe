@@ -14,6 +14,7 @@ import { Route as TeamsTeamIdRouteRouteImport } from './routes/teams/$teamId/rou
 import { Route as TeamsTeamIdIndexRouteImport } from './routes/teams/$teamId/index'
 import { Route as TeamsTeamIdUsersRouteRouteImport } from './routes/teams/$teamId/users/route'
 import { Route as TeamsTeamIdUsersIndexRouteImport } from './routes/teams/$teamId/users/index'
+import { Route as TeamsTeamIdUsersUserIdRouteRouteImport } from './routes/teams/$teamId/users/$userId/route'
 import { Route as TeamsTeamIdUsersUserIdIndexRouteImport } from './routes/teams/$teamId/users/$userId/index'
 import { Route as TeamsTeamIdUsersUserIdPoliciesIndexRouteImport } from './routes/teams/$teamId/users/$userId/policies/index'
 
@@ -42,17 +43,23 @@ const TeamsTeamIdUsersIndexRoute = TeamsTeamIdUsersIndexRouteImport.update({
   path: '/',
   getParentRoute: () => TeamsTeamIdUsersRouteRoute,
 } as any)
+const TeamsTeamIdUsersUserIdRouteRoute =
+  TeamsTeamIdUsersUserIdRouteRouteImport.update({
+    id: '/$userId',
+    path: '/$userId',
+    getParentRoute: () => TeamsTeamIdUsersRouteRoute,
+  } as any)
 const TeamsTeamIdUsersUserIdIndexRoute =
   TeamsTeamIdUsersUserIdIndexRouteImport.update({
-    id: '/$userId/',
-    path: '/$userId/',
-    getParentRoute: () => TeamsTeamIdUsersRouteRoute,
+    id: '/',
+    path: '/',
+    getParentRoute: () => TeamsTeamIdUsersUserIdRouteRoute,
   } as any)
 const TeamsTeamIdUsersUserIdPoliciesIndexRoute =
   TeamsTeamIdUsersUserIdPoliciesIndexRouteImport.update({
-    id: '/$userId/policies/',
-    path: '/$userId/policies/',
-    getParentRoute: () => TeamsTeamIdUsersRouteRoute,
+    id: '/policies/',
+    path: '/policies/',
+    getParentRoute: () => TeamsTeamIdUsersUserIdRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -60,8 +67,9 @@ export interface FileRoutesByFullPath {
   '/teams/$teamId': typeof TeamsTeamIdRouteRouteWithChildren
   '/teams/$teamId/users': typeof TeamsTeamIdUsersRouteRouteWithChildren
   '/teams/$teamId/': typeof TeamsTeamIdIndexRoute
+  '/teams/$teamId/users/$userId': typeof TeamsTeamIdUsersUserIdRouteRouteWithChildren
   '/teams/$teamId/users/': typeof TeamsTeamIdUsersIndexRoute
-  '/teams/$teamId/users/$userId': typeof TeamsTeamIdUsersUserIdIndexRoute
+  '/teams/$teamId/users/$userId/': typeof TeamsTeamIdUsersUserIdIndexRoute
   '/teams/$teamId/users/$userId/policies': typeof TeamsTeamIdUsersUserIdPoliciesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/teams/$teamId': typeof TeamsTeamIdRouteRouteWithChildren
   '/teams/$teamId/users': typeof TeamsTeamIdUsersRouteRouteWithChildren
   '/teams/$teamId/': typeof TeamsTeamIdIndexRoute
+  '/teams/$teamId/users/$userId': typeof TeamsTeamIdUsersUserIdRouteRouteWithChildren
   '/teams/$teamId/users/': typeof TeamsTeamIdUsersIndexRoute
   '/teams/$teamId/users/$userId/': typeof TeamsTeamIdUsersUserIdIndexRoute
   '/teams/$teamId/users/$userId/policies/': typeof TeamsTeamIdUsersUserIdPoliciesIndexRoute
@@ -88,8 +97,9 @@ export interface FileRouteTypes {
     | '/teams/$teamId'
     | '/teams/$teamId/users'
     | '/teams/$teamId/'
-    | '/teams/$teamId/users/'
     | '/teams/$teamId/users/$userId'
+    | '/teams/$teamId/users/'
+    | '/teams/$teamId/users/$userId/'
     | '/teams/$teamId/users/$userId/policies'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
     | '/teams/$teamId'
     | '/teams/$teamId/users'
     | '/teams/$teamId/'
+    | '/teams/$teamId/users/$userId'
     | '/teams/$teamId/users/'
     | '/teams/$teamId/users/$userId/'
     | '/teams/$teamId/users/$userId/policies/'
@@ -151,34 +162,56 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeamsTeamIdUsersIndexRouteImport
       parentRoute: typeof TeamsTeamIdUsersRouteRoute
     }
-    '/teams/$teamId/users/$userId/': {
-      id: '/teams/$teamId/users/$userId/'
+    '/teams/$teamId/users/$userId': {
+      id: '/teams/$teamId/users/$userId'
       path: '/$userId'
       fullPath: '/teams/$teamId/users/$userId'
-      preLoaderRoute: typeof TeamsTeamIdUsersUserIdIndexRouteImport
+      preLoaderRoute: typeof TeamsTeamIdUsersUserIdRouteRouteImport
       parentRoute: typeof TeamsTeamIdUsersRouteRoute
+    }
+    '/teams/$teamId/users/$userId/': {
+      id: '/teams/$teamId/users/$userId/'
+      path: '/'
+      fullPath: '/teams/$teamId/users/$userId/'
+      preLoaderRoute: typeof TeamsTeamIdUsersUserIdIndexRouteImport
+      parentRoute: typeof TeamsTeamIdUsersUserIdRouteRoute
     }
     '/teams/$teamId/users/$userId/policies/': {
       id: '/teams/$teamId/users/$userId/policies/'
-      path: '/$userId/policies'
+      path: '/policies'
       fullPath: '/teams/$teamId/users/$userId/policies'
       preLoaderRoute: typeof TeamsTeamIdUsersUserIdPoliciesIndexRouteImport
-      parentRoute: typeof TeamsTeamIdUsersRouteRoute
+      parentRoute: typeof TeamsTeamIdUsersUserIdRouteRoute
     }
   }
 }
 
-interface TeamsTeamIdUsersRouteRouteChildren {
-  TeamsTeamIdUsersIndexRoute: typeof TeamsTeamIdUsersIndexRoute
+interface TeamsTeamIdUsersUserIdRouteRouteChildren {
   TeamsTeamIdUsersUserIdIndexRoute: typeof TeamsTeamIdUsersUserIdIndexRoute
   TeamsTeamIdUsersUserIdPoliciesIndexRoute: typeof TeamsTeamIdUsersUserIdPoliciesIndexRoute
 }
 
+const TeamsTeamIdUsersUserIdRouteRouteChildren: TeamsTeamIdUsersUserIdRouteRouteChildren =
+  {
+    TeamsTeamIdUsersUserIdIndexRoute: TeamsTeamIdUsersUserIdIndexRoute,
+    TeamsTeamIdUsersUserIdPoliciesIndexRoute:
+      TeamsTeamIdUsersUserIdPoliciesIndexRoute,
+  }
+
+const TeamsTeamIdUsersUserIdRouteRouteWithChildren =
+  TeamsTeamIdUsersUserIdRouteRoute._addFileChildren(
+    TeamsTeamIdUsersUserIdRouteRouteChildren,
+  )
+
+interface TeamsTeamIdUsersRouteRouteChildren {
+  TeamsTeamIdUsersUserIdRouteRoute: typeof TeamsTeamIdUsersUserIdRouteRouteWithChildren
+  TeamsTeamIdUsersIndexRoute: typeof TeamsTeamIdUsersIndexRoute
+}
+
 const TeamsTeamIdUsersRouteRouteChildren: TeamsTeamIdUsersRouteRouteChildren = {
+  TeamsTeamIdUsersUserIdRouteRoute:
+    TeamsTeamIdUsersUserIdRouteRouteWithChildren,
   TeamsTeamIdUsersIndexRoute: TeamsTeamIdUsersIndexRoute,
-  TeamsTeamIdUsersUserIdIndexRoute: TeamsTeamIdUsersUserIdIndexRoute,
-  TeamsTeamIdUsersUserIdPoliciesIndexRoute:
-    TeamsTeamIdUsersUserIdPoliciesIndexRoute,
 }
 
 const TeamsTeamIdUsersRouteRouteWithChildren =
