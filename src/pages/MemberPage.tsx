@@ -2,6 +2,7 @@ import { IconChevronLeft } from '@tabler/icons-react'
 import { TitleLockup } from '@vds/type-lockups'
 import { styled } from '@linaria/react'
 import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
+import { useNavigate } from '@tanstack/react-router'
 
 import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
@@ -11,9 +12,10 @@ import FlexBox from '~/components/FlexBox'
 import Typography from '~/components/Typography'
 import Link from '~/components/Link'
 import { COLORS } from '~/styles/constants'
-import ActionToolbar from '~/components/AdvancedTable/ActionToolbar'
+import ActionToolbar from '~/components/ActionToolbar'
 import Table from '~/components/AdvancedTable'
 import type { Policy } from '~/types/data'
+import { Route } from '~/routes/teams/$teamId/users/$userId'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -101,6 +103,13 @@ const columns: MRTColumnDef<Policy>[] = [
 ]
 
 const MemberPage = () => {
+  const { userId } = Route.useParams()
+  const navigate = useNavigate()
+
+  const handleManagePoliciesClick = () => {
+    navigate({ to: '/teams/$teamId/users/$userId/policies', params: { teamId: 'team1', userId } })
+  }
+
   return (
     <Block>
       <Grid>
@@ -147,7 +156,7 @@ const MemberPage = () => {
                 },
               }}
             />
-            <ActionToolbar onAction={() => {}} actionButtonText="Manage policies" />
+            <ActionToolbar ctaConfig={{ label: 'Manage policies', onClick: handleManagePoliciesClick }} />
             <Table {...{ data, columns }} />
           </FlexBox>
         </Col>

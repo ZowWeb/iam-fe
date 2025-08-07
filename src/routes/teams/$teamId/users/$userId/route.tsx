@@ -1,9 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from '@tanstack/react-router'
 
-import MemberPage from '~/pages/MemberPage'
+const RouteComponent = () => <Outlet />
 
 export const Route = createFileRoute('/teams/$teamId/users/$userId')({
-  component: MemberPage,
+  component: RouteComponent,
   loader: async () => {
     const username = await new Promise<string>(resolve => {
       setTimeout(resolve, 100)

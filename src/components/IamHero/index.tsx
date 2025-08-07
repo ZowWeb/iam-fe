@@ -7,11 +7,12 @@ type Props = {
   subtitle?: string
   showActionButton?: boolean
   children?: React.ReactNode
+  gap?: string
 }
 
-const IamHero = ({ title, subtitle, showActionButton = false, children }: Props) => {
+const IamHero = ({ title, subtitle, showActionButton = false, children, gap = '1.5rem' }: Props) => {
   return (
-    <Wrapper direction="column" alignItems="flex-start" gap="1.5rem">
+    <Wrapper direction="column" alignItems="flex-start" gap={gap}>
       <TitleWithActionWrapper>
         <Title>{title}</Title>
         {showActionButton && (

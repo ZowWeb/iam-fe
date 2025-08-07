@@ -2,12 +2,13 @@ import { Button } from '@mantine/core'
 import { useCallback, useState } from 'react'
 import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { Notification } from '@vds/notifications'
+import { useNavigate } from '@tanstack/react-router'
 
 import Table from '~/components/AdvancedTable'
 import { data as initialData, moreData } from '../mocks/makeData'
 import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
-import ActionToolbar from '~/components/AdvancedTable/ActionToolbar'
+import ActionToolbar from '~/components/ActionToolbar'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
 import Grid, { Col } from '~/components/Grid'
 import FlexBox from '~/components/FlexBox'
@@ -61,6 +62,7 @@ const ROW_ACTIONS = {
 type RowActionType = keyof typeof ROW_ACTIONS
 
 const MembersPage = () => {
+  const { teamId } = Route.useParams()
   const [data, setData] = useState<Person[]>(initialData)
   const [isLoading, setIsLoading] = useState(false)
   const [notificationConfig, setNotificationConfig] = useState<{
@@ -72,6 +74,7 @@ const MembersPage = () => {
     message: '',
   })
   const _loaderData = Route.useLoaderData()
+  const navigate = useNavigate()
 
   const fetchLatestData = async () => {
     setIsLoading(true)
@@ -120,6 +123,13 @@ const MembersPage = () => {
     )
   }, [])
 
+  const handleRowClick = (row: MRTRow<Person>) => {
+    navigate({
+      to: '/teams/$teamId/users/$userId',
+      params: { teamId, userId: row.original.firstName },
+    })
+  }
+
   return (
     <Block>
       <Grid>
@@ -136,8 +146,17 @@ const MembersPage = () => {
               />
             )}
             <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
-            <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
-            <Table {...{ data, columns, isLoading, enableRowActions: true, rowActionMenuItems }} />
+            <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: () => {} }} />
+            <Table
+              {...{
+                data,
+                columns,
+                isLoading,
+                enableRowActions: true,
+                rowActionMenuItems,
+                handleRowClick,
+              }}
+            />
             <Button onClick={fetchLatestData} loading={isLoading}>
               Fetch latest data
             </Button>

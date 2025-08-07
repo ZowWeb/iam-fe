@@ -12,8 +12,25 @@ export const TableWrapper = styled.div`
     align-self: flex-end;
   }
 
-  table > tbody > tr > td:first-child {
-    font-weight: 700;
+  table {
+    font-size: 0.875rem;
+
+    > thead > tr {
+      border-bottom-color: ${COLORS.secondary};
+
+      > th {
+        font-weight: 700;
+        color: ${COLORS.secondary};
+      }
+    }
+
+    > tbody > tr {
+      border-bottom-color: ${COLORS.vdsGray85};
+
+      > td:first-child {
+        font-weight: 700;
+      }
+    }
   }
 `
 
