@@ -1,18 +1,26 @@
 import { useState } from 'react'
 import { ButtonIcon } from '@vds/button-icons'
 import { Icon, type IconProps } from '@vds/icons'
+import { Button } from '@vds/buttons'
 
 import { Right } from './styles'
 import FlexBox from '~/components/FlexBox'
 import SearchInput from '~/components/SearchInput'
 
-export type ActionToolbarProps = {
+export type ActionToolbarProps = Partial<{
   onSearch: (data: string) => void
   searchPlaceHolderText?: string
-  children: React.ReactNode
-}
+  ctaConfig: {
+    label: string
+    onClick: () => void
+  }
+}>
 
-export default function ActionToolbar({ onSearch, searchPlaceHolderText, children }: ActionToolbarProps) {
+export default function ActionToolbar({
+  onSearch = () => {},
+  searchPlaceHolderText,
+  ctaConfig,
+}: ActionToolbarProps) {
   const [searchText, setSearchText] = useState('')
   const [showFilters, setShowFilters] = useState(false)
 
@@ -30,9 +38,15 @@ export default function ActionToolbar({ onSearch, searchPlaceHolderText, childre
     setShowFilters(false)
   }
 
+  const ctaBtn = ctaConfig && (
+    <Button size="large" disabled={false} use="secondary" onClick={ctaConfig.onClick}>
+      {ctaConfig.label}
+    </Button>
+  )
+
   return (
-    <FlexBox>
-      {showFilters && (
+    <FlexBox justifyContent="space-between" alignItems="center" gap="0.5rem">
+      {showFilters ? (
         <Right>
           <ButtonIcon
             kind="ghost"
@@ -40,12 +54,18 @@ export default function ActionToolbar({ onSearch, searchPlaceHolderText, childre
             renderIcon={(props: IconProps) => <Icon name="close" {...props} />}
             onClick={handleCloseFilters}
           />
-          {children}
+          {ctaBtn}
         </Right>
-      )}
-      {!showFilters && (
+      ) : (
         <>
           <FlexBox>
+            <ButtonIcon
+              kind="lowContrast"
+              size="large"
+              surfaceType="colorFill"
+              renderIcon={(props: IconProps) => <Icon name="customize" {...props} />}
+              onClick={handleOpenFilters}
+            />
             <SearchInput
               clearSearch={handleClear}
               onChange={value => handleSearchChange(value)}
@@ -53,15 +73,8 @@ export default function ActionToolbar({ onSearch, searchPlaceHolderText, childre
               variant="primary"
               searchPlaceHolderText={searchPlaceHolderText}
             />
-            <ButtonIcon
-              kind="lowContrast"
-              size="large"
-              surfaceType="colorFill"
-              renderIcon={(props: IconProps) => <Icon name="filter" {...props} />}
-              onClick={handleOpenFilters}
-            />
           </FlexBox>
-          <Right>{children}</Right>
+          <Right>{ctaBtn}</Right>
         </>
       )}
     </FlexBox>

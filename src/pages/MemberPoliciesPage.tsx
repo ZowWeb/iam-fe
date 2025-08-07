@@ -108,8 +108,7 @@ export default function MemberPolicies() {
                 </FlexBox>
               </FlexBox>
             </IamHero>
-
-            <ActionToolbar onAction={() => {}} />
+            <ActionToolbar />
             <Table
               {...{ columns, data, rowSelection, onRowSelectionChange: setRowSelection, ...tableOptions }}
             />

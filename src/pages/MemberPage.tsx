@@ -3,7 +3,6 @@ import { TitleLockup } from '@vds/type-lockups'
 import { styled } from '@linaria/react'
 import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { useNavigate } from '@tanstack/react-router'
-import { Button } from '@vds/buttons'
 
 import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
@@ -154,11 +153,7 @@ const MemberPage = () => {
                 },
               }}
             />
-            <ActionToolbar onSearch={() => {}}>
-              <Button size="large" disabled={false} use="secondary" onClick={handleManagePoliciesClick}>
-                Manage policies
-              </Button>
-            </ActionToolbar>
+            <ActionToolbar ctaConfig={{ label: 'Manage policies', onClick: handleManagePoliciesClick }} />
             <Table {...{ data, columns }} />
           </FlexBox>
         </Col>

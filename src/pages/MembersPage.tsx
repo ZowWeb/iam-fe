@@ -145,7 +145,7 @@ const MembersPage = () => {
               />
             )}
             <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
-            <ActionToolbar onAction={() => {}} actionButtonText="Invite members" />
+            <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: () => {} }} />
             <Table
               {...{
                 data,
