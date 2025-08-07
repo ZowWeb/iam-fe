@@ -15,6 +15,7 @@ import { COLORS } from '~/styles/constants'
 import ActionToolbar from '~/components/ActionToolbar'
 import Table from '~/components/AdvancedTable'
 import type { Policy } from '~/types/data'
+import { Route } from '~/routes/teams/$teamId/users/$userId'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -102,9 +103,11 @@ const columns: MRTColumnDef<Policy>[] = [
 ]
 
 const MemberPage = () => {
+  const { userId } = Route.useParams()
   const navigate = useNavigate()
+
   const handleManagePoliciesClick = () => {
-    navigate({ to: '/teams/$teamId/users/$userId/policies', params: { teamId: 'team1', userId: 'x' } })
+    navigate({ to: '/teams/$teamId/users/$userId/policies', params: { teamId: 'team1', userId } })
   }
 
   return (
