@@ -52,7 +52,7 @@ const tableOptions = {
   mantineSelectAllCheckboxProps: { color: theme.black },
 }
 
-export default function MemberPolicies() {
+const MemberPoliciesPage = () => {
   const [rowSelection, setRowSelection] = useState<MRTRowSelectionState>({})
   const selectedRowsQty = Object.values(rowSelection).filter(Boolean).length
 
@@ -118,3 +118,5 @@ export default function MemberPolicies() {
     </Block>
   )
 }
+
+export default MemberPoliciesPage
