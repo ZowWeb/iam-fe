@@ -115,7 +115,13 @@ const MembersPage = () => {
     return (
       <MenuDropdown>
         {Object.entries(ROW_ACTIONS).map(([action, label]) => (
-          <MenuItem key={action} onClick={() => handleRowAction(action as RowActionType)}>
+          <MenuItem
+            key={action}
+            onClick={event => {
+              event.stopPropagation()
+              handleRowAction(action as RowActionType)
+            }}
+          >
             {label}
           </MenuItem>
         ))}

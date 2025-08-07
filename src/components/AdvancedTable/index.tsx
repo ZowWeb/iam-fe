@@ -84,7 +84,7 @@ const Table = <T extends MRTRowData>({
     renderRowActions: ({ row }) => (
       <Menu>
         <Menu.Target>
-          <Button variant="transparent">
+          <Button variant="transparent" onClick={e => e.stopPropagation()}>
             <Icon name="more-horizontal" size={24} />
           </Button>
         </Menu.Target>
