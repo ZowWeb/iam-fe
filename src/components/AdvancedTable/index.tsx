@@ -93,6 +93,9 @@ const Table = <T extends MRTRowData>({
     ),
     mantineTableBodyRowProps: ({ row }) => ({
       onClick: handleRowClick ? () => handleRowClick(row) : row.getToggleSelectedHandler(), // To select a row by clicking anywhere on the row
+      style: {
+        cursor: handleRowClick || row.getCanSelect() ? 'pointer' : 'default', // Change cursor style if handleRowClick is provided
+      },
     }),
     ...options,
   })
