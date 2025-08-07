@@ -62,6 +62,7 @@ const ROW_ACTIONS = {
 type RowActionType = keyof typeof ROW_ACTIONS
 
 const MembersPage = () => {
+  const { teamId } = Route.useParams()
   const [data, setData] = useState<Person[]>(initialData)
   const [isLoading, setIsLoading] = useState(false)
   const [notificationConfig, setNotificationConfig] = useState<{
@@ -125,7 +126,7 @@ const MembersPage = () => {
   const handleRowClick = (row: MRTRow<Person>) => {
     navigate({
       to: '/teams/$teamId/users/$userId',
-      params: { teamId: 'team1', userId: row.original.firstName },
+      params: { teamId, userId: row.original.firstName },
     })
   }
 
