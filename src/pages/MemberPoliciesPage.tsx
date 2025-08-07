@@ -92,11 +92,11 @@ export default function MemberPolicies() {
                     <FlexBox gap="0.5rem">
                       {selectedRowsQty > 0 && (
                         <Badge
-                          value={`${selectedRowsQty} ${selectedRowsQty === 1 ? 'Policy' : 'Policies'} assigned`}
+                          text={`${selectedRowsQty} ${selectedRowsQty === 1 ? 'Policy' : 'Policies'} assigned`}
                           color="blue"
                         />
                       )}
-                      <Badge value="0 Policies removed" color="yellow" />
+                      <Badge text="0 Policies removed" color="yellow" />
                     </FlexBox>
                   </FlexBox>
                 </FlexBox>

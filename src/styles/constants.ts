@@ -7,7 +7,7 @@ export const COLORS = {
   vdsGray85: '#D8DADA',
   vdsRed: '#EE0000',
   vdsBlue38: '#006FC1',
-  vdsYellow: '#FED60E',
+  vdsYellow53: '#FED60E',
   brandHighlight: '#EE0000',
   dropdownBorder: '#B4B4B4',
 } as const

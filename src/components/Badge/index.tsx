@@ -1,15 +1,10 @@
-import { FONT_WEIGHTS } from '~/styles/constants'
-import { BadgeContainer } from './styles'
+import { BadgeContainer, type BadgeColor } from './styles'
 
 type BadgeProps = {
-  value: string
-  color?: string
+  text: string
+  color?: BadgeColor
 }
 
-export default function Badge({ value, color = 'black' }: BadgeProps) {
-  return (
-    <BadgeContainer color={color} size="0.75rem" weight={FONT_WEIGHTS.medium}>
-      {value}
-    </BadgeContainer>
-  )
+export default function Badge({ text, color = 'red' }: BadgeProps) {
+  return <BadgeContainer badgeColor={color}>{text}</BadgeContainer>
 }
