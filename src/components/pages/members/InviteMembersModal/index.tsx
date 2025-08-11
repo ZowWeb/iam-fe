@@ -8,9 +8,9 @@ import type { ZodType } from 'zod'
 import { StyledButton, StyledButtons, StyledPillGroup, StyledPillsInput, TeamName, TeamTitle } from './styles'
 import { FONT_WEIGHTS } from '~/styles/constants'
 import Typography from '~/components/Typography'
-import IamPill from '../../../IamPill'
+import Pill from '../../../Pill'
 import FlexBox from '~/components/FlexBox'
-import { usePills, type Pill } from '~/hooks/pages/members/usePills'
+import { usePills, type Pill as PillType } from '~/hooks/pages/members/usePills'
 import ErrorMessage from '~/components/pages/members/ErrorMessage'
 
 const uniqueArray = (schema: ZodType) => {
@@ -42,7 +42,7 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
     defaultValues: { emailList: ['dummy@verizoncom'] },
   })
 
-  const handleRemovePillClick = (pill: Pill, fieldOnChange: (value: string[]) => void) => {
+  const handleRemovePillClick = (pill: PillType, fieldOnChange: (value: string[]) => void) => {
     removePill(pill, fieldOnChange)
   }
 
@@ -109,7 +109,7 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
                       const variant = hasErrors ? 'error' : 'dark'
 
                       return (
-                        <IamPill
+                        <Pill
                           key={pill.id}
                           withRemoveButton
                           onRemove={() => handleRemovePillClick(pill, field.onChange)}

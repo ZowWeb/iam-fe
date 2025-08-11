@@ -4,19 +4,19 @@ import { Icon } from '@vds/icons'
 import { StyledPill, StyledPillSecondary } from './styles'
 import FlexBox from '~/components/FlexBox'
 
-type IamPillProps = {
+type PillProps = {
   variant?: 'dark' | 'error'
   withRemoveButton?: boolean
   onRemove?: (value: string) => void
   text: string
 }
 
-export default function IamPill({
+export default function Pill({
   variant = 'dark',
   withRemoveButton = true,
   onRemove = undefined,
   text,
-}: IamPillProps) {
+}: PillProps) {
   const handleRemovePill = (value: string) => {
     if (onRemove) {
       onRemove(value)
@@ -46,7 +46,7 @@ export default function IamPill({
     [withRemoveButton, onRemove, text],
   )
 
-  const IamPillSchema = useMemo(
+  const PillSchema = useMemo(
     () => ({
       dark: DarkPill,
       error: ErrorPill,
@@ -54,5 +54,5 @@ export default function IamPill({
     [variant],
   )
 
-  return <div>{IamPillSchema[variant]}</div>
+  return <div>{PillSchema[variant]}</div>
 }
