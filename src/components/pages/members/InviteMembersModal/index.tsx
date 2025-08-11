@@ -11,7 +11,7 @@ import Typography from '~/components/Typography'
 import IamPill from '../../../IamPill'
 import FlexBox from '~/components/FlexBox'
 import { usePills, type Pill } from '~/hooks/pages/members/usePills'
-import IamIconMessage from '~/components/IamIconMessage'
+import ErrorMessage from '~/components/pages/members/ErrorMessage'
 
 const uniqueArray = (schema: ZodType) => {
   return z.array(schema).refine(items => new Set(items).size === items.length, {
@@ -125,7 +125,7 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
                     />
                   </StyledPillGroup>
                 </StyledPillsInput>
-                {errorMessage && <IamIconMessage text={errorMessage} />}
+                {errorMessage && <ErrorMessage text={errorMessage} />}
               </>
             )}
           />
