@@ -5,6 +5,7 @@ export const COLORS = {
   secondary: '#6F7171',
   gray44: '#6F7171',
   vdsGray85: '#D8DADA',
+  vdsGray95: '#F6F6F6',
   vdsRed: '#EE0000',
   error: '#B95319',
   vdsBlue38: '#006FC1',
