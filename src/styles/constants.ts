@@ -6,6 +6,7 @@ export const COLORS = {
   gray44: '#6F7171',
   vdsGray85: '#D8DADA',
   vdsRed: '#EE0000',
+  error: '#B95319',
   vdsBlue38: '#006FC1',
   vdsYellow53: '#FED60E',
   brandHighlight: '#EE0000',
