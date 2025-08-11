@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { truncateMaxedOutText } from '~/utils'
-import { validateEmail } from '~/utils/emails'
+import { validateEmail } from '~/utils/validations'
 
 const INVALID_EMAIL: string = 'Invalid email.'
 // const ALREADY_INVITED: string = 'Member has already been invited.'
