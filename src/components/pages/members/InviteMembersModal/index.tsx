@@ -50,9 +50,10 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
     event: React.KeyboardEvent<HTMLInputElement>,
     fieldOnChange: (value: string[]) => void,
   ) => {
-    if (event.key === 'Enter' && inputValue.trim()) {
+    const validValue = inputValue.trim()
+    if (event.key === 'Enter' && validValue) {
       event.preventDefault()
-      addPill(inputValue.trim(), fieldOnChange)
+      addPill(validValue, fieldOnChange)
       setInputValue('')
     }
   }
