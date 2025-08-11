@@ -81,16 +81,17 @@ const Table = <T extends MRTRowData>({
       isLoading,
       rowSelection,
     },
-    renderRowActions: ({ row }) => (
-      <Menu>
-        <Menu.Target>
-          <Button variant="transparent" onClick={e => e.stopPropagation()}>
-            <Icon name="more-horizontal" size={24} />
-          </Button>
-        </Menu.Target>
-        {rowActionMenuItems && rowActionMenuItems(row)}
-      </Menu>
-    ),
+    renderRowActions: ({ row }) =>
+      rowActionMenuItems && (
+        <Menu>
+          <Menu.Target>
+            <Button variant="transparent" onClick={e => e.stopPropagation()}>
+              <Icon name="more-horizontal" size={24} />
+            </Button>
+          </Menu.Target>
+          {rowActionMenuItems(row)}
+        </Menu>
+      ),
     mantineTableBodyRowProps: ({ row }) => ({
       onClick: handleRowClick ? () => handleRowClick(row) : row.getToggleSelectedHandler(), // To select a row by clicking anywhere on the row
       style: {

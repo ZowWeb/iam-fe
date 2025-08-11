@@ -59,7 +59,7 @@ const ROW_ACTIONS = {
   CANCEL_INVITE: 'Cancel invite',
 } as const
 
-type RowActionType = keyof typeof ROW_ACTIONS
+type RowAction = keyof typeof ROW_ACTIONS
 
 const MembersPage = () => {
   const { teamId } = Route.useParams()
@@ -84,7 +84,7 @@ const MembersPage = () => {
   }
 
   const rowActionMenuItems = useCallback((row: MRTRow<Person>) => {
-    const handleRowAction = async (action: RowActionType) => {
+    const handleRowAction = async (action: RowAction) => {
       try {
         setIsLoading(true)
         await sleep()
@@ -119,7 +119,7 @@ const MembersPage = () => {
             key={action}
             onClick={event => {
               event.stopPropagation()
-              handleRowAction(action as RowActionType)
+              handleRowAction(action as RowAction)
             }}
           >
             {label}
