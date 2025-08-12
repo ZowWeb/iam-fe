@@ -136,7 +136,7 @@ const MembersPage = () => {
   const handleRowClick = (row: MRTRow<Member>) => {
     navigate({
       to: '/teams/$teamId/users/$userId',
-      params: { teamId, userId: row.original.displayName },
+      params: { teamId, userId: row.original.id },
     })
   }
 
