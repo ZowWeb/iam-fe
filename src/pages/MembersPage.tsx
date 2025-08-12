@@ -17,6 +17,7 @@ import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import { sleep } from '~/utils'
 import { handleErrorMessage } from '~/utils/errors'
 import { Route } from '~/routes/teams/$teamId/users/route'
+import useMembers from '~/hooks/useMembers'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -78,7 +79,7 @@ const MembersPage = () => {
     message: '',
   })
   const navigate = useNavigate()
-  const { members } = Route.useLoaderData()
+  const { members } = useMembers()
 
   const fetchLatestData = async () => {
     setIsLoading(true)

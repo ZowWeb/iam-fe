@@ -30,6 +30,7 @@
     "@mantine/dates": "^7.17.8",
     "@mantine/hooks": "^7.17.8",
     "@tabler/icons-react": "^2.47.0",
+    "@tanstack/react-query": "^5.84.2",
     "@tanstack/react-router": "^1.114.3",
     "@tanstack/react-router-devtools": "^1.114.3",
     "@vds/button-icons": "4.0.15",
