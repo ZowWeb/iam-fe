@@ -12,7 +12,7 @@ import ActionToolbar from '~/components/ActionToolbar'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
 import Grid, { Col } from '~/components/Grid'
 import FlexBox from '~/components/FlexBox'
-import type { Person } from '~/types/data'
+import type { Member, Person } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import { sleep } from '~/utils'
 import { handleErrorMessage } from '~/utils/errors'
@@ -25,31 +25,35 @@ const tabsConfig: VdsTabConfig[] = [
   { id: 'serviceAccounts', label: 'Service accounts' },
 ]
 
-const columns: MRTColumnDef<Person>[] = [
+const columns: MRTColumnDef<Member>[] = [
   {
-    accessorKey: 'firstName',
-    header: 'First Name',
-    size: 100,
+    accessorKey: 'id',
+    header: 'ID',
+    size: 50,
   },
   {
-    accessorKey: 'lastName',
-    header: 'Last Name',
-    enableResizing: false, // disable resizing for this column
+    accessorKey: 'displayName',
+    header: 'Display Name',
     size: 100,
   },
   {
     accessorKey: 'email',
     header: 'Email Address',
-    size: 200,
+    size: 100,
   },
   {
-    accessorKey: 'timeInVerzion',
-    header: 'Time in Verzion (months)',
-    size: 120,
+    accessorKey: 'idpSource',
+    header: 'IDP Source',
+    size: 50,
   },
   {
-    accessorKey: 'country',
-    header: 'Country',
+    accessorKey: 'createdAt',
+    header: 'Created At',
+    Cell: ({ cell }) =>
+      new Date(cell.getValue<string>()).toLocaleString('en-US', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+      }),
     size: 100,
   },
 ]
@@ -73,8 +77,8 @@ const MembersPage = () => {
     opened: false,
     message: '',
   })
-  const _loaderData = Route.useLoaderData()
   const navigate = useNavigate()
+  const { members } = Route.useLoaderData()
 
   const fetchLatestData = async () => {
     setIsLoading(true)
@@ -83,7 +87,7 @@ const MembersPage = () => {
     setIsLoading(false)
   }
 
-  const rowActionMenuItems = useCallback((row: MRTRow<Person>) => {
+  const rowActionMenuItems = useCallback((row: MRTRow<Member>) => {
     const handleRowAction = async (action: RowAction) => {
       try {
         setIsLoading(true)
@@ -129,10 +133,10 @@ const MembersPage = () => {
     )
   }, [])
 
-  const handleRowClick = (row: MRTRow<Person>) => {
+  const handleRowClick = (row: MRTRow<Member>) => {
     navigate({
       to: '/teams/$teamId/users/$userId',
-      params: { teamId, userId: row.original.firstName },
+      params: { teamId, userId: row.original.displayName },
     })
   }
 
@@ -155,7 +159,7 @@ const MembersPage = () => {
             <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: () => {} }} />
             <Table
               {...{
-                data,
+                data: members,
                 columns,
                 isLoading,
                 enableRowActions: true,
