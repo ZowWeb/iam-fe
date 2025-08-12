@@ -9,7 +9,7 @@ export const Route = createFileRoute('/teams/$teamId/users')({
   loader: async () => {
     const crumbTitle = 'Members'
     try {
-      const members = await fetch('http://localhost:4000/users', {
+      const members = await fetch('https://iamservice.dev.api.aws.tpd-soe.net/users', {
         method: 'GET',
       }).then<Member[]>(response => response.json())
       return {
