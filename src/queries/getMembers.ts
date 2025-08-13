@@ -3,7 +3,7 @@ import { queryOptions } from '@tanstack/react-query'
 import type { Member } from '~/types/data'
 import { handleErrorMessage } from '~/utils/errors'
 
-export const getMembers = queryOptions({
+export const getMembers = queryOptions<Member[]>({
   queryKey: ['GET_MEMBERS'],
   queryFn: async () => {
     try {
@@ -13,11 +13,11 @@ export const getMembers = queryOptions({
           `[getMembers] Network response was not ok! [res]: ${response.status} ${response.statusText}`,
         )
       }
-      return response.json() as Promise<Member[]>
+      return response.json()
     } catch (error) {
       console.error(`[getMembers] Error fetching members:`, handleErrorMessage(error))
 
-      return [] as Member[]
+      return []
     }
   },
 })
