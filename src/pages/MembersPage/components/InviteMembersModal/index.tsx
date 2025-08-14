@@ -8,10 +8,10 @@ import type { ZodType } from 'zod'
 import { StyledButton, StyledButtons, StyledPillGroup, StyledPillsInput, TeamName, TeamTitle } from './styles'
 import { FONT_WEIGHTS } from '~/styles/constants'
 import Typography from '~/components/Typography'
-import Pill from '../../../Pill'
+import Pill from '~/components/Pill'
 import FlexBox from '~/components/FlexBox'
-import { usePills, type Pill as PillType } from '~/hooks/pages/members/usePills'
-import ErrorMessage from '~/components/pages/members/ErrorMessage'
+import { usePills, type Pill as PillType } from '../../hooks/usePills'
+import ErrorMessage from '../ErrorMessage'
 
 const uniqueArray = (schema: ZodType) => {
   return z.array(schema).refine(items => new Set(items).size === items.length, {

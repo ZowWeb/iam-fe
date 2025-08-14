@@ -6,7 +6,7 @@ import { useNavigate } from '@tanstack/react-router'
 import { useDisclosure } from '@mantine/hooks'
 
 import Table from '~/components/AdvancedTable'
-import { data as initialData, moreData } from '../mocks/makeData'
+import { data as initialData, moreData } from '../../mocks/makeData'
 import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
@@ -19,7 +19,7 @@ import { sleep } from '~/utils'
 import { handleErrorMessage } from '~/utils/errors'
 import { Route } from '~/routes/teams/$teamId/users/route'
 import useMembers from '~/hooks/useMembers'
-import InviteMembersModal from '~/components/pages/members/InviteMembersModal'
+import InviteMembersModal from './components/InviteMembersModal'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
