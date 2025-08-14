@@ -22,7 +22,7 @@ import useMembers from '~/hooks/useMembers'
 import InviteMembersModal from './components/InviteMembersModal'
 
 const tabsConfig: VdsTabConfig[] = [
-  { id: 'teamDetails', label: 'Team Details' },
+  { id: 'teamDetails', label: 'Team Details', link: '/teams/$teamId' },
   { id: 'members', label: 'Members', selected: true },
   { id: 'policies', label: 'Policies' },
   { id: 'serviceAccounts', label: 'Service accounts' },
@@ -147,11 +147,17 @@ const MembersPage = () => {
     })
   }
 
+  const handleTabSelection = (tab: VdsTabConfig) => {
+    if (tab.id === 'teamDetails') {
+      navigate({ to: tab.link, params: { teamId: 'team1' } })
+    }
+  }
+
   return (
     <Block>
       <Grid>
         <Col span={3}>
-          <VdsTabs onSelection={() => {}} config={tabsConfig} />
+          <VdsTabs onSelection={handleTabSelection} config={tabsConfig} />
         </Col>
         <Col span={9}>
           <FlexBox direction="column" gap="2.5rem">

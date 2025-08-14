@@ -1,4 +1,5 @@
 import { styled } from '@linaria/react'
+import { useNavigate } from '@tanstack/react-router'
 import { useMemo } from 'react'
 
 import Block from '~/components/Block'
@@ -14,7 +15,7 @@ import { getFormatedDate } from '~/utils/dates'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details', selected: true },
-  { id: 'members', label: 'Members' },
+  { id: 'members', label: 'Members', link: '/teams/$teamId/users/' },
   { id: 'policies', label: 'Policies' },
   { id: 'serviceAccounts', label: 'Service accounts' },
 ]
@@ -59,6 +60,13 @@ export default function TeamOverviewPage() {
   let { teamId } = Route.useParams()
   teamId = 'team-00SJ5QRNQE93FS5CX09K7CBQ8G' // TODO: Remove
   const { team, isLoading } = useTeam({ teamId })
+  const navigate = useNavigate()
+
+  const handleTabSelection = (tab: VdsTabConfig) => {
+    if (tab.id === 'members') {
+      navigate({ to: tab.link, params: { teamId: 'team1' } })
+    }
+  }
 
   const footerItems = useMemo(
     () => [
@@ -92,13 +100,11 @@ export default function TeamOverviewPage() {
     [footerItems],
   )
 
-  if (isLoading) return // TODO: Use proper loading
-
   return (
     <Block>
       <Grid>
         <Col span={3}>
-          <VdsTabs onSelection={() => {}} config={tabsConfig} />
+          <VdsTabs onSelection={handleTabSelection} config={tabsConfig} />
         </Col>
         <Col span={9}>
           <Hero>
@@ -109,17 +115,19 @@ export default function TeamOverviewPage() {
               </Subtitle>
             </HeroColumn>
             <HeroImageColumn>
-              <img src="/hero_goraphics.png" alt="Hero" />
+              <img height="270px" src="/hero_goraphics.png" alt="Hero" />
             </HeroImageColumn>
           </Hero>
 
-          <IamHero
-            title={team?.displayName || ''}
-            subtitle="We automatically created this team for you when you created  your account. Use this team to collaborate with colleagues and manage API client test credentials"
-            showActionButton
-          >
-            {footerItemsJSX}
-          </IamHero>
+          {!isLoading && (
+            <IamHero
+              title={team?.displayName || ''}
+              subtitle="We automatically created this team for you when you created  your account. Use this team to collaborate with colleagues and manage API client test credentials"
+              showActionButton
+            >
+              {footerItemsJSX}
+            </IamHero>
+          )}
         </Col>
       </Grid>
     </Block>
