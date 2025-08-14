@@ -16,3 +16,27 @@ export const sleep = async (ms: number = 1000): Promise<void> => {
     setTimeout(resolve, ms)
   })
 }
+
+/**
+ * Truncates text to specified chars max showing an ellipsis
+ * Keeps domain if email (should be already validated)
+ * @param value text or email to truncate
+ * @param max lenght limit
+ * @returns
+ */
+export const truncateMaxedOutText = (value: string, max: number = 60) => {
+  const isEmail: boolean = value.includes('@')
+  const ellipsis: string = '…'
+  const maxedOut: boolean = value.length > max
+  let results: string = ''
+
+  if (isEmail) {
+    const [name, domain] = value.split('@')
+    const truncated = maxedOut ? `${name.substring(0, max - 1 - domain.length)}${ellipsis}` : name
+    results = `${truncated}@${domain}`
+  } else {
+    results = maxedOut ? `${value.substring(0, max - 1)}${ellipsis}` : value
+  }
+
+  return results
+}

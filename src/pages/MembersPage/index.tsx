@@ -3,9 +3,10 @@ import { useCallback, useState } from 'react'
 import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { Notification } from '@vds/notifications'
 import { useNavigate } from '@tanstack/react-router'
+import { useDisclosure } from '@mantine/hooks'
 
 import Table from '~/components/AdvancedTable'
-import { data as initialData, moreData } from '../mocks/makeData'
+import { data as initialData, moreData } from '../../mocks/makeData'
 import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
@@ -18,6 +19,7 @@ import { sleep } from '~/utils'
 import { handleErrorMessage } from '~/utils/errors'
 import { Route } from '~/routes/teams/$teamId/users/route'
 import useMembers from '~/hooks/useMembers'
+import InviteMembersModal from './components/InviteMembersModal'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details' },
@@ -80,6 +82,7 @@ const MembersPage = () => {
   })
   const navigate = useNavigate()
   const { members } = useMembers()
+  const [inviteMembersModalOpened, inviteMembersModalHandlers] = useDisclosure(false)
 
   const fetchLatestData = async () => {
     setIsLoading(true)
@@ -133,6 +136,9 @@ const MembersPage = () => {
       </MenuDropdown>
     )
   }, [])
+  const handleActionClick = () => {
+    inviteMembersModalHandlers.open()
+  }
 
   const handleRowClick = (row: MRTRow<Member>) => {
     navigate({
@@ -157,7 +163,7 @@ const MembersPage = () => {
               />
             )}
             <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
-            <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: () => {} }} />
+            <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: handleActionClick }} />
             <Table
               {...{
                 data: members,
@@ -174,6 +180,7 @@ const MembersPage = () => {
           </FlexBox>
         </Col>
       </Grid>
+      <InviteMembersModal opened={inviteMembersModalOpened} onClose={inviteMembersModalHandlers.close} />
     </Block>
   )
 }
