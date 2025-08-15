@@ -4,6 +4,7 @@ import { Button } from '@vds/buttons'
 
 import Typography from '~/components/Typography'
 import FlexBox from '~/components/FlexBox'
+import { COLORS } from '~/styles/constants'
 
 export const TeamTitle = styled(Typography.Span)`
   padding-top: 1.5rem;
@@ -28,7 +29,7 @@ export const StyledPillsInput = styled(PillsInput)`
   width: 100%;
   padding-top: 1.5rem;
   .mantine-Input-input {
-    border-color: #6f7171;
+    border-color: ${COLORS.secondary};
   }
 `
 
