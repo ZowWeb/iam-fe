@@ -37,7 +37,7 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
     reset,
     formState: { isValid },
   } = useForm<FormSchema>({
-    resolver: standardSchemaResolver(formSchema),
+    resolver: standardSchemaResolver(formSchema), // zodResolver not yet supported & stable re: https://github.com/react-hook-form/resolvers/issues/768
     mode: 'onChange',
     defaultValues: { emailList: ['dummy@verizoncom'] },
   })
