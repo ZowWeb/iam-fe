@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Modal, PillsInput } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { standardSchemaResolver } from '@hookform/resolvers/standard-schema'
 import * as z from 'zod'
 import type { ZodType } from 'zod'
 
@@ -37,7 +37,7 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
     reset,
     formState: { isValid },
   } = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+    resolver: standardSchemaResolver(formSchema),
     mode: 'onChange',
     defaultValues: { emailList: ['dummy@verizoncom'] },
   })
