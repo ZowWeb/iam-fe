@@ -63,7 +63,7 @@ export default function TeamOverviewPage() {
   const navigate = useNavigate()
 
   const handleTabSelection = (tab: VdsTabConfig) => {
-    if (tab.id === 'members') {
+    if (tab.link) {
       navigate({ to: tab.link, params: { teamId: 'team1' } })
     }
   }

@@ -145,7 +145,7 @@ const MembersPage = () => {
   }
 
   const handleTabSelection = (tab: VdsTabConfig) => {
-    if (tab.id === 'teamDetails') {
+    if (tab.link) {
       navigate({ to: tab.link, params: { teamId: 'team1' } })
     }
   }
