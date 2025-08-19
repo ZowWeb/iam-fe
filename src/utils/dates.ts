@@ -1,5 +1,6 @@
-import dayjs from 'dayjs'
-
 export const getFormatedDate = (isoDate: string) => {
-  return dayjs(isoDate).format('MMMM DD, YYYY hh:mm A')
+  return new Date(isoDate).toLocaleString('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  })
 }

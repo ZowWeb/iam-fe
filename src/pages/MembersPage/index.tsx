@@ -20,6 +20,7 @@ import { handleErrorMessage } from '~/utils/errors'
 import { Route } from '~/routes/teams/$teamId/users/route'
 import useMembers from '~/hooks/useMembers'
 import InviteMembersModal from './components/InviteMembersModal'
+import { getFormatedDate } from '~/utils/dates'
 
 const tabsConfig: VdsTabConfig[] = [
   { id: 'teamDetails', label: 'Team Details', link: '/teams/$teamId' },
@@ -52,11 +53,7 @@ const columns: MRTColumnDef<Member>[] = [
   {
     accessorKey: 'createdAt',
     header: 'Created At',
-    Cell: ({ cell }) =>
-      new Date(cell.getValue<string>()).toLocaleString('en-US', {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-      }),
+    Cell: ({ cell }) => getFormatedDate(cell.getValue<string>()),
     size: 100,
   },
 ]
