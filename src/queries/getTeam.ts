@@ -21,8 +21,6 @@ export const getTeam = ({ teamId }: GetTeamProps) =>
         return response.json()
       } catch (error) {
         console.error(`[getTeam] Error fetching team:`, handleErrorMessage(error))
-
-        return null
       }
     },
   })

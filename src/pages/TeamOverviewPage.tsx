@@ -9,7 +9,7 @@ import IamHero from '~/components/IamHero'
 import Typography from '~/components/Typography'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
 import useTeam from '~/hooks/useTeam'
-import { Route } from '~/routes/teams/$teamId'
+import { Route } from '~/routes/teams/$teamId/route'
 import { COLORS } from '~/styles/constants'
 import { getFormatedDate } from '~/utils/dates'
 
@@ -57,14 +57,13 @@ const Subtitle = styled(Typography.Span)`
 `
 
 export default function TeamOverviewPage() {
-  let { teamId } = Route.useParams()
-  teamId = 'team-00SJ5QRNQE93FS5CX09K7CBQ8G' // TODO: Remove
-  const { team, isLoading } = useTeam({ teamId })
+  const { teamId } = Route.useParams()
+  const { team } = useTeam({ teamId })
   const navigate = useNavigate()
 
   const handleTabSelection = (tab: VdsTabConfig) => {
-    if (tab.link) {
-      navigate({ to: tab.link, params: { teamId: 'team1' } })
+    if (tab.id === 'members') {
+      navigate({ to: tab.link as string, params: { teamId } })
     }
   }
 
@@ -118,16 +117,13 @@ export default function TeamOverviewPage() {
               <img height="270px" src="/hero_goraphics.png" alt="Hero" />
             </HeroImageColumn>
           </Hero>
-
-          {!isLoading && (
-            <IamHero
-              title={team?.displayName || ''}
-              subtitle="We automatically created this team for you when you created  your account. Use this team to collaborate with colleagues and manage API client test credentials"
-              showActionButton
-            >
-              {footerItemsJSX}
-            </IamHero>
-          )}
+          <IamHero
+            title={team?.displayName || 'Team Name'}
+            subtitle="We automatically created this team for you when you created  your account. Use this team to collaborate with colleagues and manage API client test credentials"
+            showActionButton
+          >
+            {footerItemsJSX}
+          </IamHero>
         </Col>
       </Grid>
     </Block>

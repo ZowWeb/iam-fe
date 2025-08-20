@@ -7,7 +7,7 @@ type UseTeamProps = {
 }
 
 export default function useTeam({ teamId }: UseTeamProps) {
-  const { data: team = null, isLoading } = useQuery(getTeam({ teamId }))
+  const { data: team, isLoading } = useQuery(getTeam({ teamId }))
 
   return {
     team,
