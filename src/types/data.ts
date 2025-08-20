@@ -37,3 +37,17 @@ export type Policy = {
   lastUpdated: string
   applied: string
 }
+
+export type Team = {
+  id: `team-${string}`
+  displayName: string
+  parentTeamId: `team-${string}`
+  appOwnerTeamId: `team-${string}`
+  kind: string
+  isRootTeam: boolean
+  isPlatformTeam: boolean
+  createdAt: string
+  updatedAt: string
+  tags: []
+  disabledAt: string
+}

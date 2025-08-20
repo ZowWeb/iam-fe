@@ -20,9 +20,10 @@ import { handleErrorMessage } from '~/utils/errors'
 import { Route } from '~/routes/teams/$teamId/users/route'
 import useMembers from '~/hooks/useMembers'
 import InviteMembersModal from './components/InviteMembersModal'
+import { getFormatedDate } from '~/utils/dates'
 
 const tabsConfig: VdsTabConfig[] = [
-  { id: 'teamDetails', label: 'Team Details' },
+  { id: 'teamDetails', label: 'Team Details', link: '/teams/$teamId' },
   { id: 'members', label: 'Members', selected: true },
   { id: 'policies', label: 'Policies' },
   { id: 'serviceAccounts', label: 'Service accounts' },
@@ -52,11 +53,7 @@ const columns: MRTColumnDef<Member>[] = [
   {
     accessorKey: 'createdAt',
     header: 'Created At',
-    Cell: ({ cell }) =>
-      new Date(cell.getValue<string>()).toLocaleString('en-US', {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-      }),
+    Cell: ({ cell }) => getFormatedDate(cell.getValue<string>()),
     size: 100,
   },
 ]
@@ -147,11 +144,17 @@ const MembersPage = () => {
     })
   }
 
+  const handleTabSelection = (tab: VdsTabConfig) => {
+    if (tab.link) {
+      navigate({ to: tab.link, params: { teamId: 'team1' } })
+    }
+  }
+
   return (
     <Block>
       <Grid>
         <Col span={3}>
-          <VdsTabs onSelection={() => {}} config={tabsConfig} />
+          <VdsTabs onSelection={handleTabSelection} config={tabsConfig} />
         </Col>
         <Col span={9}>
           <FlexBox direction="column" gap="2.5rem">
