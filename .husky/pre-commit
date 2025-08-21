@@ -1,3 +1,4 @@
 # .husky/pre-commit
 
 lint-staged
+tsc --noEmit --skipLibCheck

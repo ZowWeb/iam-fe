@@ -16,7 +16,6 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
-      "tsc --noEmit",
       "prettier --write"
     ],
     "*.{css,scss,json}": [

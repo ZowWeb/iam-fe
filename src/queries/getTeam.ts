@@ -9,7 +9,7 @@ type GetTeamProps = {
 
 export const getTeam = ({ teamId }: GetTeamProps) =>
   queryOptions<Team>({
-    queryKey: ['GET_TEAM'],
+    queryKey: ['GET_TEAM', { teamId }],
     queryFn: async () => {
       try {
         const response = await fetch(`https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}`)
