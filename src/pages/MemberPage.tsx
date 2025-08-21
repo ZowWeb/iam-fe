@@ -4,10 +4,9 @@ import { styled } from '@linaria/react'
 import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { useNavigate } from '@tanstack/react-router'
 
-import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
-import Grid, { Col } from '~/components/Grid'
+import { Col } from '~/components/Grid'
 import FlexBox from '~/components/FlexBox'
 import Typography from '~/components/Typography'
 import Link from '~/components/Link'
@@ -111,57 +110,55 @@ const MemberPage = () => {
   }
 
   return (
-    <Block>
-      <Grid>
-        <Col span={3}>
-          <VdsTabs onSelection={() => {}} config={tabsConfig} />
-        </Col>
-        <Col span={9}>
-          <Link to="..">
-            <FlexBox customStyle={{ marginBottom: '2rem' }}>
-              <IconChevronLeft name="arrow-left" size={20} />
-              <span>Back to member list</span>
-            </FlexBox>
-          </Link>
-          <FlexBox direction="column" gap="2.5rem">
-            <TitleLockup
-              data={{
-                title: {
-                  size: 'titleLarge',
-                  bold: false,
-                  children: 'Member details',
-                  color: COLORS.brandHighlight,
-                },
-                subtitle: {
-                  size: 'bodyLarge',
-                  children: 'View details of this member and manage their access.',
-                },
-              }}
-            />
-            <IamHero title="John Doe" showActionButton>
-              {footerItemsJSX}
-            </IamHero>
-            <TitleLockup
-              data={{
-                title: {
-                  primitive: 'h4',
-                  size: 'titleMedium',
-                  children: 'Applied policies',
-                },
-                subtitle: {
-                  primitive: 'p',
-                  size: 'bodyLarge',
-                  children:
-                    'Policies define the specific permissions this member has to perform actions and access resources.',
-                },
-              }}
-            />
-            <ActionToolbar ctaConfig={{ label: 'Manage policies', onClick: handleManagePoliciesClick }} />
-            <Table {...{ data, columns }} />
+    <>
+      <Col span={3}>
+        <VdsTabs onSelection={() => {}} config={tabsConfig} />
+      </Col>
+      <Col span={9}>
+        <Link to="..">
+          <FlexBox customStyle={{ marginBottom: '2rem' }}>
+            <IconChevronLeft name="arrow-left" size={20} />
+            <span>Back to member list</span>
           </FlexBox>
-        </Col>
-      </Grid>
-    </Block>
+        </Link>
+        <FlexBox direction="column" gap="2.5rem">
+          <TitleLockup
+            data={{
+              title: {
+                size: 'titleLarge',
+                bold: false,
+                children: 'Member details',
+                color: COLORS.brandHighlight,
+              },
+              subtitle: {
+                size: 'bodyLarge',
+                children: 'View details of this member and manage their access.',
+              },
+            }}
+          />
+          <IamHero title="John Doe" showActionButton>
+            {footerItemsJSX}
+          </IamHero>
+          <TitleLockup
+            data={{
+              title: {
+                primitive: 'h4',
+                size: 'titleMedium',
+                children: 'Applied policies',
+              },
+              subtitle: {
+                primitive: 'p',
+                size: 'bodyLarge',
+                children:
+                  'Policies define the specific permissions this member has to perform actions and access resources.',
+              },
+            }}
+          />
+          <ActionToolbar ctaConfig={{ label: 'Manage policies', onClick: handleManagePoliciesClick }} />
+          <Table {...{ data, columns }} />
+        </FlexBox>
+      </Col>
+    </>
   )
 }
 

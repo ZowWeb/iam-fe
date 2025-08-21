@@ -7,11 +7,10 @@ import { useDisclosure } from '@mantine/hooks'
 
 import Table from '~/components/AdvancedTable'
 import { data as initialData, moreData } from '../../mocks/makeData'
-import Block from '~/components/Block'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
-import Grid, { Col } from '~/components/Grid'
+import { Col } from '~/components/Grid'
 import FlexBox from '~/components/FlexBox'
 import type { Member, Person } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
@@ -151,40 +150,38 @@ const MembersPage = () => {
   }
 
   return (
-    <Block>
-      <Grid>
-        <Col span={3}>
-          <VdsTabs onSelection={handleTabSelection} config={tabsConfig} />
-        </Col>
-        <Col span={9}>
-          <FlexBox direction="column" gap="2.5rem">
-            {notificationConfig.opened && (
-              <Notification
-                type={notificationConfig.type}
-                title={notificationConfig.message}
-                onCloseButtonClick={() => setNotificationConfig({ opened: false, message: '' })}
-              />
-            )}
-            <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
-            <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: handleActionClick }} />
-            <Table
-              {...{
-                data: members,
-                columns,
-                isLoading,
-                enableRowActions: true,
-                rowActionMenuItems,
-                handleRowClick,
-              }}
+    <>
+      <Col span={3}>
+        <VdsTabs onSelection={handleTabSelection} config={tabsConfig} />
+      </Col>
+      <Col span={9}>
+        <FlexBox direction="column" gap="2.5rem">
+          {notificationConfig.opened && (
+            <Notification
+              type={notificationConfig.type}
+              title={notificationConfig.message}
+              onCloseButtonClick={() => setNotificationConfig({ opened: false, message: '' })}
             />
-            <Button onClick={fetchLatestData} loading={isLoading}>
-              Fetch latest data
-            </Button>
-          </FlexBox>
-        </Col>
-      </Grid>
+          )}
+          <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
+          <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: handleActionClick }} />
+          <Table
+            {...{
+              data: members,
+              columns,
+              isLoading,
+              enableRowActions: true,
+              rowActionMenuItems,
+              handleRowClick,
+            }}
+          />
+          <Button onClick={fetchLatestData} loading={isLoading}>
+            Fetch latest data
+          </Button>
+        </FlexBox>
+      </Col>
       <InviteMembersModal opened={inviteMembersModalOpened} onClose={inviteMembersModalHandlers.close} />
-    </Block>
+    </>
   )
 }
 

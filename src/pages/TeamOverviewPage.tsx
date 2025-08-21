@@ -2,9 +2,8 @@ import { styled } from '@linaria/react'
 import { useNavigate } from '@tanstack/react-router'
 import { useMemo } from 'react'
 
-import Block from '~/components/Block'
 import FlexBox from '~/components/FlexBox'
-import Grid, { Col } from '~/components/Grid'
+import { Col } from '~/components/Grid'
 import IamHero from '~/components/IamHero'
 import Typography from '~/components/Typography'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
@@ -99,32 +98,30 @@ export default function TeamOverviewPage() {
   )
 
   return (
-    <Block>
-      <Grid>
-        <Col span={3}>
-          <VdsTabs onSelection={handleTabSelection} config={tabsConfig} />
-        </Col>
-        <Col span={9}>
-          <Hero>
-            <HeroColumn direction="column" alignItems="flex-start">
-              <Typography.H2>Identity & Access Management</Typography.H2>
-              <Subtitle size="1.5rem">
-                Securely control API access and define team permissions for collaborative development.
-              </Subtitle>
-            </HeroColumn>
-            <HeroImageColumn>
-              <img height="270px" src="/hero_goraphics.png" alt="Hero" />
-            </HeroImageColumn>
-          </Hero>
-          <IamHero
-            title={team?.displayName || 'Team Name'}
-            subtitle="We automatically created this team for you when you created  your account. Use this team to collaborate with colleagues and manage API client test credentials"
-            showActionButton
-          >
-            {footerItemsJSX}
-          </IamHero>
-        </Col>
-      </Grid>
-    </Block>
+    <>
+      <Col span={3}>
+        <VdsTabs onSelection={handleTabSelection} config={tabsConfig} />
+      </Col>
+      <Col span={9}>
+        <Hero>
+          <HeroColumn direction="column" alignItems="flex-start">
+            <Typography.H2>Identity & Access Management</Typography.H2>
+            <Subtitle size="1.5rem">
+              Securely control API access and define team permissions for collaborative development.
+            </Subtitle>
+          </HeroColumn>
+          <HeroImageColumn>
+            <img height="270px" src="/hero_goraphics.png" alt="Hero" />
+          </HeroImageColumn>
+        </Hero>
+        <IamHero
+          title={team?.displayName || 'Team Name'}
+          subtitle="We automatically created this team for you when you created  your account. Use this team to collaborate with colleagues and manage API client test credentials"
+          showActionButton
+        >
+          {footerItemsJSX}
+        </IamHero>
+      </Col>
+    </>
   )
 }
