@@ -8,7 +8,6 @@ import Grid, { Col } from '~/components/Grid'
 import IamHero from '~/components/IamHero'
 import Typography from '~/components/Typography'
 import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
-import useTeam from '~/hooks/useTeam'
 import { Route } from '~/routes/teams/$teamId/route'
 import { COLORS } from '~/styles/constants'
 import { getFormatedDate } from '~/utils/dates'
@@ -58,7 +57,7 @@ const Subtitle = styled(Typography.Span)`
 
 export default function TeamOverviewPage() {
   const { teamId } = Route.useParams()
-  const { team } = useTeam({ teamId })
+  const { team } = Route.useLoaderData()
   const navigate = useNavigate()
 
   const handleTabSelection = (tab: VdsTabConfig) => {

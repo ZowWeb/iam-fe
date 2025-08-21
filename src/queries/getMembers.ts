@@ -3,7 +3,7 @@ import { queryOptions } from '@tanstack/react-query'
 import type { Member } from '~/types/data'
 import { handleErrorMessage } from '~/utils/errors'
 
-export const getMembers = queryOptions<Member[]>({
+export const getMembers = queryOptions<Member[] | undefined>({
   queryKey: ['GET_MEMBERS'],
   queryFn: async () => {
     try {
@@ -16,8 +16,6 @@ export const getMembers = queryOptions<Member[]>({
       return response.json()
     } catch (error) {
       console.error(`[getMembers] Error fetching members:`, handleErrorMessage(error))
-
-      return []
     }
   },
 })
