@@ -1,17 +1,27 @@
 import { styled } from '@linaria/react'
 import { Pill } from '@mantine/core'
 
-import { COLORS } from '~/styles/constants'
+import { COLORS, FONT_WEIGHTS } from '~/styles/constants'
+import { theme } from '~/styles/theme'
 
-export const StyledPill = styled(Pill)`
-  background-color: black;
-  color: white;
+const pillStyles = `
+  font-size: ${theme.fontSizes.sm};
+  font-weight: ${FONT_WEIGHTS.medium};
 `
 
-export const StyledPillSecondary = styled(Pill)`
+export const SolidPill = styled(Pill)`
+  ${pillStyles}
+  color: ${COLORS.white};
+  background-color: ${COLORS.black};
+`
+
+export const DashedPill = styled(Pill)`
+  ${pillStyles}
+  color: ${COLORS.black};
   background-color: ${COLORS.vdsGray95};
-  color: black;
-  border-style: dashed;
-  border-color: black;
-  border-width: 0.031rem;
+  border: 0.5px dashed ${COLORS.black};
+
+  .mantine-Pill-label > div {
+    height: 100%;
+  }
 `

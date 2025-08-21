@@ -1,10 +1,8 @@
-import { Pill, PillsInput } from '@mantine/core'
 import { styled } from '@linaria/react'
 import { Button } from '@vds/buttons'
 
 import Typography from '~/components/Typography'
 import FlexBox from '~/components/FlexBox'
-import { COLORS } from '~/styles/constants'
 
 export const TeamTitle = styled(Typography.Span)`
   padding-top: 1.5rem;
@@ -16,25 +14,11 @@ export const TeamName = styled(Typography.Span)`
   padding-top: 0.25rem;
 `
 
-export const StyledButtons = styled(FlexBox)`
+export const ButtonsWrapper = styled(FlexBox)`
   padding-top: 1.5rem;
 `
 
 export const StyledButton = styled(Button)`
   display: flex;
   flex: 1;
-`
-
-export const StyledPillsInput = styled(PillsInput)`
-  width: 100%;
-  padding-top: 1.5rem;
-  .mantine-Input-input {
-    border-color: ${COLORS.secondary};
-  }
-`
-
-export const StyledPillGroup = styled(Pill.Group)`
-  .mantine-Pill-label {
-    height: fit-content;
-  }
 `

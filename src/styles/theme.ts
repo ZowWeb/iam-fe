@@ -73,4 +73,4 @@ export const theme = {
     vdsRed: colorsTuple(COLORS.vdsRed),
     brandHighlight: colorsTuple(COLORS.brandHighlight),
   },
-}
+} as const

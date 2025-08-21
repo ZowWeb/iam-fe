@@ -1,28 +1,36 @@
-import { useEffect, useState } from 'react'
-import { Modal, PillsInput } from '@mantine/core'
+import { useState } from 'react'
+import { Modal } from '@mantine/core'
 import { Controller, useForm } from 'react-hook-form'
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema'
 import * as z from 'zod'
-import type { ZodType } from 'zod'
 
-import { StyledButton, StyledButtons, StyledPillGroup, StyledPillsInput, TeamName, TeamTitle } from './styles'
+import { StyledButton, ButtonsWrapper, TeamName, TeamTitle } from './styles'
 import { FONT_WEIGHTS } from '~/styles/constants'
 import Typography from '~/components/Typography'
 import Pill from '~/components/Pill'
 import FlexBox from '~/components/FlexBox'
 import { usePills, type Pill as PillType } from '../../hooks/usePills'
-import ErrorMessage from '../ErrorMessage'
+import PillsInput from '~/components/PillsInput'
 
-const uniqueArray = (schema: ZodType) => {
-  return z.array(schema).refine(items => new Set(items).size === items.length, {
-    message: 'All items must be unique, no duplicate values allowed',
+export const emailListSchema = z
+  .array(z.email('Invalid email!'))
+  .min(1, 'Please add at least one email!')
+  .refine(arr => new Set(arr).size === arr.length, {
+    message: 'Email address is already added!',
   })
-}
 
 const formSchema = z.object({
-  emailList: uniqueArray(z.email('Invalid email')).min(1, 'Please add at least one email'),
+  emailList: emailListSchema,
 })
+
 type FormSchema = z.infer<typeof formSchema>
+
+const getPillVariantFromError = (pill: PillType): 'default' | 'error' => {
+  if (pill.error) return 'error'
+  if (emailListSchema.safeParse([pill.email]).success) return 'default'
+  return 'error'
+}
+
 type InviteMembersModalProps = {
   opened: boolean
   onClose: () => void
@@ -30,20 +38,28 @@ type InviteMembersModalProps = {
 
 export default function InviteMembersModal({ opened, onClose }: InviteMembersModalProps) {
   const [inputValue, setInputValue] = useState<string>('')
-  const { pills, errorMessage, addPill, removePill, resetPills } = usePills()
   const {
     control,
     handleSubmit,
     reset,
-    formState: { isValid },
+    formState: {
+      isValid,
+      errors: { emailList: emailListError },
+    },
+    getValues,
   } = useForm<FormSchema>({
     resolver: standardSchemaResolver(formSchema), // zodResolver not yet supported & stable re: https://github.com/react-hook-form/resolvers/issues/768
     mode: 'onChange',
-    defaultValues: { emailList: ['dummy@verizoncom'] },
+    defaultValues: { emailList: ['john@doe.com'] },
   })
-
-  const handleRemovePillClick = (pill: PillType, fieldOnChange: (value: string[]) => void) => {
-    removePill(pill, fieldOnChange)
+  const { pills, addPill, removePill, resetPills } = usePills({ emailList: getValues().emailList })
+  const getErrorMessage = () => {
+    if (!emailListError) return null
+    if (emailListError.message) return emailListError.message
+    if (Array.isArray(emailListError)) {
+      return emailListError.filter(Boolean).at(0).message as string
+    }
+    return 'Something went wrong, please check your input!'
   }
 
   const handleKeyDown = (
@@ -58,28 +74,15 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
     }
   }
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value)
-  }
-
   const handleCloseModal = () => {
+    reset() // Reset the form state
+    resetPills() // Reset the inner pills state
     onClose()
   }
 
   const onSubmit = () => {
     handleCloseModal()
   }
-
-  /**
-   * Reset form when open state changes.
-   * TODO: Remove when integrating with API
-   */
-  useEffect(() => {
-    if (opened) {
-      reset() // Reset the form state
-      resetPills() // Reset the inner pills state
-    }
-  }, [opened])
 
   return (
     <Modal
@@ -96,48 +99,39 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
           <Typography.H4>Only people with a valid email can be added to this team.</Typography.H4>
           <TeamTitle weight={FONT_WEIGHTS.bold}>Team Name</TeamTitle>
           <TeamName weight={FONT_WEIGHTS.medium}>This is the team name</TeamName>
-
           <Controller
             name="emailList"
             control={control}
             render={({ field }) => (
-              <>
-                <StyledPillsInput label="Email address(es)">
-                  <StyledPillGroup>
-                    {pills.map(pill => {
-                      const hasErrors = pill.errors.length > 0 // Checks the errors array
-                      const variant = hasErrors ? 'error' : 'dark'
-
-                      return (
-                        <Pill
-                          key={pill.id}
-                          withRemoveButton
-                          onRemove={() => handleRemovePillClick(pill, field.onChange)}
-                          text={pill.shortenedEmail}
-                          variant={variant}
-                        />
-                      )
-                    })}
-                    <PillsInput.Field
-                      onKeyDown={e => handleKeyDown(e, field.onChange)}
-                      value={inputValue}
-                      onChange={e => handleTextChange(e)}
-                    />
-                  </StyledPillGroup>
-                </StyledPillsInput>
-                {errorMessage && <ErrorMessage text={errorMessage} />}
-              </>
+              <PillsInput label="Email address(es)" errorMsg={getErrorMessage()}>
+                <Pill.Group>
+                  {pills.map(pill => (
+                    <Pill
+                      key={pill.id}
+                      withRemoveButton
+                      onRemove={() => removePill(pill, field.onChange)}
+                      variant={getPillVariantFromError(pill)}
+                    >
+                      {pill.shortenedEmail}
+                    </Pill>
+                  ))}
+                  <PillsInput.Field
+                    onKeyDown={e => handleKeyDown(e, field.onChange)}
+                    value={inputValue}
+                    onChange={e => setInputValue(e.target.value)}
+                  />
+                </Pill.Group>
+              </PillsInput>
             )}
           />
-
-          <StyledButtons>
+          <ButtonsWrapper>
             <StyledButton size="large" disabled={!isValid} type="submit">
               Send Invite
             </StyledButton>
             <StyledButton size="large" use="secondary" onClick={handleCloseModal}>
               Cancel
             </StyledButton>
-          </StyledButtons>
+          </ButtonsWrapper>
         </FlexBox>
       </form>
     </Modal>

@@ -1,58 +1,43 @@
 import { useMemo } from 'react'
-import { Icon } from '@vds/icons'
+import { Pill as MantinePill, type PillProps } from '@mantine/core'
 
-import { StyledPill, StyledPillSecondary } from './styles'
-import FlexBox from '~/components/FlexBox'
+import { SolidPill, DashedPill } from './styles'
+import IconMessage from '~/components/IconMessage'
 
-type PillProps = {
-  variant?: 'dark' | 'error'
-  withRemoveButton?: boolean
-  onRemove?: (value: string) => void
-  text: string
+export type PillVariant = 'default' | 'error'
+
+type Props = PillProps & {
+  variant?: PillVariant
 }
 
-export default function Pill({
-  variant = 'dark',
-  withRemoveButton = true,
-  onRemove = undefined,
-  text,
-}: PillProps) {
-  const handleRemovePill = (value: string) => {
-    if (onRemove) {
-      onRemove(value)
-    }
-  }
+const Pill = ({ children, ...props }: Props) => {
+  const { id, variant = 'default', onRemove, ...rest } = props
 
-  const DarkPill = useMemo(
+  const DefaultPill = useMemo(
     () => (
-      <StyledPill withRemoveButton={withRemoveButton} onRemove={() => handleRemovePill(text)}>
-        {text}
-      </StyledPill>
+      <SolidPill onRemove={onRemove} {...rest}>
+        {children}
+      </SolidPill>
     ),
-    [withRemoveButton, onRemove, text],
+    [variant],
   )
 
   const ErrorPill = useMemo(
     () => (
-      <FlexBox>
-        <StyledPillSecondary withRemoveButton={withRemoveButton} onRemove={() => handleRemovePill(text)}>
-          <FlexBox>
-            <Icon name="error" color="#B95319" size="small" />
-            {text}
-          </FlexBox>
-        </StyledPillSecondary>
-      </FlexBox>
+      <DashedPill onRemove={onRemove} data-variant="error" {...rest}>
+        <IconMessage type="error" text={children} />
+      </DashedPill>
     ),
-    [withRemoveButton, onRemove, text],
-  )
-
-  const PillSchema = useMemo(
-    () => ({
-      dark: DarkPill,
-      error: ErrorPill,
-    }),
     [variant],
   )
 
-  return <div>{PillSchema[variant]}</div>
+  if (variant === 'error') {
+    return ErrorPill
+  }
+
+  return DefaultPill
 }
+
+Pill.Group = MantinePill.Group
+
+export default Pill
