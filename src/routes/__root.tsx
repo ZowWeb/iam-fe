@@ -3,17 +3,14 @@ import type { QueryClient } from '@tanstack/react-query'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
-import Layout from '~/components/Layout'
 import NotFoundPage from '~/pages/NotFoundPage'
 import { theme } from '~/styles/theme'
 
 function RootComponent() {
   return (
     <MantineProvider theme={theme}>
-      <Layout>
-        <Outlet />
-        <TanStackRouterDevtools />
-      </Layout>
+      <Outlet />
+      <TanStackRouterDevtools />
     </MantineProvider>
   )
 }

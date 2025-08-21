@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
-import AuthenticatedLayout from '~/components/Layout/AuthenticatedLayout'
+import AuthenticatedLayout from '~/components/Layout/Authenticated'
 import { TEAM_ID } from '~/constants/params'
 import { getTeam } from '~/queries/getTeam'
 

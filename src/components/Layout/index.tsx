@@ -1,7 +1,6 @@
 import type { LayoutType } from '~/types'
 import { LayoutWrapper } from './styles'
-import Breadcrumbs from '../Breadcrumbs'
-import Header from './Header'
+import Block from '../Block'
 
 type Props = {
   children?: React.ReactNode
@@ -11,9 +10,11 @@ type Props = {
 const Layout = ({ children, type = 'standard' }: Props) => {
   return (
     <LayoutWrapper className={`layout--${type}`}>
-      <Header />
-      <Breadcrumbs />
-      <main>{children}</main>
+      <main>
+        <Block direction="column" customStyle={{ minHeight: '100vh' }}>
+          {children}
+        </Block>
+      </main>
       <footer />
     </LayoutWrapper>
   )

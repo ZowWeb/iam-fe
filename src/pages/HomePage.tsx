@@ -1,10 +1,11 @@
-import Block from '~/components/Block'
+import Layout from '~/components/Layout'
 import Typography from '~/components/Typography'
 
 export default function HomePage() {
   return (
-    <Block>
+    <Layout>
       <Typography.H1>HomePage</Typography.H1>
-    </Block>
+      <Typography.H4>Not authenticated</Typography.H4>
+    </Layout>
   )
 }
