@@ -9,8 +9,6 @@ import Table from '~/components/AdvancedTable'
 import { data as initialData, moreData } from '../../mocks/makeData'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
-import { VdsTabs, type VdsTabConfig } from '~/components/Vds/Tabs/VdsTabs'
-import { Col } from '~/components/Grid'
 import FlexBox from '~/components/FlexBox'
 import type { Member, Person } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
@@ -20,13 +18,6 @@ import { Route } from '~/routes/teams/$teamId/users/route'
 import useMembers from '~/hooks/useMembers'
 import InviteMembersModal from './components/InviteMembersModal'
 import { getFormatedDate } from '~/utils/dates'
-
-const tabsConfig: VdsTabConfig[] = [
-  { id: 'teamDetails', label: 'Team Details', link: '/teams/$teamId' },
-  { id: 'members', label: 'Members', selected: true },
-  { id: 'policies', label: 'Policies' },
-  { id: 'serviceAccounts', label: 'Service accounts' },
-]
 
 const columns: MRTColumnDef<Member>[] = [
   {
@@ -143,43 +134,32 @@ const MembersPage = () => {
     })
   }
 
-  const handleTabSelection = (tab: VdsTabConfig) => {
-    if (tab.link) {
-      navigate({ to: tab.link, params: { teamId: 'team1' } })
-    }
-  }
-
   return (
     <>
-      <Col span={3}>
-        <VdsTabs onSelection={handleTabSelection} config={tabsConfig} />
-      </Col>
-      <Col span={9}>
-        <FlexBox direction="column" gap="2.5rem">
-          {notificationConfig.opened && (
-            <Notification
-              type={notificationConfig.type}
-              title={notificationConfig.message}
-              onCloseButtonClick={() => setNotificationConfig({ opened: false, message: '' })}
-            />
-          )}
-          <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
-          <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: handleActionClick }} />
-          <Table
-            {...{
-              data: members,
-              columns,
-              isLoading,
-              enableRowActions: true,
-              rowActionMenuItems,
-              handleRowClick,
-            }}
+      <FlexBox direction="column" gap="2.5rem">
+        {notificationConfig.opened && (
+          <Notification
+            type={notificationConfig.type}
+            title={notificationConfig.message}
+            onCloseButtonClick={() => setNotificationConfig({ opened: false, message: '' })}
           />
-          <Button onClick={fetchLatestData} loading={isLoading}>
-            Fetch latest data
-          </Button>
-        </FlexBox>
-      </Col>
+        )}
+        <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
+        <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: handleActionClick }} />
+        <Table
+          {...{
+            data: members,
+            columns,
+            isLoading,
+            enableRowActions: true,
+            rowActionMenuItems,
+            handleRowClick,
+          }}
+        />
+        <Button onClick={fetchLatestData} loading={isLoading}>
+          Fetch latest data
+        </Button>
+      </FlexBox>
       <InviteMembersModal opened={inviteMembersModalOpened} onClose={inviteMembersModalHandlers.close} />
     </>
   )
