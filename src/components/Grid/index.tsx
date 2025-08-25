@@ -8,14 +8,14 @@ import { GridWrapper } from './styles'
  * This grid has 12 columns (default gutter: 2.5rem). Make sure to use the Col component to define the columns.
  *
  * @example
- * import Grid, { Col } from '~/components/Grid'
+ * import Grid from '~/components/Grid'
  *
  * const MyComponent = () => {
  *   return (
  *     <Grid>
- *       <Col span={4}>Foo</Col>
- *       <Col span={4}>Bar</Col>
- *       <Col span={4}>Baz</Col>
+ *       <Grid.Col span={4}>Foo</Grid.Col>
+ *       <Grid.Col span={4}>Bar</Grid.Col>
+ *       <Grid.Col span={4}>Baz</Grid.Col>
  *     </Grid>
  *   )
  * }
@@ -27,5 +27,5 @@ const Grid = (props: GridProps) => {
 }
 
 export default Grid
-export const { Col } = MantineGrid
+Grid.Col = MantineGrid.Col
 export type { GridProps, GridColProps }

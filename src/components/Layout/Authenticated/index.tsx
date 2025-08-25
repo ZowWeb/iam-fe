@@ -1,7 +1,7 @@
 import { useNavigate } from '@tanstack/react-router'
 
 import Block from '~/components/Block'
-import Grid, { Col } from '~/components/Grid'
+import Grid from '~/components/Grid'
 import { LayoutWrapper } from './styles'
 import type { LayoutType } from '~/types'
 import Breadcrumbs from '~/components/Breadcrumbs'
@@ -34,10 +34,10 @@ const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
       <main>
         <Block>
           <Grid>
-            <Col span={3}>
+            <Grid.Col span={3}>
               <VdsTabs onClick={handleTabSelection} tabs={tabsConfig} />
-            </Col>
-            <Col span={9}>{children}</Col>
+            </Grid.Col>
+            <Grid.Col span={9}>{children}</Grid.Col>
           </Grid>
         </Block>
       </main>

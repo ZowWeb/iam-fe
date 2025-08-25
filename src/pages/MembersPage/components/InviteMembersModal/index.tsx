@@ -9,10 +9,10 @@ import { FONT_WEIGHTS } from '~/styles/constants'
 import Typography from '~/components/Typography'
 import Pill from '~/components/Pill'
 import FlexBox from '~/components/FlexBox'
-import { usePills, type Pill as PillType } from '../../hooks/usePills'
+import { usePills, type Pill as TPill } from '../../hooks/usePills'
 import PillsInput from '~/components/PillsInput'
 
-export const emailListSchema = z
+export const emailsArraySchema = z
   .array(z.email('Invalid email!'))
   .min(1, 'Please add at least one email!')
   .refine(arr => new Set(arr).size === arr.length, {
@@ -20,14 +20,14 @@ export const emailListSchema = z
   })
 
 const formSchema = z.object({
-  emailList: emailListSchema,
+  emailsArray: emailsArraySchema,
 })
 
 type FormSchema = z.infer<typeof formSchema>
 
-const getPillVariantFromError = (pill: PillType): 'default' | 'error' => {
+const getPillVariantFromError = (pill: TPill) => {
   if (pill.error) return 'error'
-  if (emailListSchema.safeParse([pill.email]).success) return 'default'
+  if (emailsArraySchema.safeParse([pill.email]).success) return 'default'
   return 'error'
 }
 
@@ -44,20 +44,20 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
     reset,
     formState: {
       isValid,
-      errors: { emailList: emailListError },
+      errors: { emailsArray: emailsArrayError },
     },
     getValues,
   } = useForm<FormSchema>({
     resolver: standardSchemaResolver(formSchema), // zodResolver not yet supported & stable re: https://github.com/react-hook-form/resolvers/issues/768
     mode: 'onChange',
-    defaultValues: { emailList: ['john@doe.com'] },
+    defaultValues: { emailsArray: ['john@doe.com'] },
   })
-  const { pills, addPill, removePill, resetPills } = usePills({ emailList: getValues().emailList })
+  const { pills, addPill, removePill, resetPills } = usePills({ emailsArray: getValues().emailsArray })
   const getErrorMessage = () => {
-    if (!emailListError) return null
-    if (emailListError.message) return emailListError.message
-    if (Array.isArray(emailListError)) {
-      return emailListError.filter(Boolean).at(0).message as string
+    if (!emailsArrayError) return null
+    if (emailsArrayError.message) return emailsArrayError.message
+    if (Array.isArray(emailsArrayError)) {
+      return emailsArrayError.filter(Boolean).at(0).message as string
     }
     return 'Something went wrong, please check your input!'
   }
@@ -100,7 +100,7 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
           <TeamTitle weight={FONT_WEIGHTS.bold}>Team Name</TeamTitle>
           <TeamName weight={FONT_WEIGHTS.medium}>This is the team name</TeamName>
           <Controller
-            name="emailList"
+            name="emailsArray"
             control={control}
             render={({ field }) => (
               <PillsInput label="Email address(es)" errorMsg={getErrorMessage()}>
