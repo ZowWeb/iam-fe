@@ -51,3 +51,12 @@ export type Team = {
   tags: []
   disabledAt: string
 }
+
+export type ServiceAccount = {
+  id: string
+  teamId: `team-${string}`
+  createdAt: string
+  updatedAt: string
+  displayName: string
+  kind: (typeof PrincipalKind)['service_account']
+}

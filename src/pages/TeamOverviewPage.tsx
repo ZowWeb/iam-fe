@@ -6,7 +6,7 @@ import IamHero from '~/components/IamHero'
 import Typography from '~/components/Typography'
 import { Route } from '~/routes/teams/$teamId/route'
 import { COLORS } from '~/styles/constants'
-import { getFormatedDate } from '~/utils/dates'
+import { getFormattedDate } from '~/utils/dates'
 
 const FooterContainer = styled(FlexBox)`
   gap: 3.25rem;
@@ -59,7 +59,7 @@ export default function TeamOverviewPage() {
       },
       {
         label: 'Created',
-        value: getFormatedDate(team?.createdAt || ''),
+        value: getFormattedDate(team?.createdAt || ''),
       },
     ],
     [team],

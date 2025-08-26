@@ -13,6 +13,7 @@ const tabsConfig: TabConfig[] = [
   { id: 'teamPage', label: 'Team Details', link: '/teams/$teamId' },
   { id: 'membersPage', label: 'Members', link: '/teams/$teamId/users' },
   { id: 'policiesPage', label: 'Policies', link: '/teams/$teamId/users/$userId/policies' },
+  { id: 'serviceAccountsPage', label: 'Service Accounts', link: '/teams/$teamId/service-accounts' },
 ]
 
 type Props = {
