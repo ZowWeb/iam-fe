@@ -17,7 +17,7 @@ import { handleErrorMessage } from '~/utils/errors'
 import { Route } from '~/routes/teams/$teamId/users/route'
 import useMembers from '~/hooks/useMembers'
 import InviteMembersModal from './components/InviteMembersModal'
-import { getFormatedDate } from '~/utils/dates'
+import { getFormattedDate } from '~/utils/dates'
 
 const columns: MRTColumnDef<Member>[] = [
   {
@@ -43,7 +43,7 @@ const columns: MRTColumnDef<Member>[] = [
   {
     accessorKey: 'createdAt',
     header: 'Created At',
-    Cell: ({ cell }) => getFormatedDate(cell.getValue<string>()),
+    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
     size: 100,
   },
 ]

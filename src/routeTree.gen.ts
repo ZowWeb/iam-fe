@@ -13,7 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as TeamsTeamIdRouteRouteImport } from './routes/teams/$teamId/route'
 import { Route as TeamsTeamIdIndexRouteImport } from './routes/teams/$teamId/index'
 import { Route as TeamsTeamIdUsersRouteRouteImport } from './routes/teams/$teamId/users/route'
+import { Route as TeamsTeamIdServiceAccountsRouteRouteImport } from './routes/teams/$teamId/service-accounts/route'
 import { Route as TeamsTeamIdUsersIndexRouteImport } from './routes/teams/$teamId/users/index'
+import { Route as TeamsTeamIdServiceAccountsIndexRouteImport } from './routes/teams/$teamId/service-accounts/index'
 import { Route as TeamsTeamIdUsersUserIdRouteRouteImport } from './routes/teams/$teamId/users/$userId/route'
 import { Route as TeamsTeamIdUsersUserIdIndexRouteImport } from './routes/teams/$teamId/users/$userId/index'
 import { Route as TeamsTeamIdUsersUserIdPoliciesIndexRouteImport } from './routes/teams/$teamId/users/$userId/policies/index'
@@ -38,11 +40,23 @@ const TeamsTeamIdUsersRouteRoute = TeamsTeamIdUsersRouteRouteImport.update({
   path: '/users',
   getParentRoute: () => TeamsTeamIdRouteRoute,
 } as any)
+const TeamsTeamIdServiceAccountsRouteRoute =
+  TeamsTeamIdServiceAccountsRouteRouteImport.update({
+    id: '/service-accounts',
+    path: '/service-accounts',
+    getParentRoute: () => TeamsTeamIdRouteRoute,
+  } as any)
 const TeamsTeamIdUsersIndexRoute = TeamsTeamIdUsersIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => TeamsTeamIdUsersRouteRoute,
 } as any)
+const TeamsTeamIdServiceAccountsIndexRoute =
+  TeamsTeamIdServiceAccountsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => TeamsTeamIdServiceAccountsRouteRoute,
+  } as any)
 const TeamsTeamIdUsersUserIdRouteRoute =
   TeamsTeamIdUsersUserIdRouteRouteImport.update({
     id: '/$userId',
@@ -65,9 +79,11 @@ const TeamsTeamIdUsersUserIdPoliciesIndexRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/teams/$teamId': typeof TeamsTeamIdRouteRouteWithChildren
+  '/teams/$teamId/service-accounts': typeof TeamsTeamIdServiceAccountsRouteRouteWithChildren
   '/teams/$teamId/users': typeof TeamsTeamIdUsersRouteRouteWithChildren
   '/teams/$teamId/': typeof TeamsTeamIdIndexRoute
   '/teams/$teamId/users/$userId': typeof TeamsTeamIdUsersUserIdRouteRouteWithChildren
+  '/teams/$teamId/service-accounts/': typeof TeamsTeamIdServiceAccountsIndexRoute
   '/teams/$teamId/users/': typeof TeamsTeamIdUsersIndexRoute
   '/teams/$teamId/users/$userId/': typeof TeamsTeamIdUsersUserIdIndexRoute
   '/teams/$teamId/users/$userId/policies': typeof TeamsTeamIdUsersUserIdPoliciesIndexRoute
@@ -75,6 +91,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/teams/$teamId': typeof TeamsTeamIdIndexRoute
+  '/teams/$teamId/service-accounts': typeof TeamsTeamIdServiceAccountsIndexRoute
   '/teams/$teamId/users': typeof TeamsTeamIdUsersIndexRoute
   '/teams/$teamId/users/$userId': typeof TeamsTeamIdUsersUserIdIndexRoute
   '/teams/$teamId/users/$userId/policies': typeof TeamsTeamIdUsersUserIdPoliciesIndexRoute
@@ -83,9 +100,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/teams/$teamId': typeof TeamsTeamIdRouteRouteWithChildren
+  '/teams/$teamId/service-accounts': typeof TeamsTeamIdServiceAccountsRouteRouteWithChildren
   '/teams/$teamId/users': typeof TeamsTeamIdUsersRouteRouteWithChildren
   '/teams/$teamId/': typeof TeamsTeamIdIndexRoute
   '/teams/$teamId/users/$userId': typeof TeamsTeamIdUsersUserIdRouteRouteWithChildren
+  '/teams/$teamId/service-accounts/': typeof TeamsTeamIdServiceAccountsIndexRoute
   '/teams/$teamId/users/': typeof TeamsTeamIdUsersIndexRoute
   '/teams/$teamId/users/$userId/': typeof TeamsTeamIdUsersUserIdIndexRoute
   '/teams/$teamId/users/$userId/policies/': typeof TeamsTeamIdUsersUserIdPoliciesIndexRoute
@@ -95,9 +114,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/teams/$teamId'
+    | '/teams/$teamId/service-accounts'
     | '/teams/$teamId/users'
     | '/teams/$teamId/'
     | '/teams/$teamId/users/$userId'
+    | '/teams/$teamId/service-accounts/'
     | '/teams/$teamId/users/'
     | '/teams/$teamId/users/$userId/'
     | '/teams/$teamId/users/$userId/policies'
@@ -105,6 +126,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/teams/$teamId'
+    | '/teams/$teamId/service-accounts'
     | '/teams/$teamId/users'
     | '/teams/$teamId/users/$userId'
     | '/teams/$teamId/users/$userId/policies'
@@ -112,9 +134,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/teams/$teamId'
+    | '/teams/$teamId/service-accounts'
     | '/teams/$teamId/users'
     | '/teams/$teamId/'
     | '/teams/$teamId/users/$userId'
+    | '/teams/$teamId/service-accounts/'
     | '/teams/$teamId/users/'
     | '/teams/$teamId/users/$userId/'
     | '/teams/$teamId/users/$userId/policies/'
@@ -155,12 +179,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeamsTeamIdUsersRouteRouteImport
       parentRoute: typeof TeamsTeamIdRouteRoute
     }
+    '/teams/$teamId/service-accounts': {
+      id: '/teams/$teamId/service-accounts'
+      path: '/service-accounts'
+      fullPath: '/teams/$teamId/service-accounts'
+      preLoaderRoute: typeof TeamsTeamIdServiceAccountsRouteRouteImport
+      parentRoute: typeof TeamsTeamIdRouteRoute
+    }
     '/teams/$teamId/users/': {
       id: '/teams/$teamId/users/'
       path: '/'
       fullPath: '/teams/$teamId/users/'
       preLoaderRoute: typeof TeamsTeamIdUsersIndexRouteImport
       parentRoute: typeof TeamsTeamIdUsersRouteRoute
+    }
+    '/teams/$teamId/service-accounts/': {
+      id: '/teams/$teamId/service-accounts/'
+      path: '/'
+      fullPath: '/teams/$teamId/service-accounts/'
+      preLoaderRoute: typeof TeamsTeamIdServiceAccountsIndexRouteImport
+      parentRoute: typeof TeamsTeamIdServiceAccountsRouteRoute
     }
     '/teams/$teamId/users/$userId': {
       id: '/teams/$teamId/users/$userId'
@@ -185,6 +223,20 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface TeamsTeamIdServiceAccountsRouteRouteChildren {
+  TeamsTeamIdServiceAccountsIndexRoute: typeof TeamsTeamIdServiceAccountsIndexRoute
+}
+
+const TeamsTeamIdServiceAccountsRouteRouteChildren: TeamsTeamIdServiceAccountsRouteRouteChildren =
+  {
+    TeamsTeamIdServiceAccountsIndexRoute: TeamsTeamIdServiceAccountsIndexRoute,
+  }
+
+const TeamsTeamIdServiceAccountsRouteRouteWithChildren =
+  TeamsTeamIdServiceAccountsRouteRoute._addFileChildren(
+    TeamsTeamIdServiceAccountsRouteRouteChildren,
+  )
 
 interface TeamsTeamIdUsersUserIdRouteRouteChildren {
   TeamsTeamIdUsersUserIdIndexRoute: typeof TeamsTeamIdUsersUserIdIndexRoute
@@ -220,11 +272,14 @@ const TeamsTeamIdUsersRouteRouteWithChildren =
   )
 
 interface TeamsTeamIdRouteRouteChildren {
+  TeamsTeamIdServiceAccountsRouteRoute: typeof TeamsTeamIdServiceAccountsRouteRouteWithChildren
   TeamsTeamIdUsersRouteRoute: typeof TeamsTeamIdUsersRouteRouteWithChildren
   TeamsTeamIdIndexRoute: typeof TeamsTeamIdIndexRoute
 }
 
 const TeamsTeamIdRouteRouteChildren: TeamsTeamIdRouteRouteChildren = {
+  TeamsTeamIdServiceAccountsRouteRoute:
+    TeamsTeamIdServiceAccountsRouteRouteWithChildren,
   TeamsTeamIdUsersRouteRoute: TeamsTeamIdUsersRouteRouteWithChildren,
   TeamsTeamIdIndexRoute: TeamsTeamIdIndexRoute,
 }

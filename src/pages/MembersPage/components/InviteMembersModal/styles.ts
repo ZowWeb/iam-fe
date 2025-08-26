@@ -16,6 +16,7 @@ export const TeamName = styled(Typography.Span)`
 
 export const ButtonsWrapper = styled(FlexBox)`
   padding-top: 1.5rem;
+  gap: 0.75rem;
 `
 
 export const StyledButton = styled(Button)`
