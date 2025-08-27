@@ -22,7 +22,7 @@ export default function getServiceAccounts({ teamId }: GetServiceAccountsProps) 
         }
         return response.json()
       } catch (error) {
-        console.error(`[getServiceAccounts] Error fetching members:`, handleErrorMessage(error))
+        console.error(`[getServiceAccounts] Error fetching service accounts:`, handleErrorMessage(error))
       }
     },
   })

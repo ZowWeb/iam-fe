@@ -15,7 +15,7 @@ const navMenuItems: NavMenuItem[] = [
   { id: 'teamPage', label: 'Team Details', link: '/teams/$teamId' },
   { id: 'membersPage', label: 'Members', link: '/teams/$teamId/users' },
   { id: 'rolesPage', label: 'Roles', link: '/teams/$teamId/roles' },
-  { id: 'policiesPage', label: 'Policies', link: '/teams/$teamId/users/$userId/policies' },
+  { id: 'policiesPage', label: 'Policies', link: '/teams/$teamId/policies' },
   { id: 'serviceAccountsPage', label: 'Service Accounts', link: '/teams/$teamId/service-accounts' },
 ]
 

@@ -1,0 +1,15 @@
+import { createFileRoute, Outlet } from '@tanstack/react-router'
+
+import { getPolicies } from '~/queries/getPolicies'
+
+const RouteComponent = () => <Outlet />
+
+export const Route = createFileRoute('/teams/$teamId/policies')({
+  component: RouteComponent,
+  loader: async ({ context: { queryClient }, params: { teamId } }) => {
+    return {
+      policies: await queryClient.ensureQueryData(getPolicies({ teamId })),
+      crumbTitle: 'Policies',
+    }
+  },
+})
