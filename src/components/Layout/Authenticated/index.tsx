@@ -12,6 +12,7 @@ import { TEAM_ID, USER_ID } from '~/constants/params'
 const tabsConfig: TabConfig[] = [
   { id: 'teamPage', label: 'Team Details', link: '/teams/$teamId' },
   { id: 'membersPage', label: 'Members', link: '/teams/$teamId/users' },
+  { id: 'rolesPage', label: 'Roles', link: '/teams/$teamId/roles' },
   { id: 'policiesPage', label: 'Policies', link: '/teams/$teamId/users/$userId/policies' },
   { id: 'serviceAccountsPage', label: 'Service Accounts', link: '/teams/$teamId/service-accounts' },
 ]
