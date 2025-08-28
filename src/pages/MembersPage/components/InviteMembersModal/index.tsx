@@ -128,7 +128,7 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
             <StyledButton size="large" disabled={!isValid} type="submit">
               Send Invite
             </StyledButton>
-            <StyledButton size="large" use="secondary" onClick={handleCloseModal}>
+            <StyledButton size="large" use="secondary" type="button" onClick={handleCloseModal}>
               Cancel
             </StyledButton>
           </ButtonsWrapper>

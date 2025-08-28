@@ -60,3 +60,8 @@ export type ServiceAccount = {
   displayName: string
   kind: (typeof PrincipalKind)['service_account']
 }
+
+export type PolicyTag = {
+  policyTagId: string
+  policyTagName: string
+}
