@@ -17,5 +17,5 @@ export const deleteServiceAccount = async ({ teamId, serviceAccountId }: DeleteS
     )
   }
 
-  return response.json()
+  return response.text()
 }

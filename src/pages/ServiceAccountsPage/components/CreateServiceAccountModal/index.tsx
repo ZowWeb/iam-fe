@@ -79,10 +79,16 @@ export default function CreateServiceAccountModal({
             inputWrapperOrder={['label', 'input', 'error', 'description']}
           />
           <FlexBox gap="0.75rem">
-            <StyledButton size="large" disabled={!isValid && !isPending} type="submit">
+            <StyledButton size="large" disabled={!isValid || isPending} type="submit">
               Create
             </StyledButton>
-            <StyledButton size="large" use="secondary" type="button" onClick={handleCloseModal}>
+            <StyledButton
+              size="large"
+              use="secondary"
+              type="button"
+              disabled={isPending}
+              onClick={handleCloseModal}
+            >
               Cancel
             </StyledButton>
           </FlexBox>
