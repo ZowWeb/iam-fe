@@ -2,12 +2,13 @@ import { IconChevronLeft } from '@tabler/icons-react'
 
 import FlexBox from '~/components/FlexBox'
 import Link from '~/components/Link'
-import { FooterContainer, FooterItemWrapper, Label, StyledCodeBlock, Value } from './styles'
-import IamHero from '~/components/IamHero'
+import { FooterContainer, FooterItemWrapper, Label, StyledCodeBlock, Value, Subtitle } from './styles'
+import DetailsHeader from './components/DetailsHeader'
 import { Route } from '~/routes/teams/$teamId/policies/$policyId'
 import usePolicy from '~/hooks/usePolicy'
 import { truncateMaxedOutText } from '~/utils'
 import CodeBlock from './components/CodeBlock'
+import { FONT_WEIGHTS } from '~/styles/constants'
 
 const footerItems = [
   {
@@ -26,8 +27,10 @@ const footerItems = [
 
 const footerItemsJSX = (
   <FlexBox direction="column" gap="1.5rem">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo lorem in diam hendrerit, vel
-    vestibulum elit dapibus. Quisque facilisis justo condimentum
+    <Subtitle weight={FONT_WEIGHTS.medium}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo lorem in diam hendrerit, vel
+      vestibulum elit dapibus. Quisque facilisis justo condimentum
+    </Subtitle>
     <FooterContainer alignItems="flex-start">
       {footerItems.map(item => (
         <FooterItemWrapper key={item.label} direction="column" alignItems="flex-start">
@@ -51,9 +54,13 @@ export default function PolicyPage() {
           <span>Back to policies list</span>
         </FlexBox>
       </Link>
-      <IamHero title={truncateMaxedOutText(policy?.name || 'Policy Name', 40)} showActionButton>
+      <DetailsHeader
+        title={truncateMaxedOutText(policy?.name || 'Policy Name', 100)}
+        showActionButton
+        gap="0.625rem"
+      >
         {footerItemsJSX}
-      </IamHero>
+      </DetailsHeader>
       <StyledCodeBlock>
         <CodeBlock data={policy} />
       </StyledCodeBlock>

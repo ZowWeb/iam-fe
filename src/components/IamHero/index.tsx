@@ -18,9 +18,9 @@ const IamHero = ({ title, subtitle, showActionButton = false, children, gap = '1
         <Title>{title}</Title>
         {showActionButton && (
           <ButtonIcon
-            surfaceType="colorFill"
             kind="lowContrast"
             size="large"
+            surfaceType="colorFill"
             renderIcon={(props: IconProps) => <Icon name="more-horizontal" {...props} />}
             onClick={() => {}}
           />
