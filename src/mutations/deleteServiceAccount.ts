@@ -3,10 +3,7 @@ type DeleteServiceAccountProps = {
   serviceAccountId: string
 }
 
-export const deleteServiceAccount = async ({
-  teamId,
-  serviceAccountId,
-}: DeleteServiceAccountProps): Promise<void> => {
+export const deleteServiceAccount = async ({ teamId, serviceAccountId }: DeleteServiceAccountProps) => {
   const response = await fetch(
     `https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/service-accounts/${serviceAccountId}`,
     {
@@ -15,6 +12,10 @@ export const deleteServiceAccount = async ({
   )
 
   if (!response.ok) {
-    throw new Error('Failed to delete service account')
+    throw new Error(
+      `[deleteServiceAccount] Network response was not ok! [res]: ${response.status} ${response.statusText}`,
+    )
   }
+
+  return response.json()
 }

@@ -10,12 +10,12 @@ import ActionToolbar from '~/components/ActionToolbar'
 import FlexBox from '~/components/FlexBox'
 import type { ServiceAccount } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
-import { Route } from '~/routes/teams/$teamId/service-accounts'
+import { Route } from '~/routes/teams/$teamId/service-accounts/route'
 import { getFormattedDate } from '~/utils/dates'
-import useServiceAccounts from '~/hooks/useServiceAccounts'
 import CreateServiceAccountModal from './components/CreateServiceAccountModal'
 import { handleErrorMessage } from '~/utils/errors'
 import DeleteServiceAccountModal from './components/DeleteServiceAccountModal'
+import useServiceAccounts from '~/hooks/useServiceAccounts'
 
 const columns: MRTColumnDef<ServiceAccount>[] = [
   {
@@ -50,33 +50,27 @@ type RowAction = keyof typeof ROW_ACTIONS
 
 const ServiceAccountsPage = () => {
   const { teamId } = Route.useParams()
-  const { isLoading, serviceAccounts } = useServiceAccounts({ teamId })
+  const { serviceAccounts, isLoading } = useServiceAccounts({ teamId })
   const [createModalOpened, createModalHandlers] = useDisclosure(false)
-  const [deleteModalOpened, deleteModalHandlers] = useDisclosure(false)
-  const [serviceAccountToDelete, setServiceAccountToDelete] = useState<ServiceAccount>({} as ServiceAccount)
+  const [deleteModalConfig, setDeleteModalConfig] = useState<{
+    opened: boolean
+    data: ServiceAccount | null
+  }>({ opened: false, data: null })
   const [notificationConfig, setNotificationConfig] = useState<{
     opened: boolean
     type?: 'success' | 'error' | 'info' | 'warning'
-    message: string
+    title: string
+    subtitle?: string
   }>({
     opened: false,
-    message: '',
+    title: '',
   })
   const navigate = useNavigate()
 
   const rowActionMenuItems = useCallback((row: MRTRow<ServiceAccount>) => {
-    const handleRowAction = async (action: RowAction) => {
-      try {
-        if (action === 'DELETE') {
-          setServiceAccountToDelete(row.original)
-          deleteModalHandlers.open()
-        }
-      } catch (err) {
-        setNotificationConfig({
-          opened: true,
-          type: 'error',
-          message: handleErrorMessage(err),
-        })
+    const handleRowAction = (action: RowAction) => {
+      if (action === 'DELETE') {
+        setDeleteModalConfig({ opened: true, data: row.original })
       }
     }
 
@@ -97,10 +91,6 @@ const ServiceAccountsPage = () => {
     )
   }, [])
 
-  const handleActionClick = () => {
-    createModalHandlers.open()
-  }
-
   // TODO: Navigate to details page once is ready
   const handleRowClick = () => {
     navigate({
@@ -113,7 +103,7 @@ const ServiceAccountsPage = () => {
     setNotificationConfig({
       opened: true,
       type: 'success',
-      message: 'Service account created',
+      title: 'Service account created',
     })
   }
 
@@ -121,15 +111,16 @@ const ServiceAccountsPage = () => {
     setNotificationConfig({
       opened: true,
       type: 'error',
-      message: handleErrorMessage(err),
+      title: handleErrorMessage(err),
     })
   }
 
-  const handleDeleteServiceAccountSuccess = () => {
+  const handleDeleteServiceAccountSuccess = (displayName: string) => {
     setNotificationConfig({
       opened: true,
       type: 'success',
-      message: 'Service account deleted',
+      title: `${displayName} was deleted.`,
+      subtitle: 'Associated credentials to this service account no longer have access.',
     })
   }
 
@@ -139,15 +130,18 @@ const ServiceAccountsPage = () => {
         {notificationConfig.opened && (
           <Notification
             type={notificationConfig.type}
-            title={notificationConfig.message}
-            onCloseButtonClick={() => setNotificationConfig({ opened: false, message: '' })}
+            title={notificationConfig.title}
+            subtitle={notificationConfig.subtitle}
+            onCloseButtonClick={() => setNotificationConfig({ opened: false, title: '', subtitle: '' })}
           />
         )}
         <IamHero
           title="Service accounts"
           subtitle="Create services accounts, delete them,  and manage their access."
         />
-        <ActionToolbar ctaConfig={{ label: 'Create service account', onClick: handleActionClick }} />
+        <ActionToolbar
+          ctaConfig={{ label: 'Create service account', onClick: () => createModalHandlers.open() }}
+        />
         <Table
           {...{
             data: serviceAccounts,
@@ -166,14 +160,16 @@ const ServiceAccountsPage = () => {
         onSuccess={handleCreateServiceAccountSuccess}
         onError={handleServiceAccountError}
       />
-      <DeleteServiceAccountModal
-        teamId={teamId}
-        serviceAccount={serviceAccountToDelete}
-        opened={deleteModalOpened}
-        onClose={deleteModalHandlers.close}
-        onSuccess={handleDeleteServiceAccountSuccess}
-        onError={handleServiceAccountError}
-      />
+      {deleteModalConfig.data && (
+        <DeleteServiceAccountModal
+          teamId={teamId}
+          serviceAccount={deleteModalConfig.data}
+          opened={deleteModalConfig.opened}
+          onClose={() => setDeleteModalConfig({ opened: false, data: null })}
+          onSuccess={handleDeleteServiceAccountSuccess}
+          onError={handleServiceAccountError}
+        />
+      )}
     </>
   )
 }

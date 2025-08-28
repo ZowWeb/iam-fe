@@ -1,6 +1,6 @@
 import FlexBox from '~/components/FlexBox'
 import Typography from '~/components/Typography'
-import { Description, Name, StyledButton, StyledButtons, Title } from './styles'
+import { Description, Name, StyledButton, Title } from './styles'
 import type { ServiceAccount } from '~/types/data'
 import useDeleteServiceAccount from '~/hooks/useDeleteServiceAccount'
 import { FONT_WEIGHTS } from '~/styles/constants'
@@ -11,7 +11,7 @@ type DeleteServiceAccountModalProps = {
   teamId: string
   opened: boolean
   onClose: () => void
-  onSuccess: () => void
+  onSuccess: (displayName: string) => void
   onError: (error: unknown) => void
 }
 
@@ -23,7 +23,7 @@ export default function DeleteServiceAccountModal({
   onSuccess,
   onError,
 }: DeleteServiceAccountModalProps) {
-  const { mutate } = useDeleteServiceAccount({ teamId })
+  const { mutate, isPending } = useDeleteServiceAccount({ teamId })
 
   const handleCloseModal = () => {
     onClose()
@@ -31,30 +31,31 @@ export default function DeleteServiceAccountModal({
 
   const handleYesClick = () => {
     mutate(serviceAccount.id, {
-      onSettled: () => handleCloseModal(),
-      onSuccess: () => onSuccess(),
-      onError: error => onError(error),
+      onSuccess: () => onSuccess(serviceAccount.displayName),
+      onError,
+      onSettled: handleCloseModal,
     })
   }
 
   return (
     <Modal opened={opened} onClose={onClose}>
-      <FlexBox direction="column" alignItems="flex-start" gap="0">
+      <FlexBox direction="column" alignItems="flex-start" gap="2rem">
         <Typography.H3>Delete service account?</Typography.H3>
-        <Title weight={FONT_WEIGHTS.bold}>Service account</Title>
-        <Name weight={FONT_WEIGHTS.medium}>{serviceAccount.displayName}</Name>
+        <FlexBox direction="column" alignItems="flex-start">
+          <Title weight={FONT_WEIGHTS.bold}>Service account</Title>
+          <Name weight={FONT_WEIGHTS.medium}>{serviceAccount.displayName}</Name>
+        </FlexBox>
         <Description>
           Once the service account is removed, all team members will lose access to all its credentials.
         </Description>
-
-        <StyledButtons>
-          <StyledButton size="large" onClick={handleYesClick}>
+        <FlexBox gap="0.75rem">
+          <StyledButton size="large" onClick={handleYesClick} disabled={isPending}>
             Yes
           </StyledButton>
-          <StyledButton size="large" use="secondary" onClick={handleCloseModal}>
+          <StyledButton size="large" use="secondary" onClick={handleCloseModal} disabled={isPending}>
             No
           </StyledButton>
-        </StyledButtons>
+        </FlexBox>
       </FlexBox>
     </Modal>
   )

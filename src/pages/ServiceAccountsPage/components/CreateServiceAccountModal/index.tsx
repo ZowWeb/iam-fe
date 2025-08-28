@@ -5,7 +5,7 @@ import * as z from 'zod'
 
 import FlexBox from '~/components/FlexBox'
 import Typography from '~/components/Typography'
-import { StyledButton, StyledButtons, StyledTextInput } from './styles'
+import { StyledButton, StyledTextInput } from './styles'
 import useCreateServiceAccount from '~/hooks/useCreateServiceAccount'
 import type { ServiceAccount } from '~/types/data'
 import Modal from '~/components/Modal'
@@ -29,7 +29,7 @@ export default function CreateServiceAccountModal({
   onSuccess,
   onError,
 }: CreateServiceAccountModalProps) {
-  const { mutate } = useCreateServiceAccount({ teamId })
+  const { mutate, isPending } = useCreateServiceAccount({ teamId })
   const {
     register,
     handleSubmit,
@@ -51,9 +51,9 @@ export default function CreateServiceAccountModal({
       teamId,
     } as ServiceAccount
     mutate(newData, {
-      onSuccess: () => onSuccess(),
-      onError: error => onError(error),
-      onSettled: () => handleCloseModal(),
+      onSuccess,
+      onError,
+      onSettled: handleCloseModal,
     })
   }
 
@@ -69,9 +69,8 @@ export default function CreateServiceAccountModal({
   return (
     <Modal opened={opened} onClose={onClose}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FlexBox direction="column" alignItems="flex-start" gap="0">
+        <FlexBox direction="column" alignItems="flex-start" gap="2rem">
           <Typography.H3>Create a service account</Typography.H3>
-
           <StyledTextInput
             {...register('name')}
             label="Name"
@@ -79,15 +78,14 @@ export default function CreateServiceAccountModal({
             error={errors.name && errors.name.message}
             inputWrapperOrder={['label', 'input', 'error', 'description']}
           />
-
-          <StyledButtons>
-            <StyledButton size="large" disabled={!isValid} type="submit">
+          <FlexBox gap="0.75rem">
+            <StyledButton size="large" disabled={!isValid && !isPending} type="submit">
               Create
             </StyledButton>
             <StyledButton size="large" use="secondary" type="button" onClick={handleCloseModal}>
               Cancel
             </StyledButton>
-          </StyledButtons>
+          </FlexBox>
         </FlexBox>
       </form>
     </Modal>
