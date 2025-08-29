@@ -71,8 +71,14 @@ export type PolicyTag = {
   policies: `p-${string}`[]
 }
 
+<<<<<<< HEAD
 export type InviteMember = {
   email: string
+=======
+export type PatchPolicyTagsFromPrincipal = {
+  policyTagsToAdd: `pt-${string}`[]
+  policyTagsToRemove: `pt-${string}`[]
+>>>>>>> 9ece818 (New query to get policies assigned to a principal.)
 }
 
 export type ServerErrorSchema = {

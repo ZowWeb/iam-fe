@@ -9,7 +9,7 @@ import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
 import type { Member } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
-import { sleep } from '~/utils'
+import { sleep, truncateMaxedOutText } from '~/utils'
 import { handleErrorMessage } from '~/utils/errors'
 import useMembers from '~/hooks/withSuspense/useMembers'
 import InviteMembersModal from './components/InviteMembersModal'
@@ -29,7 +29,7 @@ const MembersPage = () => {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/users' })
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
-  const { members } = useMembers()
+  const { members } = useMembers({ teamId })
   const [inviteMembersModalOpened, inviteMembersModalHandlers] = useDisclosure(false)
   const [removeMemberModalConfig, setRemoveMemberModalConfig] = useState<{
     opened: boolean
