@@ -7,7 +7,7 @@ export const Route = createFileRoute('/teams/$teamId/service-accounts/')({
   component: ServiceAccountsPage,
   loader: async ({ context: { queryClient }, params: { teamId } }) => {
     return {
-      serviceAccounts: await queryClient.prefetchQuery(getServiceAccounts({ teamId })),
+      serviceAccounts: await queryClient.ensureQueryData(getServiceAccounts({ teamId })),
     }
   },
 })

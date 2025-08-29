@@ -44,7 +44,6 @@ export default function DeleteRoleModal({
         <Title weight={FONT_WEIGHTS.bold}>Role</Title>
         <Name weight={FONT_WEIGHTS.medium}>{policyTag.policyTagName}</Name>
         <Description>Delete role description. (To be defined).</Description>
-
         <FlexBox gap="0.75rem">
           <StyledButton size="large" onClick={handleYesClick} disabled={isPending}>
             Yes
