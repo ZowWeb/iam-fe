@@ -4,7 +4,8 @@ import { useMemo } from 'react'
 import FlexBox from '~/components/FlexBox'
 import IamHero from '~/components/IamHero'
 import Typography from '~/components/Typography'
-import { Route } from '~/routes/teams/$teamId/route'
+import useTeam from '~/hooks/useTeam'
+import { Route } from '~/routes/teams/$teamId'
 import { COLORS } from '~/styles/constants'
 import { getFormattedDate } from '~/utils/dates'
 
@@ -45,7 +46,8 @@ const Subtitle = styled(Typography.Span)`
 `
 
 export default function TeamOverviewPage() {
-  const { team } = Route.useLoaderData()
+  const { teamId } = Route.useParams()
+  const { team } = useTeam({ teamId })
 
   const footerItems = useMemo(
     () => [
