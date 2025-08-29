@@ -11,7 +11,7 @@ type DeleteRoleModalProps = {
   teamId: string
   opened: boolean
   onClose: () => void
-  onSuccess: (displayName: string) => void
+  onSuccess: (policyTagName: string) => void
   onError: (error: unknown) => void
 }
 

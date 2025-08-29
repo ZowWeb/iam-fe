@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 import { Notification } from '@vds/notifications'
 import { useDisclosure } from '@mantine/hooks'
 
@@ -11,7 +11,6 @@ import ActionToolbar from '~/components/ActionToolbar'
 import FlexBox from '~/components/FlexBox'
 import type { PolicyTag } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
-import { Route } from '~/routes/teams/$teamId/roles/route'
 import { handleErrorMessage } from '~/utils/errors'
 import CreateRoleModal from './components/CreateRoleModal'
 import DeleteRoleModal from './components/DeleteRoleModal'
@@ -43,7 +42,7 @@ const ROW_ACTIONS = {
 type RowAction = keyof typeof ROW_ACTIONS
 
 const RolesPage = () => {
-  const { teamId } = Route.useParams()
+  const { teamId } = useParams({ from: '/teams/$teamId/roles' })
   const { isLoading, policyTags } = usePolicyTags({ teamId })
   const [createModalOpened, createModalHandlers] = useDisclosure(false)
   const [deleteModalConfig, setDeleteModalConfig] = useState<{
@@ -109,11 +108,11 @@ const RolesPage = () => {
     })
   }
 
-  const handleDeleteRoleSuccess = (displayName: string) => {
+  const handleDeleteRoleSuccess = (policyTagName: string) => {
     setNotificationConfig({
       opened: true,
       type: 'success',
-      title: `${displayName} was deleted.`,
+      title: `${policyTagName} was deleted.`,
     })
   }
 
