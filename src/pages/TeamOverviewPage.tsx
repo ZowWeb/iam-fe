@@ -1,11 +1,11 @@
 import { styled } from '@linaria/react'
+import { useParams } from '@tanstack/react-router'
 import { useMemo } from 'react'
 
 import FlexBox from '~/components/FlexBox'
 import IamHero from '~/components/IamHero'
 import Typography from '~/components/Typography'
 import useTeam from '~/hooks/useTeam'
-import { Route } from '~/routes/teams/$teamId'
 import { COLORS } from '~/styles/constants'
 import { getFormattedDate } from '~/utils/dates'
 
@@ -46,7 +46,7 @@ const Subtitle = styled(Typography.Span)`
 `
 
 export default function TeamOverviewPage() {
-  const { teamId } = Route.useParams()
+  const { teamId } = useParams({ from: '/teams/$teamId' })
   const { team } = useTeam({ teamId })
 
   const footerItems = useMemo(

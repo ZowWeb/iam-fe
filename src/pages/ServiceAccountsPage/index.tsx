@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 import { useDisclosure } from '@mantine/hooks'
 import { Notification } from '@vds/notifications'
 
@@ -10,7 +10,6 @@ import ActionToolbar from '~/components/ActionToolbar'
 import FlexBox from '~/components/FlexBox'
 import type { ServiceAccount } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
-import { Route } from '~/routes/teams/$teamId/service-accounts/route'
 import { getFormattedDate } from '~/utils/dates'
 import CreateServiceAccountModal from './components/CreateServiceAccountModal'
 import { handleErrorMessage } from '~/utils/errors'
@@ -49,7 +48,7 @@ const ROW_ACTIONS = {
 type RowAction = keyof typeof ROW_ACTIONS
 
 const ServiceAccountsPage = () => {
-  const { teamId } = Route.useParams()
+  const { teamId } = useParams({ from: '/teams/$teamId/service-accounts' })
   const { serviceAccounts, isLoading } = useServiceAccounts({ teamId })
   const [createModalOpened, createModalHandlers] = useDisclosure(false)
   const [deleteModalConfig, setDeleteModalConfig] = useState<{

@@ -2,7 +2,7 @@ import { IconChevronLeft } from '@tabler/icons-react'
 import { TitleLockup } from '@vds/type-lockups'
 import { styled } from '@linaria/react'
 import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 
 import IamHero from '~/components/IamHero'
 import FlexBox from '~/components/FlexBox'
@@ -12,7 +12,6 @@ import { COLORS } from '~/styles/constants'
 import ActionToolbar from '~/components/ActionToolbar'
 import Table from '~/components/AdvancedTable'
 import type { Policy } from '~/types/data'
-import { Route } from '~/routes/teams/$teamId/users/$userId'
 
 const FooterContainer = styled(FlexBox)`
   gap: 3.25rem;
@@ -93,11 +92,11 @@ const columns: MRTColumnDef<Policy>[] = [
 ]
 
 const MemberPage = () => {
-  const { userId } = Route.useParams()
+  const { teamId, userId } = useParams({ from: '/teams/$teamId/users/$userId' })
   const navigate = useNavigate()
 
   const handleManagePoliciesClick = () => {
-    navigate({ to: '/teams/$teamId/users/$userId/policies', params: { teamId: 'team1', userId } })
+    navigate({ to: '/teams/$teamId/users/$userId/policies', params: { teamId, userId } })
   }
 
   return (

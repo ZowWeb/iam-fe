@@ -2,7 +2,7 @@ import { Button } from '@mantine/core'
 import { useCallback, useState } from 'react'
 import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { Notification } from '@vds/notifications'
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 import { useDisclosure } from '@mantine/hooks'
 
 import Table from '~/components/AdvancedTable'
@@ -14,7 +14,6 @@ import type { Member, Person } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import { sleep } from '~/utils'
 import { handleErrorMessage } from '~/utils/errors'
-import { Route } from '~/routes/teams/$teamId/users/route'
 import useMembers from '~/hooks/useMembers'
 import InviteMembersModal from './components/InviteMembersModal'
 import { getFormattedDate } from '~/utils/dates'
@@ -56,7 +55,7 @@ const ROW_ACTIONS = {
 type RowAction = keyof typeof ROW_ACTIONS
 
 const MembersPage = () => {
-  const { teamId } = Route.useParams()
+  const { teamId } = useParams({ from: '/teams/$teamId/users' })
   const [data, setData] = useState<Person[]>(initialData)
   const [isLoading, setIsLoading] = useState(false)
   const [notificationConfig, setNotificationConfig] = useState<{
