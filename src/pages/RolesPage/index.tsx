@@ -128,9 +128,7 @@ const RolesPage = () => {
           />
         )}
         <IamHero title="Roles" subtitle="Create roles to manage access for members and service accounts." />
-        <ActionToolbar
-          ctaConfig={{ label: 'Create service account', onClick: () => createModalHandlers.open() }}
-        />
+        <ActionToolbar ctaConfig={{ label: 'Create a role', onClick: () => createModalHandlers.open() }} />
         <Table
           {...{
             data: policyTags,
