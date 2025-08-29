@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { deleteServiceAccount } from '~/mutations/deleteServiceAccount'
+import deleteServiceAccount from '~/mutations/deleteServiceAccount'
 
 type UseDeleteServiceAccountsProps = {
   teamId: string

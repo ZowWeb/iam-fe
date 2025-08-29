@@ -3,7 +3,7 @@ type DeletePolicyTagProps = {
   policyTagId: string
 }
 
-export const deletePolicyTag = async ({ teamId, policyTagId }: DeletePolicyTagProps): Promise<void> => {
+const deletePolicyTag = async ({ teamId, policyTagId }: DeletePolicyTagProps): Promise<void> => {
   const response = await fetch(
     `https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/policy-tags/${policyTagId}`,
     {
@@ -19,3 +19,5 @@ export const deletePolicyTag = async ({ teamId, policyTagId }: DeletePolicyTagPr
 
   return response.json()
 }
+
+export default deletePolicyTag

@@ -7,8 +7,8 @@ type GetTeamProps = {
   teamId: string
 }
 
-export const getTeam = ({ teamId }: GetTeamProps) =>
-  queryOptions<Team | undefined>({
+export default function getTeam({ teamId }: GetTeamProps) {
+  return queryOptions<Team | undefined>({
     queryKey: ['GET_TEAM', { teamId }],
     queryFn: async () => {
       try {
@@ -24,3 +24,4 @@ export const getTeam = ({ teamId }: GetTeamProps) =>
       }
     },
   })
+}

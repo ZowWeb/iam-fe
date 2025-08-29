@@ -5,7 +5,7 @@ type CreatePolicyTagProps = {
   data: PolicyTag
 }
 
-export const createPolicyTag = async ({ data, teamId }: CreatePolicyTagProps): Promise<PolicyTag> => {
+export default async function createPolicyTag({ data, teamId }: CreatePolicyTagProps): Promise<PolicyTag> {
   const response = await fetch(`https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/policy-tags`, {
     method: 'POST',
     headers: {

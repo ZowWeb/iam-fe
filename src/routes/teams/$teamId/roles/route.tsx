@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
-import { getPolicyTags } from '~/queries/getPolicyTags'
+import getPolicyTags from '~/queries/getPolicyTags'
 
 const RouteComponent = () => <Outlet />
 

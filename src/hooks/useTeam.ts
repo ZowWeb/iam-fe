@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { getTeam } from '~/queries/getTeam'
+import getTeam from '~/queries/getTeam'
 
 type UseTeamProps = {
   teamId: string

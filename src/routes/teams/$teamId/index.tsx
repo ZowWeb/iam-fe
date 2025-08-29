@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { TEAM_ID } from '~/constants/params'
 import TeamOverviewPage from '~/pages/TeamOverviewPage'
-import { getTeam } from '~/queries/getTeam'
+import getTeam from '~/queries/getTeam'
 
 export const Route = createFileRoute('/teams/$teamId/')({
   component: TeamOverviewPage,

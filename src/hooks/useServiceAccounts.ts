@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { getServiceAccounts } from '~/queries/getServiceAccounts'
+import getServiceAccounts from '~/queries/getServiceAccounts'
 
 type UseServiceAccountsProps = {
   teamId: string

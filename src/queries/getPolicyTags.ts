@@ -7,8 +7,8 @@ type GetPolicyTagsProps = {
   teamId: string
 }
 
-export const getPolicyTags = ({ teamId }: GetPolicyTagsProps) =>
-  queryOptions<PolicyTag[] | undefined>({
+export default function getPolicyTags({ teamId }: GetPolicyTagsProps) {
+  return queryOptions<PolicyTag[] | undefined>({
     queryKey: ['GET_POLICY_TAGS', { teamId }],
     queryFn: async () => {
       try {
@@ -24,3 +24,4 @@ export const getPolicyTags = ({ teamId }: GetPolicyTagsProps) =>
       }
     },
   })
+}

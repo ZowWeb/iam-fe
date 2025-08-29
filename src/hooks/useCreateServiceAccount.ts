@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { createServiceAccount } from '~/mutations/createServiceAccount'
+import createServiceAccount from '~/mutations/createServiceAccount'
 import type { ServiceAccount } from '~/types/data'
 
 type UseCreateServiceAccountsProps = {

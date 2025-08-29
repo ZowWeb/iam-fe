@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { getPolicyTags } from '~/queries/getPolicyTags'
+import getPolicyTags from '~/queries/getPolicyTags'
 
 type UsePolicyTagsProps = {
   teamId: string

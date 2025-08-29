@@ -5,10 +5,10 @@ type CreateServiceAccountProps = {
   data: ServiceAccount
 }
 
-export const createServiceAccount = async ({
+export default async function createServiceAccount({
   data,
   teamId,
-}: CreateServiceAccountProps): Promise<ServiceAccount> => {
+}: CreateServiceAccountProps): Promise<ServiceAccount> {
   const response = await fetch(
     `https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/service-accounts`,
     {

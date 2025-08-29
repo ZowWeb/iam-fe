@@ -3,7 +3,7 @@ type DeleteServiceAccountProps = {
   serviceAccountId: string
 }
 
-export const deleteServiceAccount = async ({ teamId, serviceAccountId }: DeleteServiceAccountProps) => {
+const deleteServiceAccount = async ({ teamId, serviceAccountId }: DeleteServiceAccountProps) => {
   const response = await fetch(
     `https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/service-accounts/${serviceAccountId}`,
     {
@@ -19,3 +19,5 @@ export const deleteServiceAccount = async ({ teamId, serviceAccountId }: DeleteS
 
   return response.text()
 }
+
+export default deleteServiceAccount

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { deletePolicyTag } from '~/mutations/deletePolicyTag'
+import deletePolicyTag from '~/mutations/deletePolicyTag'
 
 type UseDeletePolicyTagProps = {
   teamId: string

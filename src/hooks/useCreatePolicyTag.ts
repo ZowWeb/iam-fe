@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { createPolicyTag } from '~/mutations/createPolicyTag'
+import createPolicyTag from '~/mutations/createPolicyTag'
 import type { PolicyTag } from '~/types/data'
 
 type UseCreatePolicyTagProps = {

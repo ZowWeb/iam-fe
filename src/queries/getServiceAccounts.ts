@@ -7,8 +7,8 @@ type GetServiceAccountsProps = {
   teamId: string
 }
 
-export const getServiceAccounts = ({ teamId }: GetServiceAccountsProps) =>
-  queryOptions<ServiceAccount[] | undefined>({
+export default function getServiceAccounts({ teamId }: GetServiceAccountsProps) {
+  return queryOptions<ServiceAccount[] | undefined>({
     queryKey: ['GET_SERVICE_ACCOUNTS', { teamId }],
     queryFn: async () => {
       try {
@@ -26,3 +26,4 @@ export const getServiceAccounts = ({ teamId }: GetServiceAccountsProps) =>
       }
     },
   })
+}
