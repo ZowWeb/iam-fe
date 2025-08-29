@@ -8,7 +8,7 @@ export const Route = createFileRoute('/teams/$teamId/policies')({
   component: RouteComponent,
   loader: async ({ context: { queryClient }, params: { teamId } }) => {
     return {
-      policies: await queryClient.ensureQueryData(getPolicies({ teamId })),
+      policies: await queryClient.prefetchQuery(getPolicies({ teamId })),
       crumbTitle: 'Policies',
     }
   },

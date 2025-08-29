@@ -7,7 +7,6 @@ export const policies: Policy[] = [
     description: 'All CRUD operations of this team',
     lastUpdated: 'Jun 22, 2025 12:24 PM',
     applied: 'Y',
-    id: 'p-5M6BDQ12',
   },
   {
     id: 'p-2',
@@ -15,7 +14,6 @@ export const policies: Policy[] = [
     description: 'Can log in to this team and view public details',
     lastUpdated: 'Jun 22, 2025 12:24 PM',
     applied: 'Y',
-    id: 'p-9G1F8X4Z',
   },
   {
     id: 'p-3',
@@ -23,7 +21,6 @@ export const policies: Policy[] = [
     description: 'Can invite and manage members',
     lastUpdated: 'Jun 22, 2025 12:24 PM',
     applied: 'Y',
-    id: 'p-2K7J3R5T',
   },
   {
     id: 'p-4',
@@ -31,7 +28,6 @@ export const policies: Policy[] = [
     description: 'See documentation and use credentials for VZ publ',
     lastUpdated: 'Jun 22, 2025 12:24 PM',
     applied: 'Y',
-    id: 'p-8H4P6L9M',
   },
   {
     id: 'p-5',
@@ -39,6 +35,5 @@ export const policies: Policy[] = [
     description: 'See documentation and use credentials for VZ publ',
     lastUpdated: 'Jun 22, 2025 12:24 PM',
     applied: 'Y',
-    id: 'p-1N5C7V2B',
   },
 ]
