@@ -3,6 +3,7 @@ import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-r
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { useDisclosure } from '@mantine/hooks'
 import { Notification } from '@vds/notifications'
+import { useSuspenseQuery } from '@tanstack/react-query'
 
 import Table from '~/components/AdvancedTable'
 import IamHero from '~/components/IamHero'
@@ -14,7 +15,7 @@ import { getFormattedDate } from '~/utils/dates'
 import CreateServiceAccountModal from './components/CreateServiceAccountModal'
 import { handleErrorMessage } from '~/utils/errors'
 import DeleteServiceAccountModal from './components/DeleteServiceAccountModal'
-import useServiceAccounts from '~/hooks/useServiceAccounts'
+import getServiceAccounts from '~/queries/getServiceAccounts'
 
 const columns: MRTColumnDef<ServiceAccount>[] = [
   {
@@ -49,7 +50,7 @@ type RowAction = keyof typeof ROW_ACTIONS
 
 const ServiceAccountsPage = () => {
   const { teamId } = useParams({ from: '/teams/$teamId/service-accounts' })
-  const { serviceAccounts, isLoading } = useServiceAccounts({ teamId })
+  const { data: serviceAccounts = [], isLoading } = useSuspenseQuery(getServiceAccounts({ teamId }))
   const [createModalOpened, createModalHandlers] = useDisclosure(false)
   const [deleteModalConfig, setDeleteModalConfig] = useState<{
     opened: boolean

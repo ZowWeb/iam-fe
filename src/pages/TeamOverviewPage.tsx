@@ -1,11 +1,12 @@
 import { styled } from '@linaria/react'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { useParams } from '@tanstack/react-router'
 import { useMemo } from 'react'
 
 import FlexBox from '~/components/FlexBox'
 import IamHero from '~/components/IamHero'
 import Typography from '~/components/Typography'
-import useTeam from '~/hooks/useTeam'
+import getTeam from '~/queries/getTeam'
 import { COLORS } from '~/styles/constants'
 import { getFormattedDate } from '~/utils/dates'
 
@@ -47,7 +48,7 @@ const Subtitle = styled(Typography.Span)`
 
 export default function TeamOverviewPage() {
   const { teamId } = useParams({ from: '/teams/$teamId' })
-  const { team } = useTeam({ teamId })
+  const { data: team } = useSuspenseQuery(getTeam({ teamId }))
 
   const footerItems = useMemo(
     () => [

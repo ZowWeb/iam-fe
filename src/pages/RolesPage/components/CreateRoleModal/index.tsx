@@ -29,7 +29,7 @@ export default function CreateRoleModal({
   onSuccess,
   onError,
 }: CreateRoleModalProps) {
-  const { mutate } = useCreatePolicyTag({ teamId })
+  const { mutate, isPending } = useCreatePolicyTag({ teamId })
   const {
     register,
     handleSubmit,
@@ -69,7 +69,6 @@ export default function CreateRoleModal({
       <form onSubmit={handleSubmit(onSubmit)}>
         <FlexBox direction="column" alignItems="flex-start" gap="2rem">
           <Typography.H3>Create a role</Typography.H3>
-
           <StyledTextInput
             {...register('name')}
             label="Name"
@@ -77,12 +76,17 @@ export default function CreateRoleModal({
             error={errors.name && errors.name.message}
             inputWrapperOrder={['label', 'input', 'error', 'description']}
           />
-
           <FlexBox gap="0.75rem">
-            <StyledButton size="large" disabled={!isValid} type="submit">
+            <StyledButton size="large" type="submit" disabled={!isValid || isPending}>
               Create
             </StyledButton>
-            <StyledButton size="large" use="secondary" type="button" onClick={handleCloseModal}>
+            <StyledButton
+              size="large"
+              use="secondary"
+              type="button"
+              onClick={handleCloseModal}
+              disabled={isPending}
+            >
               Cancel
             </StyledButton>
           </FlexBox>

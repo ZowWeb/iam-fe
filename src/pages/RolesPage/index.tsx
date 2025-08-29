@@ -3,8 +3,8 @@ import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-r
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { Notification } from '@vds/notifications'
 import { useDisclosure } from '@mantine/hooks'
+import { useSuspenseQuery } from '@tanstack/react-query'
 
-import usePolicyTags from '~/hooks/usePolicyTags'
 import Table from '~/components/AdvancedTable'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
@@ -15,6 +15,7 @@ import { handleErrorMessage } from '~/utils/errors'
 import CreateRoleModal from './components/CreateRoleModal'
 import DeleteRoleModal from './components/DeleteRoleModal'
 import { getFormattedDate } from '~/utils/dates'
+import getPolicyTags from '~/queries/getPolicyTags'
 
 const columns: MRTColumnDef<PolicyTag>[] = [
   {
@@ -43,7 +44,7 @@ type RowAction = keyof typeof ROW_ACTIONS
 
 const RolesPage = () => {
   const { teamId } = useParams({ from: '/teams/$teamId/roles' })
-  const { isLoading, policyTags } = usePolicyTags({ teamId })
+  const { data: policyTags = [], isLoading } = useSuspenseQuery(getPolicyTags({ teamId }))
   const [createModalOpened, createModalHandlers] = useDisclosure(false)
   const [deleteModalConfig, setDeleteModalConfig] = useState<{
     opened: boolean
