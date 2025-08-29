@@ -61,6 +61,7 @@ const footerItemsJSX = (
 
 const data: Policy[] = [
   {
+    id: 'p-1',
     name: 'Team access',
     description: 'Can log in to this team and view public details',
     lastUpdated: 'June 22, 2025 12:24 PM',

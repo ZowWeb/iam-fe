@@ -6,25 +6,25 @@ export type Person = {
   country: string
 }
 
-export const PrincipalKind = {
-  user: 'user',
-  service_account: 'service_account',
-} as const
+export enum PrincipalKindEnum {
+  user = 'user',
+  service_account = 'service_account',
+}
 
-export type PrincipalKind = (typeof PrincipalKind)[keyof typeof PrincipalKind]
+export type PrincipalKind = `${PrincipalKindEnum}`
 
-export const UserIdpSource = {
-  bmo_okta: 'bmo_okta',
-  vz_internal_forgerock: 'vz_internal_forgerock',
-  vz_external_forgerock: 'vz_external_forgerock',
-} as const
+export enum UserIdpSourceEnum {
+  bmo_okta = 'bmo_okta',
+  vz_internal_forgerock = 'vz_internal_forgerock',
+  vz_external_forgerock = 'vz_external_forgerock',
+}
 
-export type IdpSource = (typeof UserIdpSource)[keyof typeof UserIdpSource]
+export type IdpSource = `${UserIdpSourceEnum}`
 
 export type Member = {
   id: `u-${string}`
   displayName: string
-  kind: (typeof PrincipalKind)['user']
+  kind: PrincipalKindEnum.user
   email: string
   idpSource: IdpSource
   createdAt: string
@@ -32,6 +32,7 @@ export type Member = {
 }
 
 export type Policy = {
+  id: `p-${string}`
   name: string
   description: string
   lastUpdated: string
@@ -42,7 +43,7 @@ export type Team = {
   id: `team-${string}`
   displayName: string
   parentTeamId: `team-${string}`
-  appOwnerTeamId: `team-${string}`
+  appOwnerTeamId: string
   kind: string
   isRootTeam: boolean
   isPlatformTeam: boolean
@@ -53,15 +54,15 @@ export type Team = {
 }
 
 export type ServiceAccount = {
-  id: string
+  id: `s-${string}`
   teamId: `team-${string}`
   createdAt: string
   updatedAt: string
   displayName: string
-  kind: (typeof PrincipalKind)['service_account']
+  kind: PrincipalKindEnum.service_account
 }
 
 export type PolicyTag = {
-  policyTagId: string
+  policyTagId: `pt-${string}`
   policyTagName: string
 }
