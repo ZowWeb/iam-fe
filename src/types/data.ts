@@ -63,6 +63,6 @@ export type ServiceAccount = {
 }
 
 export type PolicyTag = {
-  policyTagId: `pt-${string}`
+  id: `pt-${string}`
   policyTagName: string
 }

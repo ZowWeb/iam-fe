@@ -30,7 +30,7 @@ export default function DeleteRoleModal({
   }
 
   const handleYesClick = () => {
-    mutate(policyTag.policyTagId, {
+    mutate(policyTag.id, {
       onSuccess: () => onSuccess(policyTag.policyTagName),
       onError,
       onSettled: handleCloseModal,
@@ -41,8 +41,10 @@ export default function DeleteRoleModal({
     <Modal opened={opened} onClose={onClose}>
       <FlexBox direction="column" alignItems="flex-start" gap="2rem">
         <Typography.H3>Delete role?</Typography.H3>
-        <Title weight={FONT_WEIGHTS.bold}>Role</Title>
-        <Name weight={FONT_WEIGHTS.medium}>{policyTag.policyTagName}</Name>
+        <FlexBox direction="column" alignItems="flex-start">
+          <Title weight={FONT_WEIGHTS.bold}>Role</Title>
+          <Name weight={FONT_WEIGHTS.medium}>{policyTag.policyTagName}</Name>
+        </FlexBox>
         <Description>Delete role description. (To be defined).</Description>
         <FlexBox gap="0.75rem">
           <StyledButton size="large" onClick={handleYesClick} disabled={isPending}>
