@@ -45,7 +45,10 @@ export default function DeleteRoleModal({
           <Title weight={FONT_WEIGHTS.bold}>Role</Title>
           <Name weight={FONT_WEIGHTS.medium}>{policyTag.policyTagName}</Name>
         </FlexBox>
-        <Description>Delete role description. (To be defined).</Description>
+        <Description>
+          Deleting this role will significantly affect the access of any team members or service accounts
+          associated with it. This action cannot be undone.
+        </Description>
         <FlexBox gap="0.75rem">
           <StyledButton size="large" onClick={handleYesClick} disabled={isPending}>
             Yes
