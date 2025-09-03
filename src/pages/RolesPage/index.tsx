@@ -43,7 +43,7 @@ const ROW_ACTIONS = {
 type RowAction = keyof typeof ROW_ACTIONS
 
 const RolesPage = () => {
-  const { teamId } = useParams({ from: '/teams/$teamId/roles' })
+  const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/roles' })
   const { data: policyTags = [], isLoading } = useSuspenseQuery(getPolicyTags({ teamId }))
   const [createModalOpened, createModalHandlers] = useDisclosure(false)
   const [deleteModalConfig, setDeleteModalConfig] = useState<{

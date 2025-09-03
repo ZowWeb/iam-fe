@@ -15,7 +15,7 @@ function RootComponent() {
   )
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient; isAuthenticated: boolean }>()({
   component: RootComponent,
   notFoundComponent: NotFoundPage,
   loader: () => ({

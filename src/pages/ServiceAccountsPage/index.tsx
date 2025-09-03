@@ -49,7 +49,7 @@ const ROW_ACTIONS = {
 type RowAction = keyof typeof ROW_ACTIONS
 
 const ServiceAccountsPage = () => {
-  const { teamId } = useParams({ from: '/teams/$teamId/service-accounts' })
+  const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/service-accounts/' })
   const { data: serviceAccounts = [], isLoading } = useSuspenseQuery(getServiceAccounts({ teamId }))
   const [createModalOpened, createModalHandlers] = useDisclosure(false)
   const [deleteModalConfig, setDeleteModalConfig] = useState<{

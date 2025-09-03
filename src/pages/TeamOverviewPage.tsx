@@ -63,7 +63,7 @@ const createFooterItemsJSX = (team: Team | undefined) => {
 }
 
 export default function TeamOverviewPage() {
-  const { teamId } = useParams({ from: '/teams/$teamId' })
+  const { teamId } = useParams({ from: '/_authenticated/teams/$teamId' })
   const { data: team } = useSuspenseQuery(getTeam({ teamId }))
 
   return (

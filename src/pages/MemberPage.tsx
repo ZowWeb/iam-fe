@@ -93,7 +93,7 @@ const columns: MRTColumnDef<Policy>[] = [
 ]
 
 const MemberPage = () => {
-  const { teamId, userId } = useParams({ from: '/teams/$teamId/users/$userId' })
+  const { teamId, userId } = useParams({ from: '/_authenticated/teams/$teamId/users/$userId' })
   const navigate = useNavigate()
 
   const handleManagePoliciesClick = () => {

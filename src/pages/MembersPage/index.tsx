@@ -55,7 +55,7 @@ const ROW_ACTIONS = {
 type RowAction = keyof typeof ROW_ACTIONS
 
 const MembersPage = () => {
-  const { teamId } = useParams({ from: '/teams/$teamId/users' })
+  const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/users' })
   const [data, setData] = useState<Person[]>(initialData)
   const [isLoading, setIsLoading] = useState(false)
   const [notificationConfig, setNotificationConfig] = useState<{

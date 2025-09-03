@@ -2,9 +2,9 @@ import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 const RouteComponent = () => <Outlet />
 
-export const Route = createFileRoute('/teams/$teamId/users')({
+export const Route = createFileRoute('/_authenticated/teams/$teamId/service-accounts')({
   component: RouteComponent,
   loader: () => ({
-    crumbTitle: 'Members',
+    crumbTitle: 'Service accounts',
   }),
 })

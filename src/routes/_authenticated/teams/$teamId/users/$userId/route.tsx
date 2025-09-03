@@ -2,7 +2,7 @@ import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 const RouteComponent = () => <Outlet />
 
-export const Route = createFileRoute('/teams/$teamId/users/$userId')({
+export const Route = createFileRoute('/_authenticated/teams/$teamId/users/$userId')({
   component: RouteComponent,
   loader: async () => {
     const username = await new Promise<string>(resolve => {

@@ -4,7 +4,7 @@ import { TEAM_ID } from '~/constants/params'
 import TeamOverviewPage from '~/pages/TeamOverviewPage'
 import getTeam from '~/queries/getTeam'
 
-export const Route = createFileRoute('/teams/$teamId/')({
+export const Route = createFileRoute('/_authenticated/teams/$teamId/')({
   component: TeamOverviewPage,
   loader: async ({ context: { queryClient } }) => {
     return {

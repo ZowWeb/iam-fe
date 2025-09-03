@@ -31,6 +31,8 @@ export type Member = {
   updatedAt?: string
 }
 
+export type User = Member
+
 export type Policy = {
   id: `p-${string}`
   name: string

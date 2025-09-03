@@ -4,10 +4,13 @@ import FlexBox from '~/components/FlexBox'
 import { AvatarWrapper, HeaderContainer, HeaderWrapper, Left, Right } from './styles'
 import Typography from '~/components/Typography'
 import { ExternalLink } from '~/components/Link'
+import { useUser } from '~/hooks/useUser'
 
 const LOGO_HEIGHT = '25px'
 
 const Header = () => {
+  const { user } = useUser()
+
   return (
     <HeaderWrapper>
       <HeaderContainer>
@@ -41,7 +44,7 @@ const Header = () => {
           <AvatarWrapper className="avatar" justifyContent="flex-end">
             <Avatar radius="xl">JD</Avatar>
             <FlexBox direction="column" alignItems="flex-start">
-              <span className="avatar__name">John Doe</span>
+              <span className="avatar__name">{user?.displayName}</span>
               <span className="avatar__team">Teamname</span>
             </FlexBox>
           </AvatarWrapper>
