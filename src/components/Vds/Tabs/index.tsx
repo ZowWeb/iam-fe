@@ -1,38 +1,36 @@
 import { Tab, Tabs } from '@vds/tabs'
-import { useMatchRoute } from '@tanstack/react-router'
 
-import type { FileRoutesByTo } from '~/routeTree.gen'
+import { FullWidth } from './styles'
 
-export interface TabConfig {
+export type TabItem = {
   id: string
   label: string
-  link: keyof FileRoutesByTo
+  selected?: boolean
 }
 
-export interface Props {
-  tabs: TabConfig[]
-  onClick: (tab: TabConfig) => void
+type VdsTabsProps = {
+  tabs: TabItem[]
+  onClick: (tab: TabItem) => void
   orientation?: 'vertical' | 'horizontal'
+  borderLine?: boolean
 }
 
-export function VdsTabs({ tabs, onClick, orientation = 'vertical' }: Props) {
-  const matchRoute = useMatchRoute()
-
+export function VdsTabs({ tabs, onClick, orientation = 'vertical', borderLine = false }: VdsTabsProps) {
   return (
-    <Tabs orientation={orientation} indicatorPosition="bottom" borderLine={false} size="large" width="100%">
-      {tabs.map(tab => {
-        const matchOrFalse = matchRoute({ to: tab.link })
-
-        return (
-          <Tab
-            key={tab.id}
-            uniqueId={tab.id}
-            label={tab.label}
-            selected={!!matchOrFalse}
-            onClick={() => onClick(tab)}
-          />
-        )
-      })}
-    </Tabs>
+    <FullWidth>
+      <Tabs orientation={orientation} indicatorPosition="bottom" borderLine={borderLine} size="large">
+        {tabs.map(tab => {
+          return (
+            <Tab
+              key={tab.id}
+              uniqueId={tab.id}
+              label={tab.label}
+              selected={tab.selected || false}
+              onClick={() => onClick(tab)}
+            />
+          )
+        })}
+      </Tabs>
+    </FullWidth>
   )
 }

@@ -21,6 +21,7 @@ import { Route as AuthenticatedTeamsTeamIdServiceAccountsIndexRouteImport } from
 import { Route as AuthenticatedTeamsTeamIdRolesIndexRouteImport } from './routes/_authenticated/teams/$teamId/roles/index'
 import { Route as AuthenticatedTeamsTeamIdUsersUserIdRouteRouteImport } from './routes/_authenticated/teams/$teamId/users/$userId/route'
 import { Route as AuthenticatedTeamsTeamIdUsersUserIdIndexRouteImport } from './routes/_authenticated/teams/$teamId/users/$userId/index'
+import { Route as AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRouteImport } from './routes/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/index'
 import { Route as AuthenticatedTeamsTeamIdUsersUserIdPoliciesIndexRouteImport } from './routes/_authenticated/teams/$teamId/users/$userId/policies/index'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -92,6 +93,14 @@ const AuthenticatedTeamsTeamIdUsersUserIdIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedTeamsTeamIdUsersUserIdRouteRoute,
   } as any)
+const AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRoute =
+  AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRouteImport.update(
+    {
+      id: '/$serviceAccountId/',
+      path: '/$serviceAccountId/',
+      getParentRoute: () => AuthenticatedTeamsTeamIdServiceAccountsRouteRoute,
+    } as any,
+  )
 const AuthenticatedTeamsTeamIdUsersUserIdPoliciesIndexRoute =
   AuthenticatedTeamsTeamIdUsersUserIdPoliciesIndexRouteImport.update({
     id: '/policies/',
@@ -110,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/teams/$teamId/roles/': typeof AuthenticatedTeamsTeamIdRolesIndexRoute
   '/teams/$teamId/service-accounts/': typeof AuthenticatedTeamsTeamIdServiceAccountsIndexRoute
   '/teams/$teamId/users/': typeof AuthenticatedTeamsTeamIdUsersIndexRoute
+  '/teams/$teamId/service-accounts/$serviceAccountId': typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRoute
   '/teams/$teamId/users/$userId/': typeof AuthenticatedTeamsTeamIdUsersUserIdIndexRoute
   '/teams/$teamId/users/$userId/policies': typeof AuthenticatedTeamsTeamIdUsersUserIdPoliciesIndexRoute
 }
@@ -119,6 +129,7 @@ export interface FileRoutesByTo {
   '/teams/$teamId/roles': typeof AuthenticatedTeamsTeamIdRolesIndexRoute
   '/teams/$teamId/service-accounts': typeof AuthenticatedTeamsTeamIdServiceAccountsIndexRoute
   '/teams/$teamId/users': typeof AuthenticatedTeamsTeamIdUsersIndexRoute
+  '/teams/$teamId/service-accounts/$serviceAccountId': typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRoute
   '/teams/$teamId/users/$userId': typeof AuthenticatedTeamsTeamIdUsersUserIdIndexRoute
   '/teams/$teamId/users/$userId/policies': typeof AuthenticatedTeamsTeamIdUsersUserIdPoliciesIndexRoute
 }
@@ -135,6 +146,7 @@ export interface FileRoutesById {
   '/_authenticated/teams/$teamId/roles/': typeof AuthenticatedTeamsTeamIdRolesIndexRoute
   '/_authenticated/teams/$teamId/service-accounts/': typeof AuthenticatedTeamsTeamIdServiceAccountsIndexRoute
   '/_authenticated/teams/$teamId/users/': typeof AuthenticatedTeamsTeamIdUsersIndexRoute
+  '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/': typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRoute
   '/_authenticated/teams/$teamId/users/$userId/': typeof AuthenticatedTeamsTeamIdUsersUserIdIndexRoute
   '/_authenticated/teams/$teamId/users/$userId/policies/': typeof AuthenticatedTeamsTeamIdUsersUserIdPoliciesIndexRoute
 }
@@ -151,6 +163,7 @@ export interface FileRouteTypes {
     | '/teams/$teamId/roles/'
     | '/teams/$teamId/service-accounts/'
     | '/teams/$teamId/users/'
+    | '/teams/$teamId/service-accounts/$serviceAccountId'
     | '/teams/$teamId/users/$userId/'
     | '/teams/$teamId/users/$userId/policies'
   fileRoutesByTo: FileRoutesByTo
@@ -160,6 +173,7 @@ export interface FileRouteTypes {
     | '/teams/$teamId/roles'
     | '/teams/$teamId/service-accounts'
     | '/teams/$teamId/users'
+    | '/teams/$teamId/service-accounts/$serviceAccountId'
     | '/teams/$teamId/users/$userId'
     | '/teams/$teamId/users/$userId/policies'
   id:
@@ -175,6 +189,7 @@ export interface FileRouteTypes {
     | '/_authenticated/teams/$teamId/roles/'
     | '/_authenticated/teams/$teamId/service-accounts/'
     | '/_authenticated/teams/$teamId/users/'
+    | '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/'
     | '/_authenticated/teams/$teamId/users/$userId/'
     | '/_authenticated/teams/$teamId/users/$userId/policies/'
   fileRoutesById: FileRoutesById
@@ -270,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTeamsTeamIdUsersUserIdIndexRouteImport
       parentRoute: typeof AuthenticatedTeamsTeamIdUsersUserIdRouteRoute
     }
+    '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/': {
+      id: '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/'
+      path: '/$serviceAccountId'
+      fullPath: '/teams/$teamId/service-accounts/$serviceAccountId'
+      preLoaderRoute: typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRouteImport
+      parentRoute: typeof AuthenticatedTeamsTeamIdServiceAccountsRouteRoute
+    }
     '/_authenticated/teams/$teamId/users/$userId/policies/': {
       id: '/_authenticated/teams/$teamId/users/$userId/policies/'
       path: '/policies'
@@ -297,12 +319,15 @@ const AuthenticatedTeamsTeamIdRolesRouteRouteWithChildren =
 
 interface AuthenticatedTeamsTeamIdServiceAccountsRouteRouteChildren {
   AuthenticatedTeamsTeamIdServiceAccountsIndexRoute: typeof AuthenticatedTeamsTeamIdServiceAccountsIndexRoute
+  AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRoute: typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRoute
 }
 
 const AuthenticatedTeamsTeamIdServiceAccountsRouteRouteChildren: AuthenticatedTeamsTeamIdServiceAccountsRouteRouteChildren =
   {
     AuthenticatedTeamsTeamIdServiceAccountsIndexRoute:
       AuthenticatedTeamsTeamIdServiceAccountsIndexRoute,
+    AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRoute:
+      AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRoute,
   }
 
 const AuthenticatedTeamsTeamIdServiceAccountsRouteRouteWithChildren =
