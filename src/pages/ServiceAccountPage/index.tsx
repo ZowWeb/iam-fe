@@ -3,17 +3,18 @@ import { IconChevronLeft } from '@tabler/icons-react'
 import { TitleLockup } from '@vds/type-lockups'
 import { styled } from '@linaria/react'
 import { useParams } from '@tanstack/react-router'
+import { useSuspenseQuery } from '@tanstack/react-query'
 
 import IamHero from '~/components/IamHero'
 import FlexBox from '~/components/FlexBox'
 import Typography from '~/components/Typography'
 import Link from '~/components/Link'
 import { COLORS } from '~/styles/constants'
-import useServiceAccount from '~/hooks/useServiceAccount'
 import { getFormattedDate } from '~/utils/dates'
 import { VdsTabs, type TabItem } from '~/components/Vds/Tabs'
 import CredentialsTab from './components/CredentialsTab'
 import PoliciesTab from './components/PoliciesTab'
+import { getServiceAccount } from '~/queries/getServiceAccount'
 
 const FooterContainer = styled(FlexBox)`
   gap: 3.25rem;
@@ -44,7 +45,7 @@ export default function ServiceAccountPage() {
   const { teamId, serviceAccountId } = useParams({
     from: '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/',
   })
-  const { serviceAccount } = useServiceAccount({ teamId, serviceAccountId })
+  const { data: serviceAccount } = useSuspenseQuery(getServiceAccount({ teamId, serviceAccountId }))
   const [selectedTab, setSelectedTab] = useState<TabItem>(tabs[0])
 
   const footerItems = useMemo(
