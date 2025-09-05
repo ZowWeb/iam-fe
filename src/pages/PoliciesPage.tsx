@@ -1,7 +1,7 @@
 import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { useNavigate } from '@tanstack/react-router'
 
-import { Route } from '~/routes/teams/$teamId/policies'
+import { Route } from '~/routes/_authenticated/teams/$teamId/policies'
 import ActionToolbar from '~/components/ActionToolbar'
 import FlexBox from '~/components/FlexBox'
 import IamHero from '~/components/IamHero'

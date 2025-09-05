@@ -13,7 +13,7 @@ type Props = {
 export default function DetailsHeader({ title, showActionButton = false, children, gap = '1.5rem' }: Props) {
   return (
     <Wrapper direction="column" alignItems="flex-start" gap={gap}>
-      <TitleWithActionWrapper>
+      <TitleWithActionWrapper alignItems="flex-start">
         <Title>{title}</Title>
         {showActionButton && (
           <Right>
