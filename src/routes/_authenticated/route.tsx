@@ -30,7 +30,6 @@ export const Route = createFileRoute('/_authenticated')({
       //   },
       // })
       return {
-        ...context,
         isAuthenticated: false,
       }
     }
@@ -43,13 +42,11 @@ export const Route = createFileRoute('/_authenticated')({
         user = await queryClient.fetchQuery(getUser(token.userId))
       } catch (error) {
         console.error(`[beforeLoad] Error fetching user:`, error)
-        return context
       }
     }
 
     return {
-      ...context,
-      isAuthenticated: true,
+      isAuthenticated: !!user,
     }
   },
 })
