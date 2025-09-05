@@ -91,11 +91,10 @@ const ServiceAccountsPage = () => {
     )
   }, [])
 
-  // TODO: Navigate to details page once is ready
-  const handleRowClick = () => {
+  const handleRowClick = (row: MRTRow<ServiceAccount>) => {
     navigate({
-      to: '/teams/$teamId/service-accounts',
-      params: { teamId },
+      to: '/teams/$teamId/service-accounts/$serviceAccountId',
+      params: { teamId, serviceAccountId: row.original.id },
     })
   }
 
