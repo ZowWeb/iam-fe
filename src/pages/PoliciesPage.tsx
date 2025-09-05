@@ -19,9 +19,13 @@ export default function PoliciesPage() {
    * Navigate to details page
    */
   const handleRowClick = (row: MRTRow<Policy>) => {
+    const { id } = row.original
+
+    if (!id) return
+
     navigate({
       to: '/teams/$teamId/policies/$policyId',
-      params: { teamId, policyId: row.original.id },
+      params: { teamId, policyId: id },
     })
   }
 

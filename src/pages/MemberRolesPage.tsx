@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { IconChevronLeft } from '@tabler/icons-react'
 import { TitleLockup } from '@vds/type-lockups'
 import type {
@@ -10,6 +10,7 @@ import { useParams } from '@tanstack/react-router'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
+import { Notification } from '@vds/notifications'
 
 import IamHero from '~/components/IamHero'
 import FlexBox from '~/components/FlexBox'
@@ -24,6 +25,7 @@ import usePolicyTagsByPrincipal from '~/hooks/usePolicyTagsByPrincipal'
 import useMember from '~/hooks/useMember'
 import usePolicyTags from '~/hooks/usePolicyTags'
 import useAddRemovePolicyTagsFromPrincipal from '~/hooks/useAddRemovePolicyTagsFromPrincipal'
+import { handleErrorMessage } from '~/utils/errors'
 
 const columns: MRTColumnDef<PolicyTag>[] = [
   {
@@ -60,8 +62,8 @@ const assignPoliciesSchema = z
 
 type AssignPoliciesSchema = z.infer<typeof assignPoliciesSchema>
 
-const MemberPoliciesPage = () => {
-  const { teamId, userId } = useParams({ from: '/teams/$teamId/users/$userId/roles/' })
+const MemberRolesPage = () => {
+  const { teamId, userId } = useParams({ from: '/_authenticated/teams/$teamId/users/$userId/roles/' })
   const { member } = useMember({ userId })
   const { policyTags: assignedPolicyTags } = usePolicyTagsByPrincipal({
     teamId,
@@ -69,8 +71,16 @@ const MemberPoliciesPage = () => {
   })
   const { policyTags: policyTagsAll } = usePolicyTags({ teamId })
   const [rowSelection, setRowSelection] = useState<MRTRowSelectionState>({})
-  const [initialAssignedPolicyTagsIds, setInitialAssignedPolicyTagsIds] = useState<string[]>([])
-  const { mutate } = useAddRemovePolicyTagsFromPrincipal({ teamId, principalId: userId })
+  const { mutate, isPending } = useAddRemovePolicyTagsFromPrincipal({ teamId, principalId: userId })
+  const [notificationConfig, setNotificationConfig] = useState<{
+    opened: boolean
+    type?: 'success' | 'error' | 'info' | 'warning'
+    title: string
+    subtitle?: string
+  }>({
+    opened: false,
+    title: '',
+  })
 
   const {
     handleSubmit,
@@ -78,7 +88,7 @@ const MemberPoliciesPage = () => {
     watch,
     reset,
     trigger,
-    formState: { isValid, isDirty },
+    formState: { isValid },
   } = useForm<AssignPoliciesSchema>({
     resolver: zodResolver(assignPoliciesSchema),
     mode: 'onChange',
@@ -94,12 +104,19 @@ const MemberPoliciesPage = () => {
 
   const selectedPoliciesQty = Object.values(rowSelection).filter(Boolean).length // Total selected
   const removedPoliciesQty = policyTagsToRemove.length // Total removed
-  const isSaveEnabled = isValid && (policyTagsToAdd.length > 0 || policyTagsToRemove.length > 0) // Check if save button should be enabled
+  const isSaveEnabled = useMemo(
+    () => !isPending && isValid && (policyTagsToAdd.length > 0 || policyTagsToRemove.length > 0),
+    [isPending, isValid, policyTagsToAdd, policyTagsToRemove],
+  )
 
+  /**
+   * Returns the initial selection
+   * Mantine react uses { index: true|false } to set the selected rows
+   */
   const setInitialSelectedState = useCallback(() => {
-    if (initialAssignedPolicyTagsIds.length > 0) {
-      const initialSelection = policyTagsAll.reduce((acc, policy, index) => {
-        if (initialAssignedPolicyTagsIds.includes(policy.id)) {
+    if (assignedPolicyTags.length > 0) {
+      const initialSelection = policyTagsAll.reduce<MRTRowSelectionState>((acc, policy, index) => {
+        if (assignedPolicyTags.some(p => p.id === policy.id)) {
           acc[index] = true
         }
         return acc
@@ -108,7 +125,7 @@ const MemberPoliciesPage = () => {
     } else {
       setRowSelection({})
     }
-  }, [policyTagsAll, initialAssignedPolicyTagsIds])
+  }, [policyTagsAll, assignedPolicyTags])
 
   const handleCancel = () => {
     reset()
@@ -116,28 +133,33 @@ const MemberPoliciesPage = () => {
   }
 
   const onSubmit: SubmitHandler<AssignPoliciesSchema> = data => {
-    mutate(data as PatchPolicyTagsFromPrincipal)
+    mutate(data as PatchPolicyTagsFromPrincipal, {
+      onSuccess: () =>
+        setNotificationConfig({
+          opened: true,
+          type: 'success',
+          title: 'Roles updated succesfully',
+        }),
+      onError: err =>
+        setNotificationConfig({
+          opened: true,
+          type: 'error',
+          title: handleErrorMessage(err),
+        }),
+    })
   }
 
   /**
-   * useEffect to set the initial selection
-   * Mantine react uses { index: true|false } to set the selected rows
+   * useEffect to set the initial state
    */
   useEffect(() => {
     setInitialSelectedState()
-  }, [policyTagsAll, initialAssignedPolicyTagsIds])
+  }, [policyTagsAll, assignedPolicyTags])
 
   /**
-   * useEffect to store the initial state of the assigned roles
+   * Effect to update the form's add/remove arrays based on rowSelection changes
    */
   useEffect(() => {
-    const assignedPoliciesIds: string[] = assignedPolicyTags.map(p => p.id)
-    setInitialAssignedPolicyTagsIds(assignedPoliciesIds)
-  }, [assignedPolicyTags])
-
-  // Effect to update the form's add/remove arrays based on rowSelection changes
-  useEffect(() => {
-    // This effect should only run after initial data has been loaded and rowSelection has been set
     if (!policyTagsAll.length) return
 
     const newSelectedIds = new Set(
@@ -151,7 +173,7 @@ const MemberPoliciesPage = () => {
 
     policyTagsAll.forEach(policy => {
       const isCurrentlySelected = newSelectedIds.has(policy.id)
-      const wasInitiallyAssigned = initialAssignedPolicyTagsIds.includes(policy.id)
+      const wasInitiallyAssigned = assignedPolicyTags.some(p => p.id === policy.id)
 
       if (isCurrentlySelected && !wasInitiallyAssigned) {
         toAdd.push(policy.id)
@@ -164,76 +186,81 @@ const MemberPoliciesPage = () => {
     setValue('policyTagsToAdd', toAdd)
     setValue('policyTagsToRemove', toRemove)
     trigger()
-  }, [rowSelection, policyTagsAll, initialAssignedPolicyTagsIds, setValue])
+  }, [rowSelection, policyTagsAll, assignedPolicyTags, setValue])
 
   return (
-    <>
+    <FlexBox direction="column" alignItems="flex-start" gap="2.5rem">
       <Link to="..">
-        <FlexBox customStyle={{ marginBottom: '2rem' }}>
-          <IconChevronLeft name="arrow-left" size={20} />
+        <FlexBox>
+          <IconChevronLeft size={20} />
           <span>Back to member list</span>
         </FlexBox>
       </Link>
-      <FlexBox direction="column" gap="2.5rem">
-        <TitleLockup
-          data={{
-            title: {
-              size: 'titleLarge',
-              bold: false,
-              children: 'Assign a member role',
-              color: COLORS.brandHighlight,
-            },
-            subtitle: {
-              size: 'bodyLarge',
-              children: 'Add or remove a policy from the list bellow. Click save to commit the change.',
-            },
-          }}
+      {notificationConfig.opened && (
+        <Notification
+          type={notificationConfig.type}
+          title={notificationConfig.title}
+          subtitle={notificationConfig.subtitle}
+          onCloseButtonClick={() => setNotificationConfig({ ...notificationConfig, opened: false })}
         />
-        <IamHero title={member?.displayName || 'Member name'} showActionButton={false} gap="0">
-          <FlexBox direction="column" alignItems="flex-start" gap="1rem">
-            <div>{member?.email}</div>
-            <FlexBox alignItems="flex-end">
-              <FlexBox gap="0.5rem">
-                {selectedPoliciesQty > 0 && (
-                  <Badge
-                    text={`${selectedPoliciesQty} ${selectedPoliciesQty === 1 ? 'Policy' : 'Policies'} assigned`}
-                    color="blue"
-                  />
-                )}
-                {removedPoliciesQty > 0 && (
-                  <Badge
-                    text={`${removedPoliciesQty} ${removedPoliciesQty === 1 ? 'Policy' : 'Policies'} removed`}
-                    color="yellow"
-                  />
-                )}
-              </FlexBox>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <FlexBox justifyContent="end" alignItems="flex-end" gap="1rem">
-                  <Button size="small" type="submit" disabled={!isSaveEnabled}>
-                    Save
-                  </Button>
-                  <Button size="small" use="secondary" type="button" onClick={handleCancel}>
-                    Cancel
-                  </Button>
-                </FlexBox>
-              </form>
+      )}
+      <TitleLockup
+        data={{
+          title: {
+            size: 'titleLarge',
+            bold: false,
+            children: 'Assign a member role',
+            color: COLORS.brandHighlight,
+          },
+          subtitle: {
+            size: 'bodyLarge',
+            children: 'Add or remove a policy from the list bellow. Click save to commit the change.',
+          },
+        }}
+      />
+      <IamHero title={member?.displayName || 'Member name'} showActionButton={false} gap="0">
+        <FlexBox direction="column" alignItems="flex-start" gap="1rem">
+          <div>{member?.email}</div>
+          <FlexBox alignItems="flex-end">
+            <FlexBox gap="0.5rem">
+              {selectedPoliciesQty > 0 && (
+                <Badge
+                  text={`${selectedPoliciesQty} ${selectedPoliciesQty === 1 ? 'Policy' : 'Policies'} assigned`}
+                  color="blue"
+                />
+              )}
+              {removedPoliciesQty > 0 && (
+                <Badge
+                  text={`${removedPoliciesQty} ${removedPoliciesQty === 1 ? 'Policy' : 'Policies'} removed`}
+                  color="yellow"
+                />
+              )}
             </FlexBox>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <FlexBox justifyContent="end" alignItems="flex-end" gap="1rem">
+                <Button size="small" type="submit" disabled={!isSaveEnabled}>
+                  Save
+                </Button>
+                <Button size="small" use="secondary" type="button" onClick={handleCancel}>
+                  Cancel
+                </Button>
+              </FlexBox>
+            </form>
           </FlexBox>
-        </IamHero>
-        <ActionToolbar />
-        <Table
-          {...{
-            columns,
-            data: policyTagsAll,
-            rowSelection,
-            onRowSelectionChange: setRowSelection,
-            ...tableOptions,
-          }}
-        />
-      </FlexBox>
-      {JSON.stringify({ isValid, isDirty })}
-    </>
+        </FlexBox>
+      </IamHero>
+      <ActionToolbar />
+      <Table
+        {...{
+          columns,
+          data: policyTagsAll,
+          rowSelection,
+          onRowSelectionChange: setRowSelection,
+          ...tableOptions,
+        }}
+      />
+    </FlexBox>
   )
 }
 
-export default MemberPoliciesPage
+export default MemberRolesPage

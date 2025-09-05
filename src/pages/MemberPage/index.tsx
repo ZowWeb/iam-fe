@@ -10,11 +10,9 @@ import Link from '~/components/Link'
 import { COLORS } from '~/styles/constants'
 import ActionToolbar from '~/components/ActionToolbar'
 import Table from '~/components/AdvancedTable'
-import type { Policy } from '~/types/data'
 import Block from '~/components/Block'
 import type { PolicyTag } from '~/types/data'
 import useMember from '~/hooks/useMember'
-import usePolicyTagsByPrincipal from '~/hooks/usePolicyTagsByPrincipal'
 import { FooterContainer, FooterItemWrapper, Label, Value } from './styles'
 
 const columns: MRTColumnDef<PolicyTag>[] = [
@@ -40,13 +38,19 @@ const columns: MRTColumnDef<PolicyTag>[] = [
   },
 ]
 
+const policyTags: PolicyTag[] = [{ id: 'pt-dummy01', policyTagName: 'Team access' }]
+
 const MemberPage = () => {
   const { teamId, userId } = useParams({ from: '/_authenticated/teams/$teamId/users/$userId' })
   const { member } = useMember({ userId })
+  /**
+ * Uncomment when APIFIAM-606 is ready
   const { policyTags } = usePolicyTagsByPrincipal({
     teamId,
     principalId: userId,
   })
+ */
+
   const navigate = useNavigate()
 
   const handleActionButtonClick = () => {
@@ -89,7 +93,7 @@ const MemberPage = () => {
     <Block>
       <Link to="..">
         <FlexBox>
-          <IconChevronLeft name="arrow-left" size={20} />
+          <IconChevronLeft size={20} />
           <span>Back to member list</span>
         </FlexBox>
       </Link>
@@ -107,7 +111,7 @@ const MemberPage = () => {
           },
         }}
       />
-      <IamHero title="John Doe" showActionButton>
+      <IamHero title={member?.displayName || 'Member name'} showActionButton>
         {footerItemsJSX}
       </IamHero>
       <TitleLockup
@@ -115,7 +119,7 @@ const MemberPage = () => {
           title: {
             primitive: 'h4',
             size: 'titleMedium',
-            children: 'Applied policies',
+            children: 'Applied roles',
           },
           subtitle: {
             primitive: 'p',
@@ -126,7 +130,7 @@ const MemberPage = () => {
         }}
       />
       <ActionToolbar ctaConfig={{ label: 'Manage policies', onClick: handleActionButtonClick }} />
-      <Table {...{ data, columns }} />
+      <Table {...{ data: policyTags, columns }} />
     </Block>
   )
 }

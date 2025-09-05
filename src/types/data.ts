@@ -1,11 +1,3 @@
-export type Person = {
-  firstName: string
-  lastName: string
-  email: string
-  timeInVerzion: number
-  country: string
-}
-
 export enum PrincipalKindEnum {
   user = 'user',
   service_account = 'service_account',
@@ -71,14 +63,13 @@ export type PolicyTag = {
   policies: `p-${string}`[]
 }
 
-<<<<<<< HEAD
 export type InviteMember = {
   email: string
-=======
+}
+
 export type PatchPolicyTagsFromPrincipal = {
   policyTagsToAdd: `pt-${string}`[]
   policyTagsToRemove: `pt-${string}`[]
->>>>>>> 9ece818 (New query to get policies assigned to a principal.)
 }
 
 export type ServerErrorSchema = {
