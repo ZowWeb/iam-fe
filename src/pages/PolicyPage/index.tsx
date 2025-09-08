@@ -2,13 +2,14 @@ import { IconChevronLeft } from '@tabler/icons-react'
 
 import FlexBox from '~/components/FlexBox'
 import Link from '~/components/Link'
-import { FooterContainer, FooterItemWrapper, Label, StyledCodeBlock, Value, Subtitle } from './styles'
+import { FooterContainer, FooterItemWrapper, Label, Value, Subtitle } from './styles'
 import DetailsHeader from './components/DetailsHeader'
 import { Route } from '~/routes/_authenticated/teams/$teamId/policies/$policyId'
 import usePolicy from '~/hooks/usePolicy'
 import { truncateMaxedOutText } from '~/utils'
 import CodeBlock from '~/components/CodeBlock'
 import { FONT_WEIGHTS } from '~/styles/constants'
+import Block from '~/components/Block'
 
 const footerItems = [
   {
@@ -47,9 +48,9 @@ export default function PolicyPage() {
   const { policy } = usePolicy({ teamId, policyId })
 
   return (
-    <>
+    <Block>
       <Link to="..">
-        <FlexBox customStyle={{ marginBottom: '2rem' }}>
+        <FlexBox>
           <IconChevronLeft name="arrow-left" size={20} />
           <span>Back to policies list</span>
         </FlexBox>
@@ -61,9 +62,7 @@ export default function PolicyPage() {
       >
         {footerItemsJSX}
       </DetailsHeader>
-      <StyledCodeBlock>
-        <CodeBlock data={policy} />
-      </StyledCodeBlock>
-    </>
+      <CodeBlock data={policy} />
+    </Block>
   )
 }

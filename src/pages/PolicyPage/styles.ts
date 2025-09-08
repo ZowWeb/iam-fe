@@ -24,10 +24,6 @@ export const Value = styled(Typography.Span)`
   font-size: 0.875rem;
 `
 
-export const StyledCodeBlock = styled.div`
-  margin-top: 2.5rem;
-`
-
 export const Subtitle = styled(Typography.Span)`
   line-height: 1.25rem;
   letter-spacing: 0.031rem;

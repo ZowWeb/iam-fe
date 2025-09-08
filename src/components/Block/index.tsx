@@ -15,7 +15,14 @@ import { BlockWrapper } from './styles'
  */
 const Block = ({ className, children, ...props }: FlexBoxProps) => {
   return (
-    <BlockWrapper className={className} {...props}>
+    <BlockWrapper
+      className={className}
+      direction="column"
+      justifyContent="stretch"
+      alignItems="flex-start"
+      gap="2.5rem"
+      {...props}
+    >
       {children}
     </BlockWrapper>
   )
