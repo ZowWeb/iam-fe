@@ -1,10 +1,10 @@
 import { IconChevronLeft } from '@tabler/icons-react'
+import { useParams } from '@tanstack/react-router'
 
 import FlexBox from '~/components/FlexBox'
 import Link from '~/components/Link'
 import { FooterContainer, FooterItemWrapper, Label, Value, Subtitle } from './styles'
 import DetailsHeader from './components/DetailsHeader'
-import { Route } from '~/routes/_authenticated/teams/$teamId/policies/$policyId'
 import usePolicy from '~/hooks/usePolicy'
 import { truncateMaxedOutText } from '~/utils'
 import CodeBlock from '~/components/CodeBlock'
@@ -44,7 +44,7 @@ const footerItemsJSX = (
 )
 
 export default function PolicyPage() {
-  const { teamId, policyId } = Route.useParams()
+  const { teamId, policyId } = useParams({ from: '/_authenticated/teams/$teamId/policies/$policyId/' })
   const { policy } = usePolicy({ teamId, policyId })
 
   return (
