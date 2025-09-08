@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 
 import { getPolicies } from '~/queries/getPolicies'
 
@@ -7,7 +7,7 @@ type UsePoliciesProps = {
 }
 
 export default function usePolicies({ teamId }: UsePoliciesProps) {
-  const { data: policies = [], isLoading } = useQuery(getPolicies({ teamId }))
+  const { data: policies = [], isLoading } = useSuspenseQuery(getPolicies({ teamId }))
 
   return {
     policies,
