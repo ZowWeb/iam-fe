@@ -8,7 +8,6 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import Table from '~/components/AdvancedTable'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
-import FlexBox from '~/components/FlexBox'
 import type { ServiceAccount } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import { getFormattedDate } from '~/utils/dates'
@@ -16,6 +15,7 @@ import CreateServiceAccountModal from './components/CreateServiceAccountModal'
 import { handleErrorMessage } from '~/utils/errors'
 import DeleteServiceAccountModal from './components/DeleteServiceAccountModal'
 import getServiceAccounts from '~/queries/getServiceAccounts'
+import Block from '~/components/Block'
 
 const columns: MRTColumnDef<ServiceAccount>[] = [
   {
@@ -124,34 +124,32 @@ const ServiceAccountsPage = () => {
   }
 
   return (
-    <>
-      <FlexBox direction="column" gap="2.5rem">
-        {notificationConfig.opened && (
-          <Notification
-            type={notificationConfig.type}
-            title={notificationConfig.title}
-            subtitle={notificationConfig.subtitle}
-            onCloseButtonClick={() => setNotificationConfig({ opened: false, title: '', subtitle: '' })}
-          />
-        )}
-        <IamHero
-          title="Service accounts"
-          subtitle="Create services accounts, delete them,  and manage their access."
+    <Block>
+      {notificationConfig.opened && (
+        <Notification
+          type={notificationConfig.type}
+          title={notificationConfig.title}
+          subtitle={notificationConfig.subtitle}
+          onCloseButtonClick={() => setNotificationConfig({ opened: false, title: '', subtitle: '' })}
         />
-        <ActionToolbar
-          ctaConfig={{ label: 'Create service account', onClick: () => createModalHandlers.open() }}
-        />
-        <Table
-          {...{
-            data: serviceAccounts,
-            columns,
-            isLoading,
-            enableRowActions: true,
-            rowActionMenuItems,
-            handleRowClick,
-          }}
-        />
-      </FlexBox>
+      )}
+      <IamHero
+        title="Service accounts"
+        subtitle="Create services accounts, delete them,  and manage their access."
+      />
+      <ActionToolbar
+        ctaConfig={{ label: 'Create service account', onClick: () => createModalHandlers.open() }}
+      />
+      <Table
+        {...{
+          data: serviceAccounts,
+          columns,
+          isLoading,
+          enableRowActions: true,
+          rowActionMenuItems,
+          handleRowClick,
+        }}
+      />
       <CreateServiceAccountModal
         teamId={teamId}
         opened={createModalOpened}
@@ -169,7 +167,7 @@ const ServiceAccountsPage = () => {
           onError={handleServiceAccountError}
         />
       )}
-    </>
+    </Block>
   )
 }
 

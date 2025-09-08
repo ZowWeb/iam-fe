@@ -3,12 +3,12 @@ import { useNavigate } from '@tanstack/react-router'
 
 import { Route } from '~/routes/_authenticated/teams/$teamId/policies'
 import ActionToolbar from '~/components/ActionToolbar'
-import FlexBox from '~/components/FlexBox'
 import IamHero from '~/components/IamHero'
 import usePolicies from '~/hooks/usePolicies'
 import type { Policy } from '~/types/data'
 import { getFormattedDate } from '~/utils/dates'
 import Table from '~/components/AdvancedTable'
+import Block from '~/components/Block'
 
 const columns: MRTColumnDef<Policy>[] = [
   {
@@ -45,7 +45,7 @@ export default function PoliciesPage() {
   }
 
   return (
-    <FlexBox direction="column" gap="2.5rem">
+    <Block>
       <IamHero title="Policies" subtitle="Policies list." />
       <ActionToolbar />
       <Table
@@ -56,6 +56,6 @@ export default function PoliciesPage() {
           handleRowClick,
         }}
       />
-    </FlexBox>
+    </Block>
   )
 }

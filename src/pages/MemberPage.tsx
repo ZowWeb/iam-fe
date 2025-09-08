@@ -12,6 +12,7 @@ import { COLORS } from '~/styles/constants'
 import ActionToolbar from '~/components/ActionToolbar'
 import Table from '~/components/AdvancedTable'
 import type { Policy } from '~/types/data'
+import Block from '~/components/Block'
 
 const FooterContainer = styled(FlexBox)`
   gap: 3.25rem;
@@ -101,50 +102,48 @@ const MemberPage = () => {
   }
 
   return (
-    <>
+    <Block>
       <Link to="..">
-        <FlexBox customStyle={{ marginBottom: '2rem' }}>
+        <FlexBox>
           <IconChevronLeft name="arrow-left" size={20} />
           <span>Back to member list</span>
         </FlexBox>
       </Link>
-      <FlexBox direction="column" gap="2.5rem">
-        <TitleLockup
-          data={{
-            title: {
-              size: 'titleLarge',
-              bold: false,
-              children: 'Member details',
-              color: COLORS.brandHighlight,
-            },
-            subtitle: {
-              size: 'bodyLarge',
-              children: 'View details of this member and manage their access.',
-            },
-          }}
-        />
-        <IamHero title="John Doe" showActionButton>
-          {footerItemsJSX}
-        </IamHero>
-        <TitleLockup
-          data={{
-            title: {
-              primitive: 'h4',
-              size: 'titleMedium',
-              children: 'Applied policies',
-            },
-            subtitle: {
-              primitive: 'p',
-              size: 'bodyLarge',
-              children:
-                'Policies define the specific permissions this member has to perform actions and access resources.',
-            },
-          }}
-        />
-        <ActionToolbar ctaConfig={{ label: 'Manage policies', onClick: handleManagePoliciesClick }} />
-        <Table {...{ data, columns }} />
-      </FlexBox>
-    </>
+      <TitleLockup
+        data={{
+          title: {
+            size: 'titleLarge',
+            bold: false,
+            children: 'Member details',
+            color: COLORS.brandHighlight,
+          },
+          subtitle: {
+            size: 'bodyLarge',
+            children: 'View details of this member and manage their access.',
+          },
+        }}
+      />
+      <IamHero title="John Doe" showActionButton>
+        {footerItemsJSX}
+      </IamHero>
+      <TitleLockup
+        data={{
+          title: {
+            primitive: 'h4',
+            size: 'titleMedium',
+            children: 'Applied policies',
+          },
+          subtitle: {
+            primitive: 'p',
+            size: 'bodyLarge',
+            children:
+              'Policies define the specific permissions this member has to perform actions and access resources.',
+          },
+        }}
+      />
+      <ActionToolbar ctaConfig={{ label: 'Manage policies', onClick: handleManagePoliciesClick }} />
+      <Table {...{ data, columns }} />
+    </Block>
   )
 }
 

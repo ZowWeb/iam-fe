@@ -9,7 +9,6 @@ import Table from '~/components/AdvancedTable'
 import { data as initialData, moreData } from '../../mocks/makeData'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
-import FlexBox from '~/components/FlexBox'
 import type { Member, Person } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import { sleep } from '~/utils'
@@ -17,6 +16,7 @@ import { handleErrorMessage } from '~/utils/errors'
 import useMembers from '~/hooks/useMembers'
 import InviteMembersModal from './components/InviteMembersModal'
 import { getFormattedDate } from '~/utils/dates'
+import Block from '~/components/Block'
 
 const columns: MRTColumnDef<Member>[] = [
   {
@@ -134,33 +134,31 @@ const MembersPage = () => {
   }
 
   return (
-    <>
-      <FlexBox direction="column" gap="2.5rem">
-        {notificationConfig.opened && (
-          <Notification
-            type={notificationConfig.type}
-            title={notificationConfig.message}
-            onCloseButtonClick={() => setNotificationConfig({ opened: false, message: '' })}
-          />
-        )}
-        <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
-        <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: handleActionClick }} />
-        <Table
-          {...{
-            data: members,
-            columns,
-            isLoading,
-            enableRowActions: true,
-            rowActionMenuItems,
-            handleRowClick,
-          }}
+    <Block>
+      {notificationConfig.opened && (
+        <Notification
+          type={notificationConfig.type}
+          title={notificationConfig.message}
+          onCloseButtonClick={() => setNotificationConfig({ opened: false, message: '' })}
         />
-        <Button onClick={fetchLatestData} loading={isLoading}>
-          Fetch latest data
-        </Button>
-      </FlexBox>
+      )}
+      <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
+      <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: handleActionClick }} />
+      <Table
+        {...{
+          data: members,
+          columns,
+          isLoading,
+          enableRowActions: true,
+          rowActionMenuItems,
+          handleRowClick,
+        }}
+      />
+      <Button onClick={fetchLatestData} loading={isLoading}>
+        Fetch latest data
+      </Button>
       <InviteMembersModal opened={inviteMembersModalOpened} onClose={inviteMembersModalHandlers.close} />
-    </>
+    </Block>
   )
 }
 

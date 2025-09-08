@@ -2,6 +2,7 @@ import { styled } from '@linaria/react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useParams } from '@tanstack/react-router'
 
+import Block from '~/components/Block'
 import FlexBox from '~/components/FlexBox'
 import IamHero from '~/components/IamHero'
 import Typography from '~/components/Typography'
@@ -67,7 +68,7 @@ export default function TeamOverviewPage() {
   const { data: team } = useSuspenseQuery(getTeam({ teamId }))
 
   return (
-    <FlexBox direction="column" gap="2.5rem">
+    <Block>
       <FlexBox justifyContent="space-between">
         <FlexBox direction="column" alignItems="flex-start" gap="0.75rem">
           <Typography.H2>Identity & Access Management</Typography.H2>
@@ -84,6 +85,6 @@ export default function TeamOverviewPage() {
       >
         {createFooterItemsJSX(team)}
       </IamHero>
-    </FlexBox>
+    </Block>
   )
 }

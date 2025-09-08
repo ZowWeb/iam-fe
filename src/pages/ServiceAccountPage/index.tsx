@@ -15,6 +15,7 @@ import { VdsTabs, type TabItem } from '~/components/Vds/Tabs'
 import CredentialsTab from './components/CredentialsTab'
 import PoliciesTab from './components/PoliciesTab'
 import { getServiceAccount } from '~/queries/getServiceAccount'
+import Block from '~/components/Block'
 
 const FooterContainer = styled(FlexBox)`
   gap: 3.25rem;
@@ -81,35 +82,33 @@ export default function ServiceAccountPage() {
   }
 
   return (
-    <>
+    <Block>
       <Link to="..">
-        <FlexBox customStyle={{ marginBottom: '2rem' }}>
+        <FlexBox>
           <IconChevronLeft name="arrow-left" size={20} />
           <span>Back to service account list</span>
         </FlexBox>
       </Link>
-      <FlexBox direction="column" gap="2.5rem" alignItems="flex-start">
-        <TitleLockup
-          data={{
-            title: {
-              size: 'titleLarge',
-              bold: false,
-              children: 'Service account details',
-              color: COLORS.brandHighlight,
-            },
-            subtitle: {
-              size: 'bodyLarge',
-              children: 'View details of this service account.',
-            },
-          }}
-        />
-        <IamHero title={serviceAccount?.displayName || 'Service Account Name'} showActionButton>
-          {footerItemsJSX}
-        </IamHero>
-        <VdsTabs onClick={handleSelectTabClick} tabs={tabs} orientation="horizontal" borderLine />
-        {selectedTab.id === 'credentials' && <CredentialsTab />}
-        {selectedTab.id === 'policies' && <PoliciesTab />}
-      </FlexBox>
-    </>
+      <TitleLockup
+        data={{
+          title: {
+            size: 'titleLarge',
+            bold: false,
+            children: 'Service account details',
+            color: COLORS.brandHighlight,
+          },
+          subtitle: {
+            size: 'bodyLarge',
+            children: 'View details of this service account.',
+          },
+        }}
+      />
+      <IamHero title={serviceAccount?.displayName || 'Service Account Name'} showActionButton>
+        {footerItemsJSX}
+      </IamHero>
+      <VdsTabs onClick={handleSelectTabClick} tabs={tabs} orientation="horizontal" borderLine />
+      {selectedTab.id === 'credentials' && <CredentialsTab />}
+      {selectedTab.id === 'policies' && <PoliciesTab />}
+    </Block>
   )
 }
