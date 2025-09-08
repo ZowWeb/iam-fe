@@ -1,6 +1,5 @@
 import { useNavigate, useRouteContext } from '@tanstack/react-router'
 
-import Block from '~/components/Block'
 import Grid from '~/components/Grid'
 import { LayoutWrapper } from './styles'
 import type { LayoutType } from '~/types'
@@ -15,7 +14,7 @@ const navMenuItems: NavMenuItem[] = [
   { id: 'teamPage', label: 'Team Details', link: '/teams/$teamId' },
   { id: 'membersPage', label: 'Members', link: '/teams/$teamId/users' },
   { id: 'rolesPage', label: 'Roles', link: '/teams/$teamId/roles' },
-  { id: 'policiesPage', label: 'Policies', link: '/teams/$teamId/users/$userId/policies' },
+  { id: 'policiesPage', label: 'Policies', link: '/teams/$teamId/policies' },
   { id: 'serviceAccountsPage', label: 'Service Accounts', link: '/teams/$teamId/service-accounts' },
 ]
 
@@ -40,15 +39,13 @@ const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
     <LayoutWrapper className={`layout--${type}`}>
       <Header />
       <Breadcrumbs />
-      <main>
-        <Block>
-          <Grid>
-            <Grid.Col span={3}>
-              <NavMenu items={navMenuItems} onClick={handleSelection} />
-            </Grid.Col>
-            <Grid.Col span={9}>{children}</Grid.Col>
-          </Grid>
-        </Block>
+      <main style={{ marginTop: '2.5rem' }}>
+        <Grid>
+          <Grid.Col span={3}>
+            <NavMenu items={navMenuItems} onClick={handleSelection} />
+          </Grid.Col>
+          <Grid.Col span={9}>{children}</Grid.Col>
+        </Grid>
       </main>
       <footer />
     </LayoutWrapper>
