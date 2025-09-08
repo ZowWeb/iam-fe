@@ -7,7 +7,7 @@ import DetailsHeader from './components/DetailsHeader'
 import { Route } from '~/routes/_authenticated/teams/$teamId/policies/$policyId'
 import usePolicy from '~/hooks/usePolicy'
 import { truncateMaxedOutText } from '~/utils'
-import CodeBlock from './components/CodeBlock'
+import CodeBlock from '~/components/CodeBlock'
 import { FONT_WEIGHTS } from '~/styles/constants'
 
 const footerItems = [
