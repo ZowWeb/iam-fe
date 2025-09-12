@@ -13,11 +13,6 @@ export const fetchPolicyTag = async ({ teamId, policyTagId }: Args) => {
     endpoint: `/teams/${teamId}/policy-tags/${policyTagId}`,
   })
 
-  if (!response.ok) {
-    throw new Error(
-      `[getPolicyTag] Network response was not ok! [res]: ${response.status} ${response.statusText}`,
-    )
-  }
   return response.json()
 }
 
