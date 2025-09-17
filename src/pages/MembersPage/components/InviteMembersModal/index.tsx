@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Modal } from '@mantine/core'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useForm, type SubmitHandler } from 'react-hook-form'
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema'
 import * as z from 'zod'
 
@@ -11,6 +11,8 @@ import Pill from '~/components/Pill'
 import FlexBox from '~/components/FlexBox'
 import { usePills, type Pill as TPill } from '../../hooks/usePills'
 import PillsInput from '~/components/PillsInput'
+import useInviteMember from '~/hooks/useInviteMember'
+import type { InviteMember } from '~/types/data'
 
 export const emailsArraySchema = z
   .array(z.email('Invalid email!'))
@@ -32,11 +34,21 @@ const getPillVariantFromError = (pill: TPill) => {
 }
 
 type InviteMembersModalProps = {
+  teamId: string
   opened: boolean
   onClose: () => void
+  onSuccess: () => void
+  onError: (error: unknown) => void
 }
 
-export default function InviteMembersModal({ opened, onClose }: InviteMembersModalProps) {
+export default function InviteMembersModal({
+  opened,
+  teamId,
+  onClose,
+  onSuccess,
+  onError,
+}: InviteMembersModalProps) {
+  const { mutate, isPending } = useInviteMember({ teamId })
   const [inputValue, setInputValue] = useState<string>('')
   const {
     control,
@@ -50,7 +62,6 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
   } = useForm<FormSchema>({
     resolver: standardSchemaResolver(formSchema), // zodResolver not yet supported & stable re: https://github.com/react-hook-form/resolvers/issues/768
     mode: 'onChange',
-    defaultValues: { emailsArray: ['john@doe.com'] },
   })
   const { pills, addPill, removePill, resetPills } = usePills({ emailsArray: getValues().emailsArray })
   const getErrorMessage = () => {
@@ -80,8 +91,16 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
     onClose()
   }
 
-  const onSubmit = () => {
-    handleCloseModal()
+  const onSubmit: SubmitHandler<FormSchema> = ({ emailsArray }) => {
+    const newData: InviteMember = {
+      // TODO: Temporary use the first element until the endpoint receives an array of emails
+      email: emailsArray[0],
+    }
+    mutate(newData, {
+      onSuccess,
+      onError,
+      onSettled: handleCloseModal,
+    })
   }
 
   return (
@@ -125,10 +144,16 @@ export default function InviteMembersModal({ opened, onClose }: InviteMembersMod
             )}
           />
           <ButtonsWrapper>
-            <StyledButton size="large" disabled={!isValid} type="submit">
+            <StyledButton size="large" disabled={!isValid || isPending} type="submit">
               Send Invite
             </StyledButton>
-            <StyledButton size="large" use="secondary" type="button" onClick={handleCloseModal}>
+            <StyledButton
+              size="large"
+              disabled={isPending}
+              use="secondary"
+              type="button"
+              onClick={handleCloseModal}
+            >
               Cancel
             </StyledButton>
           </ButtonsWrapper>

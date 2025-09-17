@@ -68,3 +68,7 @@ export type PolicyTag = {
   id: `pt-${string}`
   policyTagName: string
 }
+
+export type InviteMember = {
+  email: string
+}
