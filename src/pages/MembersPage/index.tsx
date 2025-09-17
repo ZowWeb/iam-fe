@@ -1,4 +1,3 @@
-import { Button } from '@mantine/core'
 import { useCallback, useState } from 'react'
 import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { Notification } from '@vds/notifications'
@@ -6,10 +5,9 @@ import { useNavigate, useParams } from '@tanstack/react-router'
 import { useDisclosure } from '@mantine/hooks'
 
 import Table from '~/components/AdvancedTable'
-import { data as initialData, moreData } from '../../mocks/makeData'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
-import type { Member, Person } from '~/types/data'
+import type { Member } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import { sleep } from '~/utils'
 import { handleErrorMessage } from '~/utils/errors'
@@ -56,8 +54,10 @@ type RowAction = keyof typeof ROW_ACTIONS
 
 const MembersPage = () => {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/users' })
-  const [data, setData] = useState<Person[]>(initialData)
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
+  const { members } = useMembers({ teamId })
+  const [inviteMembersModalOpened, inviteMembersModalHandlers] = useDisclosure(false)
   const [notificationConfig, setNotificationConfig] = useState<{
     opened: boolean
     type?: 'success' | 'error' | 'info' | 'warning'
@@ -66,16 +66,6 @@ const MembersPage = () => {
     opened: false,
     message: '',
   })
-  const navigate = useNavigate()
-  const { members } = useMembers()
-  const [inviteMembersModalOpened, inviteMembersModalHandlers] = useDisclosure(false)
-
-  const fetchLatestData = async () => {
-    setIsLoading(true)
-    await sleep()
-    setData([...data, ...moreData])
-    setIsLoading(false)
-  }
 
   const rowActionMenuItems = useCallback((row: MRTRow<Member>) => {
     const handleRowAction = async (action: RowAction) => {
@@ -133,6 +123,22 @@ const MembersPage = () => {
     })
   }
 
+  const handleInviteMembersSuccess = () => {
+    setNotificationConfig({
+      opened: true,
+      type: 'success',
+      message: 'Invitation sent',
+    })
+  }
+
+  const handleInviteMembersError = (err: unknown) => {
+    setNotificationConfig({
+      opened: true,
+      type: 'error',
+      message: handleErrorMessage(err),
+    })
+  }
+
   return (
     <Block>
       {notificationConfig.opened && (
@@ -154,10 +160,13 @@ const MembersPage = () => {
           handleRowClick,
         }}
       />
-      <Button onClick={fetchLatestData} loading={isLoading}>
-        Fetch latest data
-      </Button>
-      <InviteMembersModal opened={inviteMembersModalOpened} onClose={inviteMembersModalHandlers.close} />
+      <InviteMembersModal
+        teamId={teamId}
+        opened={inviteMembersModalOpened}
+        onClose={inviteMembersModalHandlers.close}
+        onSuccess={handleInviteMembersSuccess}
+        onError={handleInviteMembersError}
+      />
     </Block>
   )
 }
