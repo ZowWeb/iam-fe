@@ -53,11 +53,11 @@ export default function ServiceAccountPage() {
     () => [
       {
         label: 'Created',
-        value: getFormattedDate(serviceAccount?.createdAt || ''),
+        value: getFormattedDate(serviceAccount.createdAt),
       },
       {
         label: 'Last update',
-        value: getFormattedDate(serviceAccount?.updatedAt || ''),
+        value: getFormattedDate(serviceAccount.updatedAt || ''),
       },
     ],
     [serviceAccount],
@@ -103,7 +103,7 @@ export default function ServiceAccountPage() {
           },
         }}
       />
-      <IamHero title={serviceAccount?.displayName || 'Service Account Name'} showActionButton>
+      <IamHero title={serviceAccount.displayName} showActionButton>
         {footerItemsJSX}
       </IamHero>
       <VdsTabs onClick={handleSelectTabClick} tabs={tabs} orientation="horizontal" borderLine />

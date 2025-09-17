@@ -35,7 +35,7 @@ const Subtitle = styled(Typography.Span)`
   color: ${COLORS.secondary};
 `
 
-const createFooterItemsJSX = (team: Team | undefined) => {
+const createFooterItemsJSX = (team: Team) => {
   const footerItems = [
     {
       label: 'Team ID',

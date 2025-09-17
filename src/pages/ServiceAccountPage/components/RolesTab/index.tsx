@@ -40,63 +40,58 @@ export default function RolesTab() {
     from: '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/',
   })
   const { policyTags, isLoading } = usePolicyTagsByPrincipal({ teamId, principalId: serviceAccountId })
-  const isPolicyTagsDataAvailable = policyTags?.length > 0
+  const isPolicyTagsDataAvailable = policyTags.length > 0
 
-  return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
+  return isPolicyTagsDataAvailable ? (
     <>
-      {isPolicyTagsDataAvailable ? (
-        <>
-          <TitleLockup
-            data={{
-              title: {
-                primitive: 'h4',
-                size: 'titleMedium',
-                children: 'Applied policies',
-              },
-              subtitle: {
-                primitive: 'p',
-                size: 'bodyLarge',
-                children:
-                  'Policies define the specific permissions this member has to perform actions and access resources.',
-              },
-            }}
-          />
-          <ActionToolbar ctaConfig={{ label: 'Manage roles', onClick: () => {} }} />
-          <Table
-            {...{
-              data: policyTags,
-              columns,
-              isLoading,
-              enableRowActions: false,
-              rowActionMenuItems: undefined,
-            }}
-          />
-        </>
-      ) : (
-        <Card direction="column" justifyContent="center">
-          <Width>
-            <TitleLockup
-              textAlignment="center"
-              data={{
-                title: {
-                  size: 'titleLarge',
-                  bold: true,
-                  children: 'No Policies Assigned',
-                },
-                subtitle: {
-                  size: 'bodyLarge',
-                  children:
-                    'Policies control what actions this service account can perform and what resources it can access. Add policies to grant the necessary permissions.',
-                },
-              }}
-            />
-          </Width>
-          <Button size="large" use="primary" onClick={() => {}}>
-            Add policies
-          </Button>
-        </Card>
-      )}
+      <TitleLockup
+        data={{
+          title: {
+            primitive: 'h4',
+            size: 'titleMedium',
+            children: 'Applied policies',
+          },
+          subtitle: {
+            primitive: 'p',
+            size: 'bodyLarge',
+            children:
+              'Policies define the specific permissions this member has to perform actions and access resources.',
+          },
+        }}
+      />
+      <ActionToolbar ctaConfig={{ label: 'Manage roles', onClick: () => {} }} />
+      <Table
+        {...{
+          data: policyTags,
+          columns,
+          isLoading,
+          enableRowActions: false,
+          rowActionMenuItems: undefined,
+        }}
+      />
     </>
+  ) : (
+    <Card direction="column" justifyContent="center">
+      <Width>
+        <TitleLockup
+          textAlignment="center"
+          data={{
+            title: {
+              size: 'titleLarge',
+              bold: true,
+              children: 'No Policies Assigned',
+            },
+            subtitle: {
+              size: 'bodyLarge',
+              children:
+                'Policies control what actions this service account can perform and what resources it can access. Add policies to grant the necessary permissions.',
+            },
+          }}
+        />
+      </Width>
+      <Button size="large" use="primary" onClick={() => {}}>
+        Add policies
+      </Button>
+    </Card>
   )
 }
