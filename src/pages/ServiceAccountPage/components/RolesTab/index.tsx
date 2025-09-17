@@ -3,7 +3,7 @@ import { useParams } from '@tanstack/react-router'
 import { Button } from '@vds/buttons'
 import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 
-import usePolicyTagsByPrincipal from '~/hooks/suspense/usePolicyTagsByPrincipal'
+import usePolicyTagsByPrincipal from '~/hooks/withSuspense/usePolicyTagsByPrincipal'
 import { Width, Card } from './styles'
 import Table from '~/components/AdvancedTable'
 import type { PolicyTag } from '~/types/data'
