@@ -1,26 +1,18 @@
 import { queryOptions } from '@tanstack/react-query'
 
 import type { Policy } from '~/types/data'
-import { handleErrorMessage } from '~/utils/errors'
+import apiServerWithThrow from '~/utils/apiServerWithThrow'
 
-type GetPoliciesProps = {
+type Args = {
   teamId: string
 }
 
-export const getPolicies = ({ teamId }: GetPoliciesProps) =>
-  queryOptions<Policy[] | undefined>({
+export const getPolicies = ({ teamId }: Args) =>
+  queryOptions<Policy[]>({
     queryKey: ['GET_POLICIES', { teamId }],
     queryFn: async () => {
-      try {
-        const response = await fetch(`https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/policies`)
-        if (!response.ok) {
-          throw new Error(
-            `[getPolicies] Network response was not ok! [res]: ${response.status} ${response.statusText}`,
-          )
-        }
-        return response.json()
-      } catch (error) {
-        console.error(`[getPolicies] Error fetching policies:`, handleErrorMessage(error))
-      }
+      const response = await apiServerWithThrow({ endpoint: `/teams/${teamId}/policies` })
+
+      return response.json()
     },
   })

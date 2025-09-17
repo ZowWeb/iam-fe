@@ -1,12 +1,14 @@
 import type { PolicyTag } from '~/types/data'
+import apiServerWithThrow from '~/utils/apiServerWithThrow'
 
-type CreatePolicyTagProps = {
+type Args = {
   teamId: string
   data: PolicyTag
 }
 
-export default async function createPolicyTag({ data, teamId }: CreatePolicyTagProps): Promise<PolicyTag> {
-  const response = await fetch(`https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/policy-tags`, {
+export default async function createPolicyTag({ data, teamId }: Args) {
+  const response = await apiServerWithThrow({
+    endpoint: `/teams/${teamId}/policy-tags`,
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -14,9 +16,5 @@ export default async function createPolicyTag({ data, teamId }: CreatePolicyTagP
     body: JSON.stringify(data),
   })
 
-  if (!response.ok) {
-    throw new Error('Failed to create policy tag')
-  }
-
-  return response.json()
+  return response.json() as Promise<PolicyTag>
 }

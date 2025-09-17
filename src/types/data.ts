@@ -49,19 +49,19 @@ export type Team = {
   kind: string
   isRootTeam: boolean
   isPlatformTeam: boolean
-  createdAt: string
-  updatedAt: string
   tags: []
-  disabledAt: string
+  createdAt: string
+  updatedAt?: string
+  disabledAt?: string
 }
 
 export type ServiceAccount = {
   id: `s-${string}`
   teamId: `team-${string}`
-  createdAt: string
-  updatedAt: string
   displayName: string
   kind: PrincipalKindEnum.service_account
+  createdAt: string
+  updatedAt?: string
 }
 
 export type PolicyTag = {

@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { MantineProvider } from '@mantine/core'
 
 import '@mantine/core/styles/global.css'
 import '@mantine/core/styles.css'
@@ -12,6 +13,9 @@ import './styles/global.css'
 import reportWebVitals from './reportWebVitals'
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
+import { theme } from './styles/theme'
+import NotFoundPage from './pages/NotFoundPage'
+import Error from './components/Error'
 
 // Create a QueryClient instance
 const queryClient = new QueryClient({
@@ -23,7 +27,17 @@ const queryClient = new QueryClient({
 })
 
 // Create a new router instance
-const router = createRouter({ routeTree, basepath: '/iam', context: { queryClient, isAuthenticated: false } })
+const router = createRouter({
+  routeTree,
+  basepath: '/iam',
+  context: { queryClient, isAuthenticated: false },
+  defaultNotFoundComponent: NotFoundPage,
+  defaultErrorComponent: Error,
+  defaultOnCatch: error => {
+    // can be used to log or report errors on Sentry etc
+    console.info(`[defaultOnCatch] error:`, error)
+  },
+})
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -40,7 +54,9 @@ if (rootElement && !rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <MantineProvider theme={theme}>
+          <RouterProvider router={router} />
+        </MantineProvider>
       </QueryClientProvider>
     </StrictMode>,
   )

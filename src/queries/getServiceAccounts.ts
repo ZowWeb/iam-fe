@@ -1,29 +1,21 @@
 import { queryOptions } from '@tanstack/react-query'
 
 import type { ServiceAccount } from '~/types/data'
-import { handleErrorMessage } from '~/utils/errors'
+import apiServerWithThrow from '~/utils/apiServerWithThrow'
 
-type GetServiceAccountsProps = {
+type Args = {
   teamId: string
 }
 
-export default function getServiceAccounts({ teamId }: GetServiceAccountsProps) {
-  return queryOptions<ServiceAccount[] | undefined>({
+export default function getServiceAccounts({ teamId }: Args) {
+  return queryOptions<ServiceAccount[]>({
     queryKey: ['GET_SERVICE_ACCOUNTS', { teamId }],
     queryFn: async () => {
-      try {
-        const response = await fetch(
-          `https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/service-accounts`,
-        )
-        if (!response.ok) {
-          throw new Error(
-            `[getServiceAccounts] Network response was not ok! [res]: ${response.status} ${response.statusText}`,
-          )
-        }
-        return response.json()
-      } catch (error) {
-        console.error(`[getServiceAccounts] Error fetching service accounts:`, handleErrorMessage(error))
-      }
+      const response = await apiServerWithThrow({
+        endpoint: `/teams/${teamId}/service-accounts`,
+      })
+
+      return response.json()
     },
   })
 }

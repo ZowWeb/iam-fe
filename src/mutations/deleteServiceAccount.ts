@@ -1,21 +1,15 @@
-type DeleteServiceAccountProps = {
+import apiServerWithThrow from '~/utils/apiServerWithThrow'
+
+type Args = {
   teamId: string
   serviceAccountId: string
 }
 
-const deleteServiceAccount = async ({ teamId, serviceAccountId }: DeleteServiceAccountProps) => {
-  const response = await fetch(
-    `https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/service-accounts/${serviceAccountId}`,
-    {
-      method: 'DELETE',
-    },
-  )
-
-  if (!response.ok) {
-    throw new Error(
-      `[deleteServiceAccount] Network response was not ok! [res]: ${response.status} ${response.statusText}`,
-    )
-  }
+const deleteServiceAccount = async ({ teamId, serviceAccountId }: Args) => {
+  const response = await apiServerWithThrow({
+    endpoint: `/teams/${teamId}/service-accounts/${serviceAccountId}`,
+    method: 'DELETE',
+  })
 
   return response.text()
 }

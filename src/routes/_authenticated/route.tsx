@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 import AuthenticatedLayout from '~/components/Layout/Authenticated'
+import ErrorPage from '~/pages/ErrorPage'
 import { GET_USER_QUERY_KEY, getUser } from '~/queries/getUser'
 import type { User } from '~/types/data'
 import { getUserToken } from '~/utils/auth'
@@ -38,15 +39,12 @@ export const Route = createFileRoute('/_authenticated')({
 
     if (!user) {
       // If not in cache, check local storage
-      try {
-        user = await queryClient.fetchQuery(getUser(token.userId))
-      } catch (error) {
-        console.error(`[beforeLoad] Error fetching user:`, error)
-      }
+      user = await queryClient.fetchQuery(getUser(token.userId))
     }
 
     return {
       isAuthenticated: !!user,
     }
   },
+  errorComponent: ErrorPage,
 })

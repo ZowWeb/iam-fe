@@ -1,23 +1,17 @@
-type DeletePolicyTagProps = {
+import apiServerWithThrow from '~/utils/apiServerWithThrow'
+
+type Args = {
   teamId: string
   policyTagId: string
 }
 
-const deletePolicyTag = async ({ teamId, policyTagId }: DeletePolicyTagProps): Promise<void> => {
-  const response = await fetch(
-    `https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/policy-tags/${policyTagId}`,
-    {
-      method: 'DELETE',
-    },
-  )
+const deletePolicyTag = async ({ teamId, policyTagId }: Args): Promise<boolean> => {
+  const response = await apiServerWithThrow({
+    endpoint: `/teams/${teamId}/policy-tags/${policyTagId}`,
+    method: 'DELETE',
+  })
 
-  if (!response.ok) {
-    throw new Error(
-      `[deleteServiceAccount] Network response was not ok! [res]: ${response.status} ${response.statusText}`,
-    )
-  }
-
-  return response.json()
+  return response.ok
 }
 
 export default deletePolicyTag
