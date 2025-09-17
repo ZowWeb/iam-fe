@@ -9,7 +9,7 @@ type Args = {
 }
 
 export const getServiceAccount = ({ teamId, serviceAccountId }: Args) =>
-  queryOptions<ServiceAccount | undefined>({
+  queryOptions<ServiceAccount>({
     queryKey: ['GET_SERVICE_ACCOUNT', { serviceAccountId }],
     queryFn: async () => {
       const response = await apiServerWithThrow({

@@ -13,7 +13,7 @@ import { COLORS } from '~/styles/constants'
 import { getFormattedDate } from '~/utils/dates'
 import { VdsTabs, type TabItem } from '~/components/Vds/Tabs'
 import CredentialsTab from './components/CredentialsTab'
-import PoliciesTab from './components/PoliciesTab'
+import RolesTab from './components/RolesTab'
 import { getServiceAccount } from '~/queries/getServiceAccount'
 import Block from '~/components/Block'
 
@@ -39,7 +39,7 @@ const Value = styled(Typography.Span)`
 
 const tabs: TabItem[] = [
   { id: 'credentials', label: 'Credentials', selected: true },
-  { id: 'policies', label: 'Policies' },
+  { id: 'roles', label: 'Roles' },
 ]
 
 export default function ServiceAccountPage() {
@@ -53,11 +53,11 @@ export default function ServiceAccountPage() {
     () => [
       {
         label: 'Created',
-        value: getFormattedDate(serviceAccount?.createdAt || ''),
+        value: getFormattedDate(serviceAccount.createdAt),
       },
       {
         label: 'Last update',
-        value: getFormattedDate(serviceAccount?.updatedAt || ''),
+        value: getFormattedDate(serviceAccount.updatedAt || ''),
       },
     ],
     [serviceAccount],
@@ -103,12 +103,12 @@ export default function ServiceAccountPage() {
           },
         }}
       />
-      <IamHero title={serviceAccount?.displayName || 'Service Account Name'} showActionButton>
+      <IamHero title={serviceAccount.displayName} showActionButton>
         {footerItemsJSX}
       </IamHero>
       <VdsTabs onClick={handleSelectTabClick} tabs={tabs} orientation="horizontal" borderLine />
       {selectedTab.id === 'credentials' && <CredentialsTab />}
-      {selectedTab.id === 'policies' && <PoliciesTab />}
+      {selectedTab.id === 'roles' && <RolesTab />}
     </Block>
   )
 }

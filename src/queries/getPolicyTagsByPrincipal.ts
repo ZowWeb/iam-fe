@@ -1,0 +1,25 @@
+import { queryOptions } from '@tanstack/react-query'
+
+import type { PolicyTag } from '~/types/data'
+
+type GetPolicyTagsByPrincipalProps = {
+  teamId: string
+  principalId: string
+}
+
+export default function getPolicyTagsByPrincipal({ teamId, principalId }: GetPolicyTagsByPrincipalProps) {
+  return queryOptions<PolicyTag[]>({
+    queryKey: ['GET_POLICY_TAGS_BY_PRINCIPAL', { principalId }],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/principals/${principalId}/policy-tags`,
+      )
+      if (!response.ok) {
+        throw new Error(
+          `[getPolicyTagsByPrincipal] Network response was not ok! [res]: ${response.status} ${response.statusText}`,
+        )
+      }
+      return response.json()
+    },
+  })
+}
