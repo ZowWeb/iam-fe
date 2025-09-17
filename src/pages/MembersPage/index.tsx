@@ -29,7 +29,7 @@ const MembersPage = () => {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/users' })
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
-  const { members } = useMembers({ teamId })
+  const { members } = useMembers()
   const [inviteMembersModalOpened, inviteMembersModalHandlers] = useDisclosure(false)
   const [removeMemberModalConfig, setRemoveMemberModalConfig] = useState<{
     opened: boolean
