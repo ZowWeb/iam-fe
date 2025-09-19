@@ -23,7 +23,7 @@ export const memberColumns: MRTColumnDef<Member>[] = [
   {
     accessorKey: 'lastSignIn',
     header: 'Last sign in',
-    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
+    Cell: () => 'Jun 22, 2025 12:24 PM', // TODO: Remove when APIFIAM-606 is ready
     size: 100,
   },
 ]
@@ -37,6 +37,7 @@ export const policyColumns: MRTColumnDef<Policy>[] = [
   {
     accessorKey: 'description',
     header: 'Description',
+    Cell: () => 'Policy description', // TODO: Remove when APIFIAM-606 is ready
     size: 100,
   },
   {
@@ -54,14 +55,21 @@ export const policyTagColumns: MRTColumnDef<PolicyTag>[] = [
     size: 100,
   },
   {
-    accessorKey: 'description', // TODO: Review field not present.
+    accessorKey: 'description',
     header: 'Description',
+    Cell: () => 'Can log in to this team and view public details', // TODO: Remove when APIFIAM-606 is ready
     size: 100,
   },
   {
-    accessorKey: 'updatedAt', // TODO: Review field not present.
+    accessorKey: 'lastUpdated',
     header: 'Last updated',
-    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
+    Cell: () => 'Jun 22, 2025 12:24 PM', // TODO: Remove when APIFIAM-606 is ready
+    size: 100,
+  },
+  {
+    accessorKey: 'applied',
+    header: 'Applied',
+    Cell: () => 'Jun 22, 2025 12:24 PM', // TODO: Remove when APIFIAM-606 is ready
     size: 100,
   },
 ]

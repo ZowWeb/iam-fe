@@ -1,6 +1,5 @@
 import { IconChevronLeft } from '@tabler/icons-react'
 import { TitleLockup } from '@vds/type-lockups'
-import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { useMemo } from 'react'
 
@@ -14,38 +13,15 @@ import Block from '~/components/Block'
 import type { PolicyTag } from '~/types/data'
 import useMember from '~/hooks/useMember'
 import { FooterContainer, FooterItemWrapper, Label, Value } from './styles'
-
-const columns: MRTColumnDef<PolicyTag>[] = [
-  {
-    accessorKey: 'policyTagName',
-    header: 'Name',
-    size: 100,
-  },
-  {
-    accessorKey: 'description',
-    header: 'Description',
-    Cell: () => 'Can log in to this team and view public details', // TODO: Remove when APIFIAM-606 is ready
-    size: 100,
-  },
-  {
-    accessorKey: 'lastUpdated',
-    header: 'Last updated',
-    Cell: () => 'Jun 22, 2025 12:24 PM', // TODO: Remove when APIFIAM-606 is ready
-    size: 100,
-  },
-  {
-    accessorKey: 'applied',
-    header: 'Applied',
-    Cell: () => 'Jun 22, 2025 12:24 PM', // TODO: Remove when APIFIAM-606 is ready
-    size: 100,
-  },
-]
+import { policyTagColumns } from '~/components/AdvancedTable/shared/columns'
 
 // TODO: Remove when APIFIAM-606 is ready
 const policyTags: PolicyTag[] = [
   {
     id: 'pt-dummy01',
     policyTagName: 'Team access',
+    principals: [],
+    policies: [],
   },
 ]
 
@@ -138,8 +114,8 @@ const MemberPage = () => {
           },
         }}
       />
-      <ActionToolbar ctaConfig={{ label: 'Manage policies', onClick: handleActionButtonClick }} />
-      <Table {...{ data: policyTags, columns }} />
+      <ActionToolbar ctaConfig={{ label: 'Manage roles', onClick: handleActionButtonClick }} />
+      <Table {...{ data: policyTags, columns: policyTagColumns }} />
     </Block>
   )
 }

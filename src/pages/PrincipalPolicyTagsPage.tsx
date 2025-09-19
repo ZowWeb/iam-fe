@@ -1,10 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { IconChevronLeft } from '@tabler/icons-react'
 import { TitleLockup } from '@vds/type-lockups'
-import type {
-  MRT_ColumnDef as MRTColumnDef,
-  MRT_RowSelectionState as MRTRowSelectionState,
-} from 'mantine-react-table'
+import type { MRT_RowSelectionState as MRTRowSelectionState } from 'mantine-react-table'
 import { Button } from '@vds/buttons'
 import { useParams } from '@tanstack/react-router'
 import { useForm, type SubmitHandler } from 'react-hook-form'
@@ -25,24 +22,7 @@ import useMember from '~/hooks/useMember'
 import usePolicyTags from '~/hooks/usePolicyTags'
 import useAddRemovePolicyTagsFromPrincipal from '~/hooks/useAddRemovePolicyTagsFromPrincipal'
 import { handleErrorMessage } from '~/utils/errors'
-
-const columns: MRTColumnDef<PolicyTag>[] = [
-  {
-    accessorKey: 'policyTagName',
-    header: 'Name',
-    size: 100,
-  },
-  {
-    accessorKey: 'description',
-    header: 'Description',
-    size: 100,
-  },
-  {
-    accessorKey: 'lastUpdated',
-    header: 'Last updated',
-    size: 100,
-  },
-]
+import { policyTagColumns } from '~/components/AdvancedTable/shared/columns'
 
 const tableOptions = {
   enableRowSelection: true,
@@ -70,7 +50,7 @@ const assignedPolicyTags: PolicyTag[] = []
 /**
  * Page to assign roles (policy tags) to a member or service account
  */
-export default function PrincipalRolesPage({ entity }: Props) {
+export default function PrincipalPolicyTagsPage({ entity }: Props) {
   const { teamId, userId } = useParams({ from: '/_authenticated/teams/$teamId/users/$userId/roles/' })
   const { member } = useMember({ userId })
   /**  Uncomment when APIFIAM-606 is ready
@@ -262,7 +242,7 @@ export default function PrincipalRolesPage({ entity }: Props) {
       <ActionToolbar />
       <Table
         {...{
-          columns,
+          columns: policyTagColumns,
           data: policyTagsAll,
           rowSelection,
           onRowSelectionChange: setRowSelection,
