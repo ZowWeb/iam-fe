@@ -1,3 +1,4 @@
+import type { ServerErrorSchema } from '~/types/data'
 import { handleErrorMessage } from './errors'
 
 type Config = RequestInit & {
@@ -8,7 +9,7 @@ type Config = RequestInit & {
  * Makes an HTTP request to the IAM server with enhanced error handling.
  *
  * @param {string} endpoint - The API endpoint to call (e.g., `/teams/team-123`)
- * @param {RequestInit} config.* - Any other valid fetch options (method, headers, etc.)
+ * @param {...RequestInit} fetchConfig - Any other valid fetch options (method, headers, etc.)
  *
  * @throws {Error} Throws with 'ENV_ERROR' prefix if VITE_IAM_SERVER_URL is not configured
  * @throws {Error} Throws with 'SERVER_ERROR_RESPONSE' prefix if server responds with error data
@@ -27,9 +28,9 @@ type Config = RequestInit & {
  *   body: JSON.stringify({ name: 'John' })
  * });
  */
-export default async function apiServerWithThrow({ endpoint, ...config }: Config): Promise<Response> {
+export default async function apiServerWithThrow({ endpoint, ...fetchConfig }: Config): Promise<Response> {
   try {
-    const serverUrl = import.meta.env.VITE_IAM_SERVER_URL
+    const serverUrl = import.meta.env.VITE_IAM_SERVER_URL as string | undefined
     if (!serverUrl) {
       console.error(`ENV_ERROR: Please provide VITE_IAM_SERVER_URL`)
       throw new Error(
@@ -38,10 +39,10 @@ export default async function apiServerWithThrow({ endpoint, ...config }: Config
     }
 
     const url = new URL(endpoint, serverUrl)
-    const response = await fetch(url, config)
+    const response = await fetch(url, fetchConfig)
 
     if (response.status > 400) {
-      const resData = await response.json()
+      const resData = (await response.json()) as ServerErrorSchema
 
       if ('error' in resData) {
         throw new Error(`SERVER_ERROR_RESPONSE: ${resData.error_description}`)

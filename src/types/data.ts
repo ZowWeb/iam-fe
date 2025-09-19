@@ -72,3 +72,24 @@ export type PolicyTag = {
 export type InviteMember = {
   email: string
 }
+
+export type ServerErrorSchema = {
+  error_uri?: string
+  error:
+    | 'invalid_request'
+    | 'invalid_client'
+    | 'invalid_grant'
+    | 'unauthorized_client'
+    | 'unsupported_grant_type'
+    | 'invalid_scope'
+    | 'not_found'
+    | 'conflict'
+    | 'forbidden'
+    | 'internal_server_error'
+    | 'service_unavailable'
+    | 'vzrn_parse_error'
+    | 'vziam_statement_error'
+    | 'authorization_pending'
+    | 'unsupported_kind'
+  error_description: string
+}
