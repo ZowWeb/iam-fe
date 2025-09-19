@@ -17,34 +17,43 @@ import { FooterContainer, FooterItemWrapper, Label, Value } from './styles'
 
 const columns: MRTColumnDef<PolicyTag>[] = [
   {
-    accessorKey: 'name',
+    accessorKey: 'policyTagName',
     header: 'Name',
     size: 100,
   },
   {
     accessorKey: 'description',
     header: 'Description',
+    Cell: () => 'Can log in to this team and view public details', // TODO: Remove when APIFIAM-606 is ready
     size: 100,
   },
   {
     accessorKey: 'lastUpdated',
     header: 'Last updated',
+    Cell: () => 'Jun 22, 2025 12:24 PM', // TODO: Remove when APIFIAM-606 is ready
     size: 100,
   },
   {
     accessorKey: 'applied',
     header: 'Applied',
+    Cell: () => 'Jun 22, 2025 12:24 PM', // TODO: Remove when APIFIAM-606 is ready
     size: 100,
   },
 ]
 
-const policyTags: PolicyTag[] = [{ id: 'pt-dummy01', policyTagName: 'Team access' }]
+// TODO: Remove when APIFIAM-606 is ready
+const policyTags: PolicyTag[] = [
+  {
+    id: 'pt-dummy01',
+    policyTagName: 'Team access',
+  },
+]
 
 const MemberPage = () => {
   const { teamId, userId } = useParams({ from: '/_authenticated/teams/$teamId/users/$userId' })
   const { member } = useMember({ userId })
   /**
- * Uncomment when APIFIAM-606 is ready
+  * Uncomment when APIFIAM-606 is ready
   const { policyTags } = usePolicyTagsByPrincipal({
     teamId,
     principalId: userId,

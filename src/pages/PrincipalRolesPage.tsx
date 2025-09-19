@@ -21,7 +21,6 @@ import Table from '~/components/AdvancedTable'
 import type { PatchPolicyTagsFromPrincipal, PolicyTag } from '~/types/data'
 import Badge from '~/components/Badge'
 import { theme } from '~/styles/theme'
-import usePolicyTagsByPrincipal from '~/hooks/usePolicyTagsByPrincipal'
 import useMember from '~/hooks/useMember'
 import usePolicyTags from '~/hooks/usePolicyTags'
 import useAddRemovePolicyTagsFromPrincipal from '~/hooks/useAddRemovePolicyTagsFromPrincipal'
@@ -62,13 +61,24 @@ const assignPoliciesSchema = z
 
 type AssignPoliciesSchema = z.infer<typeof assignPoliciesSchema>
 
-const MemberRolesPage = () => {
+type Props = {
+  entity: 'member' | 'service account'
+}
+
+const assignedPolicyTags: PolicyTag[] = []
+
+/**
+ * Page to assign roles (policy tags) to a member or service account
+ */
+export default function PrincipalRolesPage({ entity }: Props) {
   const { teamId, userId } = useParams({ from: '/_authenticated/teams/$teamId/users/$userId/roles/' })
   const { member } = useMember({ userId })
+  /**  Uncomment when APIFIAM-606 is ready
   const { policyTags: assignedPolicyTags } = usePolicyTagsByPrincipal({
     teamId,
     principalId: userId,
   })
+   */
   const { policyTags: policyTagsAll } = usePolicyTags({ teamId })
   const [rowSelection, setRowSelection] = useState<MRTRowSelectionState>({})
   const { mutate, isPending } = useAddRemovePolicyTagsFromPrincipal({ teamId, principalId: userId })
@@ -193,7 +203,7 @@ const MemberRolesPage = () => {
       <Link to="..">
         <FlexBox>
           <IconChevronLeft size={20} />
-          <span>Back to member list</span>
+          <span>{`Back to ${entity} list`}</span>
         </FlexBox>
       </Link>
       {notificationConfig.opened && (
@@ -209,12 +219,12 @@ const MemberRolesPage = () => {
           title: {
             size: 'titleLarge',
             bold: false,
-            children: 'Assign a member role',
+            children: `Assign a ${entity} role`,
             color: COLORS.brandHighlight,
           },
           subtitle: {
             size: 'bodyLarge',
-            children: 'Add or remove a policy from the list bellow. Click save to commit the change.',
+            children: 'Add or remove roles from the list below. Click save to commit the change.',
           },
         }}
       />
@@ -262,5 +272,3 @@ const MemberRolesPage = () => {
     </FlexBox>
   )
 }
-
-export default MemberRolesPage
