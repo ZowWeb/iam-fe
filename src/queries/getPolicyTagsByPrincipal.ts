@@ -1,6 +1,7 @@
 import { queryOptions } from '@tanstack/react-query'
 
 import type { PolicyTag } from '~/types/data'
+import apiServerWithThrow from '~/utils/apiServerWithThrow'
 
 type Args = {
   teamId: string
@@ -11,9 +12,11 @@ export default function getPolicyTagsByPrincipal({ teamId, principalId }: Args) 
   return queryOptions<PolicyTag[]>({
     queryKey: ['GET_POLICY_TAGS_BY_PRINCIPAL', { principalId }],
     queryFn: async () => {
-      const response = await fetch(
-        `https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/principals/${principalId}/policy-tags`,
-      )
+      const response = await apiServerWithThrow({
+        endpoint: `/teams/${teamId}/principals/${principalId}/policy-tags`,
+        keepalive: false,
+      })
+
       return response.json()
     },
   })

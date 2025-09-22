@@ -17,8 +17,8 @@ export const fetchPolicyTag = async ({ teamId, policyTagId }: Args) => {
 }
 
 export default function getPolicyTag({ teamId, policyTagId }: Args) {
-  return queryOptions<PolicyTag | undefined>({
+  return queryOptions<PolicyTag>({
     queryKey: ['GET_POLICY_TAG', { policyTagId }],
-    queryFn: async () => fetchPolicyTag({ teamId, policyTagId }),
+    queryFn: () => fetchPolicyTag({ teamId, policyTagId }),
   })
 }

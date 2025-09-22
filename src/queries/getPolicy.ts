@@ -19,5 +19,5 @@ export const fetchPolicy = async ({ teamId, policyId }: Args) => {
 export const getPolicy = ({ teamId, policyId }: Args) =>
   queryOptions<Policy>({
     queryKey: ['GET_POLICY', { policyId }],
-    queryFn: async () => fetchPolicy({ teamId, policyId }),
+    queryFn: () => fetchPolicy({ teamId, policyId }),
   })

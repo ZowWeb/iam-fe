@@ -3,7 +3,6 @@ import { IconChevronLeft } from '@tabler/icons-react'
 import { TitleLockup } from '@vds/type-lockups'
 import type { MRT_RowSelectionState as MRTRowSelectionState } from 'mantine-react-table'
 import { Button } from '@vds/buttons'
-import { useParams } from '@tanstack/react-router'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
@@ -15,14 +14,14 @@ import Link from '~/components/Link'
 import { COLORS } from '~/styles/constants'
 import ActionToolbar from '~/components/ActionToolbar'
 import Table from '~/components/AdvancedTable'
-import type { PatchPolicyTagsFromPrincipal, PolicyTag } from '~/types/data'
+import type { PatchPolicyTagsFromPrincipal } from '~/types/data'
 import Badge from '~/components/Badge'
 import { theme } from '~/styles/theme'
-import useMember from '~/hooks/useMember'
 import usePolicyTags from '~/hooks/usePolicyTags'
 import useAddRemovePolicyTagsFromPrincipal from '~/hooks/useAddRemovePolicyTagsFromPrincipal'
 import { handleErrorMessage } from '~/utils/errors'
 import { policyTagColumns } from '~/components/AdvancedTable/shared/columns'
+import usePolicyTagsByPrincipal from '~/hooks/usePolicyTagsByPrincipal'
 
 const tableOptions = {
   enableRowSelection: true,
@@ -41,27 +40,33 @@ const assignPoliciesSchema = z
 
 type AssignPoliciesSchema = z.infer<typeof assignPoliciesSchema>
 
-type Props = {
-  entity: 'member' | 'service account'
+/**
+ * Display labels related to the principal
+ */
+export type Display = {
+  backTo: string
+  headerTitle: string
+  displayName: string
+  displayEmail?: string
 }
 
-const assignedPolicyTags: PolicyTag[] = []
+type Props = {
+  teamId: string
+  principalId: string
+  display: Display
+}
 
 /**
  * Page to assign roles (policy tags) to a member or service account
  */
-export default function PrincipalPolicyTagsPage({ entity }: Props) {
-  const { teamId, userId } = useParams({ from: '/_authenticated/teams/$teamId/users/$userId/roles/' })
-  const { member } = useMember({ userId })
-  /**  Uncomment when APIFIAM-606 is ready
+export default function BasePolicyTagsPage({ teamId, principalId, display }: Props) {
+  const { policyTags: policyTagsAll } = usePolicyTags({ teamId })
   const { policyTags: assignedPolicyTags } = usePolicyTagsByPrincipal({
     teamId,
-    principalId: userId,
+    principalId,
   })
-   */
-  const { policyTags: policyTagsAll } = usePolicyTags({ teamId })
   const [rowSelection, setRowSelection] = useState<MRTRowSelectionState>({})
-  const { mutate, isPending } = useAddRemovePolicyTagsFromPrincipal({ teamId, principalId: userId })
+  const { mutate, isPending } = useAddRemovePolicyTagsFromPrincipal({ teamId, principalId })
   const [notificationConfig, setNotificationConfig] = useState<{
     opened: boolean
     type?: 'success' | 'error' | 'info' | 'warning'
@@ -183,7 +188,7 @@ export default function PrincipalPolicyTagsPage({ entity }: Props) {
       <Link to="..">
         <FlexBox>
           <IconChevronLeft size={20} />
-          <span>{`Back to ${entity} list`}</span>
+          <span>{display.backTo}</span>
         </FlexBox>
       </Link>
       {notificationConfig.opened && (
@@ -199,7 +204,7 @@ export default function PrincipalPolicyTagsPage({ entity }: Props) {
           title: {
             size: 'titleLarge',
             bold: false,
-            children: `Assign a ${entity} role`,
+            children: display.headerTitle,
             color: COLORS.brandHighlight,
           },
           subtitle: {
@@ -208,9 +213,9 @@ export default function PrincipalPolicyTagsPage({ entity }: Props) {
           },
         }}
       />
-      <IamHero title={member?.displayName || 'Member name'} showActionButton={false} gap="0">
+      <IamHero title={display.displayName} showActionButton={false} gap="0">
         <FlexBox direction="column" alignItems="flex-start" gap="1rem">
-          <div>{member?.email}</div>
+          {display.displayEmail && <div>{display.displayEmail}</div>}
           <FlexBox alignItems="flex-end">
             <FlexBox gap="0.5rem">
               {selectedPoliciesQty > 0 && (

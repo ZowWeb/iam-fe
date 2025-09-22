@@ -19,5 +19,5 @@ export const fetchServiceAccount = async ({ teamId, serviceAccountId }: Args) =>
 export const getServiceAccount = ({ teamId, serviceAccountId }: Args) =>
   queryOptions<ServiceAccount>({
     queryKey: ['GET_SERVICE_ACCOUNT', { serviceAccountId }],
-    queryFn: async () => fetchServiceAccount({ teamId, serviceAccountId }),
+    queryFn: () => fetchServiceAccount({ teamId, serviceAccountId }),
   })

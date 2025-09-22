@@ -26,7 +26,7 @@ const policyTags: PolicyTag[] = [
 ]
 
 const MemberPage = () => {
-  const { teamId, userId } = useParams({ from: '/_authenticated/teams/$teamId/users/$userId' })
+  const { teamId, userId } = useParams({ from: '/_authenticated/teams/$teamId/users/$userId/' })
   const { member } = useMember({ userId })
   /**
   * Uncomment when APIFIAM-606 is ready

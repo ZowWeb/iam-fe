@@ -1,5 +1,5 @@
 import { TitleLockup } from '@vds/type-lockups'
-import { useParams } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 import { Button } from '@vds/buttons'
 import type { MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
 
@@ -41,6 +41,14 @@ export default function RolesTab() {
   })
   const { policyTags, isLoading } = usePolicyTagsByPrincipal({ teamId, principalId: serviceAccountId })
   const isPolicyTagsDataAvailable = policyTags.length > 0
+  const navigate = useNavigate()
+
+  const handleActionButtonClick = () => {
+    navigate({
+      to: '/teams/$teamId/service-accounts/$serviceAccountId/roles',
+      params: { teamId, serviceAccountId },
+    })
+  }
 
   return isPolicyTagsDataAvailable ? (
     <>
@@ -59,7 +67,7 @@ export default function RolesTab() {
           },
         }}
       />
-      <ActionToolbar ctaConfig={{ label: 'Manage roles', onClick: () => {} }} />
+      <ActionToolbar ctaConfig={{ label: 'Manage roles', onClick: handleActionButtonClick }} />
       <Table
         {...{
           data: policyTags,
@@ -89,7 +97,7 @@ export default function RolesTab() {
           }}
         />
       </Width>
-      <Button size="large" use="primary" onClick={() => {}}>
+      <Button size="large" use="primary" onClick={handleActionButtonClick}>
         Add policies
       </Button>
     </Card>
