@@ -14,8 +14,7 @@ const RouteComponent = () => (
 
 export const Route = createFileRoute('/_authenticated')({
   component: RouteComponent,
-  beforeLoad: async ({ context }) => {
-    const { queryClient } = context
+  beforeLoad: async ({ context: { queryClient } }) => {
     const token = getUserToken()
     if (!token || token.isExpired) {
       localStorage.removeItem('token')
@@ -38,7 +37,7 @@ export const Route = createFileRoute('/_authenticated')({
     let user = queryClient.getQueryData(GET_USER_QUERY_KEY) as User | undefined
 
     if (!user) {
-      // If not in cache, check local storage
+      // If not in cache, fetch from the server
       user = await queryClient.fetchQuery(getUser(token.userId))
     }
 

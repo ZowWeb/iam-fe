@@ -27,12 +27,12 @@ const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
   const { isAuthenticated } = useRouteContext({ from: '/_authenticated' })
   const navigate = useNavigate()
 
-  const handleSelection = (item: NavMenuItem) => {
-    navigate({ to: item.link, params: { teamId: TEAM_ID, userId: USER_ID } })
-  }
-
   if (!isAuthenticated) {
     return <Typography.H2>Please login to continue</Typography.H2>
+  }
+
+  const handleSelection = (item: NavMenuItem) => {
+    navigate({ to: item.link, params: { teamId: TEAM_ID, userId: USER_ID } })
   }
 
   return (
