@@ -7,7 +7,8 @@ export default function getTeamMembers({ teamId }: { teamId: string }) {
   return queryOptions<Member[]>({
     queryKey: ['GET_MEMBERS', { teamId }],
     queryFn: async () => {
-      const response = await apiServerWithThrow({ endpoint: `/teams/${teamId}/users` })
+      // TODO: swtich to /teams/${teamId}/users when this issue is ready "APIFIAM-606 Add required backend data"
+      const response = await apiServerWithThrow({ endpoint: `/users` })
 
       return response.json()
     },
