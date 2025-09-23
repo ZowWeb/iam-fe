@@ -1,4 +1,5 @@
 import type { PatchPolicyTagsFromPrincipal, PolicyTag } from '~/types/data'
+import apiServerWithThrow from '~/utils/apiServerWithThrow'
 
 type AddRemovePolicyTagsFromPrincipalProps = {
   teamId: string
@@ -14,20 +15,14 @@ export default async function addRemovePolicyTagsFromPrincipal({
   teamId,
   principalId,
 }: AddRemovePolicyTagsFromPrincipalProps): Promise<PolicyTag> {
-  const response = await fetch(
-    `https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/principals/${principalId}/policy-tags`,
-    {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+  const response = await apiServerWithThrow({
+    endpoint: `/teams/${teamId}/principals/${principalId}/policy-tags`,
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  )
-
-  if (!response.ok) {
-    throw new Error('Failed to assign policy tags')
-  }
+    body: JSON.stringify(data),
+  })
 
   return response.json()
 }
