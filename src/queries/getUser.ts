@@ -5,13 +5,15 @@ import apiServerWithThrow from '~/utils/apiServerWithThrow'
 
 export const GET_USER_QUERY_KEY = ['GET_USER']
 
+export const fetchUser = async (userId: string) => {
+  const response = await apiServerWithThrow({ endpoint: `/users/${userId}` })
+
+  return response.json()
+}
+
 export const getUser = (userId: string) => {
   return queryOptions<User>({
     queryKey: GET_USER_QUERY_KEY,
-    queryFn: async () => {
-      const response = await apiServerWithThrow({ endpoint: `/users/${userId}` })
-
-      return response.json()
-    },
+    queryFn: async () => fetchUser(userId),
   })
 }

@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import { IconChevronLeft } from '@tabler/icons-react'
 import { TitleLockup } from '@vds/type-lockups'
-import type {
-  MRT_ColumnDef as MRTColumnDef,
-  MRT_RowSelectionState as MRTRowSelectionState,
-} from 'mantine-react-table'
+import type { MRT_RowSelectionState as MRTRowSelectionState } from 'mantine-react-table'
 import { Button } from '@vds/buttons'
 
 import IamHero from '~/components/IamHero'
@@ -13,29 +10,11 @@ import Link from '~/components/Link'
 import { COLORS } from '~/styles/constants'
 import ActionToolbar from '~/components/ActionToolbar'
 import Table from '~/components/AdvancedTable'
-import type { Policy } from '~/types/data'
 import { policies as data } from '~/mocks/policiesData'
 import Badge from '~/components/Badge'
 import { theme } from '~/styles/theme'
 import Block from '~/components/Block'
-
-const columns: MRTColumnDef<Policy>[] = [
-  {
-    accessorKey: 'name',
-    header: 'Name',
-    size: 100,
-  },
-  {
-    accessorKey: 'description',
-    header: 'Description',
-    size: 100,
-  },
-  {
-    accessorKey: 'lastUpdated',
-    header: 'Last updated',
-    size: 100,
-  },
-]
+import { policyColumns } from '~/components/AdvancedTable/shared/columns'
 
 const tableOptions = {
   enableRowSelection: true,
@@ -94,7 +73,15 @@ const MemberPoliciesPage = () => {
         </FlexBox>
       </IamHero>
       <ActionToolbar />
-      <Table {...{ columns, data, rowSelection, onRowSelectionChange: setRowSelection, ...tableOptions }} />
+      <Table
+        {...{
+          columns: policyColumns,
+          data,
+          rowSelection,
+          onRowSelectionChange: setRowSelection,
+          ...tableOptions,
+        }}
+      />
     </Block>
   )
 }

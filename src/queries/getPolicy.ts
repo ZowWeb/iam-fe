@@ -8,14 +8,16 @@ type Args = {
   policyId: string
 }
 
+export const fetchPolicy = async ({ teamId, policyId }: Args) => {
+  const response = await apiServerWithThrow({
+    endpoint: `/teams/${teamId}/policies/${policyId}`,
+  })
+
+  return response.json()
+}
+
 export const getPolicy = ({ teamId, policyId }: Args) =>
   queryOptions<Policy>({
     queryKey: ['GET_POLICY', { policyId }],
-    queryFn: async () => {
-      const response = await apiServerWithThrow({
-        endpoint: `/teams/${teamId}/policies/${policyId}`,
-      })
-
-      return response.json()
-    },
+    queryFn: async () => fetchPolicy({ teamId, policyId }),
   })
