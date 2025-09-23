@@ -14,11 +14,6 @@ export default function getPolicyTagsByPrincipal({ teamId, principalId }: GetPol
       const response = await fetch(
         `https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/principals/${principalId}/policy-tags`,
       )
-      if (!response.ok) {
-        throw new Error(
-          `[getPolicyTagsByPrincipal] Network response was not ok! [res]: ${response.status} ${response.statusText}`,
-        )
-      }
       return response.json()
     },
   })

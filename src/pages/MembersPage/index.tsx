@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
+import type { MRT_Row as MRTRow } from 'mantine-react-table'
 import { Notification } from '@vds/notifications'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { useDisclosure } from '@mantine/hooks'
@@ -13,37 +13,8 @@ import { sleep } from '~/utils'
 import { handleErrorMessage } from '~/utils/errors'
 import useMembers from '~/hooks/withSuspense/useMembers'
 import InviteMembersModal from './components/InviteMembersModal'
-import { getFormattedDate } from '~/utils/dates'
 import Block from '~/components/Block'
-
-const columns: MRTColumnDef<Member>[] = [
-  {
-    accessorKey: 'id',
-    header: 'ID',
-    size: 50,
-  },
-  {
-    accessorKey: 'displayName',
-    header: 'Display Name',
-    size: 100,
-  },
-  {
-    accessorKey: 'email',
-    header: 'Email Address',
-    size: 100,
-  },
-  {
-    accessorKey: 'idpSource',
-    header: 'IDP Source',
-    size: 50,
-  },
-  {
-    accessorKey: 'createdAt',
-    header: 'Created At',
-    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
-    size: 100,
-  },
-]
+import { memberColumns } from '~/components/AdvancedTable/shared/columns'
 
 const ROW_ACTIONS = {
   RESEND_INVITE: 'Resend invite',
@@ -153,7 +124,7 @@ const MembersPage = () => {
       <Table
         {...{
           data: members,
-          columns,
+          columns: memberColumns,
           isLoading,
           enableRowActions: true,
           rowActionMenuItems,

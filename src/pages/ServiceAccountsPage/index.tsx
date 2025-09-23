@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
+import type { MRT_Row as MRTRow } from 'mantine-react-table'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { useDisclosure } from '@mantine/hooks'
 import { Notification } from '@vds/notifications'
@@ -10,37 +10,12 @@ import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
 import type { ServiceAccount } from '~/types/data'
 import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
-import { getFormattedDate } from '~/utils/dates'
 import CreateServiceAccountModal from './components/CreateServiceAccountModal'
 import { handleErrorMessage } from '~/utils/errors'
 import DeleteServiceAccountModal from './components/DeleteServiceAccountModal'
 import getServiceAccounts from '~/queries/getServiceAccounts'
 import Block from '~/components/Block'
-
-const columns: MRTColumnDef<ServiceAccount>[] = [
-  {
-    accessorKey: 'displayName',
-    header: 'Name',
-    size: 100,
-  },
-  {
-    accessorKey: 'createdAt',
-    header: 'Created on',
-    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
-    size: 100,
-  },
-  {
-    accessorKey: 'updatedAt',
-    header: 'Last updated',
-    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
-    size: 100,
-  },
-  {
-    accessorKey: 'status',
-    header: 'Status',
-    size: 50,
-  },
-]
+import { serviceAccountColumns } from '~/components/AdvancedTable/shared/columns'
 
 const ROW_ACTIONS = {
   DELETE: 'Delete service account',
@@ -143,7 +118,7 @@ const ServiceAccountsPage = () => {
       <Table
         {...{
           data: serviceAccounts,
-          columns,
+          columns: serviceAccountColumns,
           isLoading,
           enableRowActions: true,
           rowActionMenuItems,

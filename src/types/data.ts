@@ -67,6 +67,8 @@ export type ServiceAccount = {
 export type PolicyTag = {
   id: `pt-${string}`
   policyTagName: string
+  principals: `u-${string}`[] | `s-${string}`[]
+  policies: `p-${string}`[]
 }
 
 export type InviteMember = {

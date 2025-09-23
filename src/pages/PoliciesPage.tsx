@@ -1,4 +1,4 @@
-import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
+import type { MRT_Row as MRTRow } from 'mantine-react-table'
 import { useNavigate } from '@tanstack/react-router'
 
 import { Route } from '~/routes/_authenticated/teams/$teamId/policies'
@@ -6,28 +6,9 @@ import ActionToolbar from '~/components/ActionToolbar'
 import IamHero from '~/components/IamHero'
 import usePolicies from '~/hooks/usePolicies'
 import type { Policy } from '~/types/data'
-import { getFormattedDate } from '~/utils/dates'
 import Table from '~/components/AdvancedTable'
 import Block from '~/components/Block'
-
-const columns: MRTColumnDef<Policy>[] = [
-  {
-    accessorKey: 'name',
-    header: 'Name',
-    size: 100,
-  },
-  {
-    accessorKey: 'description',
-    header: 'Description',
-    size: 100,
-  },
-  {
-    accessorKey: 'updatedAt',
-    header: 'Last updated',
-    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
-    size: 100,
-  },
-]
+import { policyColumns } from '~/components/AdvancedTable/shared/columns'
 
 export default function PoliciesPage() {
   const { teamId } = Route.useParams()
@@ -51,7 +32,7 @@ export default function PoliciesPage() {
       <Table
         {...{
           data: policies,
-          columns,
+          columns: policyColumns,
           isLoading,
           handleRowClick,
         }}

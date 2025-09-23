@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
-import type { MRT_Row as MRTRow, MRT_ColumnDef as MRTColumnDef } from 'mantine-react-table'
-import { useParams } from '@tanstack/react-router'
+import type { MRT_Row as MRTRow } from 'mantine-react-table'
+import { useNavigate, useParams } from '@tanstack/react-router'
 import { Notification } from '@vds/notifications'
 import { useDisclosure } from '@mantine/hooks'
 import { useSuspenseQuery } from '@tanstack/react-query'
@@ -13,28 +13,9 @@ import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import { handleErrorMessage } from '~/utils/errors'
 import CreateRoleModal from './components/CreateRoleModal'
 import DeleteRoleModal from './components/DeleteRoleModal'
-import { getFormattedDate } from '~/utils/dates'
 import getPolicyTags from '~/queries/getPolicyTags'
 import Block from '~/components/Block'
-
-const columns: MRTColumnDef<PolicyTag>[] = [
-  {
-    accessorKey: 'policyTagName',
-    header: 'Name',
-    size: 100,
-  },
-  {
-    accessorKey: 'description', // TODO: Review field not present.
-    header: 'Description',
-    size: 100,
-  },
-  {
-    accessorKey: 'updatedAt', // TODO: Review field not present.
-    header: 'Last updated',
-    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
-    size: 100,
-  },
-]
+import { policyTagColumns } from '~/components/AdvancedTable/shared/columns'
 
 const ROW_ACTIONS = {
   DELETE: 'Delete role',
@@ -59,6 +40,7 @@ const RolesPage = () => {
     opened: false,
     title: '',
   })
+  const navigate = useNavigate()
 
   const rowActionMenuItems = useCallback((row: MRTRow<PolicyTag>) => {
     const handleRowAction = async (action: RowAction) => {
@@ -108,6 +90,13 @@ const RolesPage = () => {
     })
   }
 
+  const handleRowClick = (row: MRTRow<PolicyTag>) => {
+    navigate({
+      to: '/teams/$teamId/roles/$policyTagId',
+      params: { teamId, policyTagId: row.original.id },
+    })
+  }
+
   return (
     <Block>
       {notificationConfig.opened && (
@@ -123,10 +112,11 @@ const RolesPage = () => {
       <Table
         {...{
           data: policyTags,
-          columns,
+          columns: policyTagColumns,
           isLoading,
           enableRowActions: true,
           rowActionMenuItems,
+          handleRowClick,
         }}
       />
       <CreateRoleModal
