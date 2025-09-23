@@ -10,16 +10,16 @@
     "test": "vitest run",
     "prepare": "husky",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint:fix": "eslint --cache --fix",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|jsx|tsx|css|scss|json)\""
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
+      "pnpm lint:fix",
+      "pnpm prettier --write"
     ],
     "*.{css,scss,json}": [
-      "prettier --write"
+      "pnpm prettier --write"
     ]
   },
   "dependencies": {
