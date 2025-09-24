@@ -8,7 +8,7 @@ export default function ServiceAccountPolicyTagsPage() {
   const { teamId, serviceAccountId } = useParams({
     from: '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/roles/',
   })
-  const { serviceAccount, isLoading } = useServiceAccount({ teamId, serviceAccountId })
+  const { serviceAccount } = useServiceAccount({ teamId, serviceAccountId })
 
   const display: Display = useMemo(() => {
     return {
@@ -17,8 +17,6 @@ export default function ServiceAccountPolicyTagsPage() {
       headerTitle: 'Assign service account roles',
     }
   }, [serviceAccount])
-
-  if (isLoading || !serviceAccount) return
 
   return <BasePolicyTagsPage teamId={teamId} principalId={serviceAccountId} display={display} />
 }

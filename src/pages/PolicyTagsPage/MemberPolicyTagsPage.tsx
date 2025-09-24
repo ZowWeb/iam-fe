@@ -6,7 +6,7 @@ import useMember from '~/hooks/useMember'
 
 export default function MemberPolicyTagsPage() {
   const { teamId, userId } = useParams({ from: '/_authenticated/teams/$teamId/users/$userId/roles/' })
-  const { member, isLoading } = useMember({ userId })
+  const { member } = useMember({ userId })
 
   const display: Display = useMemo(() => {
     return {
@@ -16,8 +16,6 @@ export default function MemberPolicyTagsPage() {
       headerTitle: 'Assign member roles',
     }
   }, [member])
-
-  if (isLoading || !member) return
 
   return <BasePolicyTagsPage teamId={teamId} principalId={userId} display={display} />
 }

@@ -10,11 +10,10 @@ type Args = {
 
 export default function getPolicyTagsByPrincipal({ teamId, principalId }: Args) {
   return queryOptions<PolicyTag[]>({
-    queryKey: ['GET_POLICY_TAGS_BY_PRINCIPAL', { principalId }],
+    queryKey: ['GET_POLICY_TAGS_BY_PRINCIPAL', { teamId, principalId }],
     queryFn: async () => {
       const response = await apiServerWithThrow({
         endpoint: `/teams/${teamId}/principals/${principalId}/policy-tags`,
-        keepalive: false,
       })
 
       return response.json()

@@ -1,7 +1,6 @@
 import type { MRT_Row as MRTRow } from 'mantine-react-table'
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 
-import { Route } from '~/routes/_authenticated/teams/$teamId/policies'
 import ActionToolbar from '~/components/ActionToolbar'
 import IamHero from '~/components/IamHero'
 import usePolicies from '~/hooks/usePolicies'
@@ -11,7 +10,7 @@ import Block from '~/components/Block'
 import { policyColumns } from '~/components/AdvancedTable/shared/columns'
 
 export default function PoliciesPage() {
-  const { teamId } = Route.useParams()
+  const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/policies/' })
   const { isLoading, policies } = usePolicies({ teamId })
   const navigate = useNavigate()
 

@@ -37,7 +37,7 @@ export const Route = createFileRoute('/_authenticated')({
     let user = queryClient.getQueryData(GET_USER_QUERY_KEY) as User | undefined
 
     if (!user) {
-      // If not in cache, check local storage
+      // If not in cache, fetch from the server
       user = await queryClient.fetchQuery(getUser(token.userId))
     }
 
