@@ -7,7 +7,11 @@ export default function getTeamMembers({ teamId }: { teamId: string }) {
   return queryOptions<Member[]>({
     queryKey: ['GET_MEMBERS', { teamId }],
     queryFn: async () => {
-      const response = await apiServerWithThrow({ endpoint: `/teams/${teamId}/users` })
+      /**
+       * TODO: Update endpoint to `/teams/${teamId}/users` when
+       * [Jira Issue](https://ctlabs.verizon.net/vztracking/browse/APIFIAM-606) is done
+       */
+      const response = await apiServerWithThrow({ endpoint: `/users` })
 
       return response.json()
     },
