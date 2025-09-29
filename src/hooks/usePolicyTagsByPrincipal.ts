@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
 import getPolicyTagsByPrincipal from '~/queries/getPolicyTagsByPrincipal'
 
@@ -8,9 +8,7 @@ type UsePolicyTagsByPrincipalProps = {
 }
 
 export default function usePolicyTagsByPrincipal({ teamId, principalId }: UsePolicyTagsByPrincipalProps) {
-  const { data: policyTags = [], isLoading } = useSuspenseQuery(
-    getPolicyTagsByPrincipal({ teamId, principalId }),
-  )
+  const { data: policyTags = [], isLoading } = useQuery(getPolicyTagsByPrincipal({ teamId, principalId }))
 
   return {
     policyTags,

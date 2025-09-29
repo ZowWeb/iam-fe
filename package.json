@@ -15,8 +15,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "pnpm lint:fix",
-      "pnpm prettier --write"
+      "pnpm prettier --write",
+      "pnpm lint:fix"
     ],
     "*.{css,scss,json}": [
       "pnpm prettier --write"

@@ -35,8 +35,8 @@ export default defineConfig([
       'react-hooks': fixupPluginRules(reactHooks),
       react,
       '@typescript-eslint': typescriptEslint,
-      prettier,
       'jsx-a11y': jsxA11Y,
+      prettier,
     },
 
     languageOptions: {

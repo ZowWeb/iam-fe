@@ -67,9 +67,13 @@ const ServiceAccountsPage = () => {
   }, [])
 
   const handleRowClick = (row: MRTRow<ServiceAccount>) => {
+    const { id } = row.original
+
+    if (!id) return
+
     navigate({
       to: '/teams/$teamId/service-accounts/$serviceAccountId',
-      params: { teamId, serviceAccountId: row.original.id },
+      params: { teamId, serviceAccountId: id },
     })
   }
 

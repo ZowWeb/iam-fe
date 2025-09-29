@@ -14,6 +14,6 @@ export const fetchUser = async (userId: string) => {
 export const getUser = (userId: string) => {
   return queryOptions<User>({
     queryKey: GET_USER_QUERY_KEY,
-    queryFn: async () => fetchUser(userId),
+    queryFn: () => fetchUser(userId),
   })
 }

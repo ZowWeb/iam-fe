@@ -13,17 +13,12 @@ export const fetchPolicyTag = async ({ teamId, policyTagId }: Args) => {
     endpoint: `/teams/${teamId}/policy-tags/${policyTagId}`,
   })
 
-  if (!response.ok) {
-    throw new Error(
-      `[getPolicyTag] Network response was not ok! [res]: ${response.status} ${response.statusText}`,
-    )
-  }
   return response.json()
 }
 
 export default function getPolicyTag({ teamId, policyTagId }: Args) {
-  return queryOptions<PolicyTag | undefined>({
+  return queryOptions<PolicyTag>({
     queryKey: ['GET_POLICY_TAG', { policyTagId }],
-    queryFn: async () => fetchPolicyTag({ teamId, policyTagId }),
+    queryFn: () => fetchPolicyTag({ teamId, policyTagId }),
   })
 }

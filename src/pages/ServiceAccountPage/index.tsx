@@ -85,7 +85,7 @@ export default function ServiceAccountPage() {
     <Block>
       <Link to="..">
         <FlexBox>
-          <IconChevronLeft name="arrow-left" size={20} />
+          <IconChevronLeft size={20} />
           <span>Back to service account list</span>
         </FlexBox>
       </Link>

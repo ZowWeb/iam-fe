@@ -1,11 +1,3 @@
-export type Person = {
-  firstName: string
-  lastName: string
-  email: string
-  timeInVerzion: number
-  country: string
-}
-
 export enum PrincipalKindEnum {
   user = 'user',
   service_account = 'service_account',
@@ -73,6 +65,11 @@ export type PolicyTag = {
 
 export type InviteMember = {
   email: string
+}
+
+export type PatchPolicyTagsFromPrincipal = {
+  policyTagsToAdd: `pt-${string}`[]
+  policyTagsToRemove: `pt-${string}`[]
 }
 
 export type ServerErrorSchema = {

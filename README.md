@@ -4,7 +4,7 @@
 
 - **Name:** `iam-fe` (Identity and Access Management Frontend)
 - **Type:** Frontend Web Application
-- **Domain:** The application is for managing Identity and Access Management (IAM). We have several entities which are Members (Users), Teams, Roles (PolicyTags at the backend), Service Accounts and Policies. Policies are grouped into Roles that are assigned to Principals (Memebers or Service Accounts).
+- **Domain:** The application is for managing Identity and Access Management (IAM). We have several entities which are Members (Users), Teams, Roles (PolicyTags at the backend), Service Accounts and Policies. Policies are grouped into Roles that are assigned to Principals (Members or Service Accounts).
 
 ## Technical Stack
 
