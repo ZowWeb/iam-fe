@@ -2,7 +2,7 @@ import { TitleLockup } from '@vds/type-lockups'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { Button } from '@vds/buttons'
 
-import usePolicyTagsByPrincipal from '~/hooks/withSuspense/usePolicyTagsByPrincipal'
+import usePolicyTagsByPrincipal from '~/hooks/usePolicyTagsByPrincipal'
 import { Width, Card } from './styles'
 import Table from '~/components/AdvancedTable'
 import ActionToolbar from '~/components/ActionToolbar'
