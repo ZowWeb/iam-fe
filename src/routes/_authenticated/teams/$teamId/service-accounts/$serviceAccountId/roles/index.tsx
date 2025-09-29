@@ -6,9 +6,7 @@ export const Route = createFileRoute(
   '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/roles/',
 )({
   component: Page,
-  loader: async () => {
-    return {
-      crumbTitle: 'Roles',
-    }
-  },
+  loader: () => ({
+    crumbTitle: 'Roles',
+  }),
 })
