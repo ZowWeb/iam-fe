@@ -99,13 +99,9 @@ const MembersPage = () => {
   }
 
   const handleRowClick = (row: MRTRow<Member>) => {
-    const { id } = row.original
-
-    if (!id) return
-
     navigate({
       to: '/teams/$teamId/users/$userId',
-      params: { teamId, userId: id },
+      params: { teamId, userId: row.original.id },
     })
   }
 
