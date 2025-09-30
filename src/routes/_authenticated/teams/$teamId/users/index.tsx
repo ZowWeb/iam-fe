@@ -5,9 +5,7 @@ import getTeamMembers from '~/queries/getTeamMembers'
 
 export const Route = createFileRoute('/_authenticated/teams/$teamId/users/')({
   component: MembersPage,
-  loader: async ({ context: { queryClient }, params: { teamId } }) => {
-    return {
-      members: await queryClient.ensureQueryData(getTeamMembers({ teamId })),
-    }
+  loader: ({ context: { queryClient }, params: { teamId } }) => {
+    queryClient.ensureQueryData(getTeamMembers({ teamId }))
   },
 })
