@@ -52,6 +52,17 @@ const Table = <T extends MRTRowData>({
   handleRowClick,
   ...options
 }: MRTTableOptions<T> & ExtraProps<T>) => {
+  const getCursorStyle = (row: MRTRow<T>) => {
+    // No data cursor
+    if (data.length === 0) return 'text'
+    // Cursor for selectable rows
+    if (row.getCanSelect()) return 'cell'
+    // Cursor for rows with click handler
+    if (handleRowClick) return 'pointer'
+    // Default cursor otherwise
+    return 'default'
+  }
+
   const table = useMantineReactTable({
     columns,
     data,
@@ -93,9 +104,19 @@ const Table = <T extends MRTRowData>({
         </Menu>
       ),
     mantineTableBodyRowProps: ({ row }) => ({
-      onClick: handleRowClick ? () => handleRowClick(row) : row.getToggleSelectedHandler(), // To select a row by clicking anywhere on the row
+      onClick: () => {
+        // prevent row click when there's no data
+        if (data.length === 0) return
+        if (handleRowClick) {
+          return handleRowClick(row)
+        }
+        if (row.getCanSelect()) {
+          row.toggleSelected()
+        }
+        return undefined
+      },
       style: {
-        cursor: handleRowClick || row.getCanSelect() ? 'pointer' : 'default', // Change cursor style if handleRowClick is provided
+        cursor: getCursorStyle(row),
       },
     }),
     ...options,
