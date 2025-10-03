@@ -96,9 +96,7 @@ const MemberPage = () => {
           },
         }}
       />
-      <IamHero title={member?.displayName || 'Member name'} showActionButton>
-        {footerItemsJSX}
-      </IamHero>
+      <IamHero title={member?.displayName || 'Member name'}>{footerItemsJSX}</IamHero>
       <TitleLockup
         data={{
           title: {

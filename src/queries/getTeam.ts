@@ -7,9 +7,11 @@ type Args = {
   teamId: string
 }
 
+export const GET_TEAM = 'GET_TEAM'
+
 export default function getTeam({ teamId }: Args) {
   return queryOptions<Team>({
-    queryKey: ['GET_TEAM', { teamId }],
+    queryKey: [GET_TEAM, { teamId }],
     queryFn: async () => {
       const response = await apiServerWithThrow({
         endpoint: `/teams/${teamId}`,

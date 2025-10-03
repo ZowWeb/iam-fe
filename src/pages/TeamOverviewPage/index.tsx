@@ -1,15 +1,19 @@
 import { styled } from '@linaria/react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useParams } from '@tanstack/react-router'
+import { useState } from 'react'
+import { Notification } from '@vds/notifications'
 
 import Block from '~/components/Block'
 import FlexBox from '~/components/FlexBox'
-import IamHero from '~/components/IamHero'
+import IamHero, { type RowAction } from '~/components/IamHero'
 import Typography from '~/components/Typography'
 import getTeam from '~/queries/getTeam'
 import { COLORS } from '~/styles/constants'
 import type { Team } from '~/types/data'
 import { getFormattedDate } from '~/utils/dates'
+import { handleErrorMessage } from '~/utils/errors'
+import UpdateTeamDetailsModal from './components/UpdateTeamDetailsModal'
 
 const FooterContainer = styled(FlexBox)`
   gap: 3.25rem;
@@ -63,12 +67,70 @@ const createFooterItemsJSX = (team: Team) => {
   )
 }
 
+const ROW_ACTIONS: RowAction = {
+  UPDATE_TEAM: 'Update team details',
+}
+
 export default function TeamOverviewPage() {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId' })
   const { data: team } = useSuspenseQuery(getTeam({ teamId }))
+  const [updateModalConfig, setUpdateModalConfig] = useState<{
+    opened: boolean
+    data: Team | null
+  }>({ opened: false, data: null })
+  const [notificationConfig, setNotificationConfig] = useState<{
+    opened: boolean
+    type?: 'success' | 'error' | 'info' | 'warning'
+    message: string
+    subtitle?: string
+  }>({
+    opened: false,
+    message: '',
+    subtitle: '',
+  })
+
+  const handleActionClick = (key: string) => {
+    switch (key) {
+      case 'UPDATE_TEAM':
+        setUpdateModalConfig({ data: team, opened: true })
+        break
+
+      default:
+        break
+    }
+  }
+
+  const handleUpdateTeamDetailsSuccess = () => {
+    setNotificationConfig({
+      opened: true,
+      type: 'success',
+      message: 'Team details have been changed.',
+      subtitle: 'You will receive an email with the specific details.',
+    })
+  }
+
+  const handleUpdateTeamDetailsError = (err: unknown) => {
+    setNotificationConfig({
+      opened: true,
+      type: 'error',
+      message: handleErrorMessage(err),
+    })
+  }
+
+  const handleCloseUpdateTeamDetailsModal = () => {
+    setUpdateModalConfig({ opened: false, data: null })
+  }
 
   return (
     <Block>
+      {notificationConfig.opened && (
+        <Notification
+          type={notificationConfig.type}
+          title={notificationConfig.message}
+          subtitle={notificationConfig.subtitle}
+          onCloseButtonClick={() => setNotificationConfig({ opened: false, message: '', subtitle: '' })}
+        />
+      )}
       <FlexBox justifyContent="space-between">
         <FlexBox direction="column" alignItems="flex-start" gap="0.75rem">
           <Typography.H2>Identity & Access Management</Typography.H2>
@@ -81,10 +143,24 @@ export default function TeamOverviewPage() {
       <IamHero
         title={team?.displayName || 'Team Name'}
         subtitle="We automatically created this team for you when you created  your account. Use this team to collaborate with colleagues and manage API client test credentials"
-        showActionButton
+        actionButtonConfig={{
+          show: true,
+          menuDropdownItems: ROW_ACTIONS,
+          actionButtonHandler: handleActionClick,
+        }}
       >
         {createFooterItemsJSX(team)}
       </IamHero>
+      {updateModalConfig.data && (
+        <UpdateTeamDetailsModal
+          teamId={teamId}
+          team={updateModalConfig.data}
+          opened={updateModalConfig.opened}
+          onClose={handleCloseUpdateTeamDetailsModal}
+          onSuccess={handleUpdateTeamDetailsSuccess}
+          onError={handleUpdateTeamDetailsError}
+        />
+      )}
     </Block>
   )
 }

@@ -27,3 +27,6 @@ dist-ssr
 .env.local
 
 .eslintcache
+
+# Tanstack temporal files
+.tanstack
