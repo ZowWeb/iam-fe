@@ -80,7 +80,6 @@ export default function RolePage() {
       <IamHero
         title={policyTag?.policyTagName || 'Role name'}
         subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo lorem in diam hendrerit, vel vestibulum elit dapibus. Quisque facilisis justo condimentum "
-        showActionButton
       >
         {footerItemsJSX}
       </IamHero>

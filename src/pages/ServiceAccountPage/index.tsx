@@ -103,9 +103,7 @@ export default function ServiceAccountPage() {
           },
         }}
       />
-      <IamHero title={serviceAccount.displayName} showActionButton>
-        {footerItemsJSX}
-      </IamHero>
+      <IamHero title={serviceAccount.displayName}>{footerItemsJSX}</IamHero>
       <VdsTabs onClick={handleSelectTabClick} tabs={tabs} orientation="horizontal" borderLine />
       {selectedTab.id === 'credentials' && <CredentialsTab />}
       {selectedTab.id === 'roles' && <RolesTab />}

@@ -213,7 +213,7 @@ export default function BasePolicyTagsPage({ teamId, principalId, display }: Pro
           },
         }}
       />
-      <IamHero title={display.displayName} showActionButton={false} gap="0">
+      <IamHero title={display.displayName} gap="0">
         <FlexBox direction="column" alignItems="flex-start" gap="1rem">
           {display.displayEmail && <div>{display.displayEmail}</div>}
           <FlexBox alignItems="flex-end">
