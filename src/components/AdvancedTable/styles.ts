@@ -1,7 +1,6 @@
 import { styled } from '@linaria/react'
-import { Menu } from '@mantine/core'
 
-import { BUTTON_ICON_DROP_SHADOW, COLORS } from '~/styles/constants'
+import { COLORS } from '~/styles/constants'
 
 export const TableWrapper = styled.div`
   width: 100%;
@@ -31,23 +30,5 @@ export const TableWrapper = styled.div`
         font-weight: 700;
       }
     }
-  }
-`
-
-export const MenuDropdown = styled(Menu.Dropdown)`
-  padding: 0;
-  min-width: 10rem;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  box-shadow: ${BUTTON_ICON_DROP_SHADOW};
-`
-
-export const MenuItem = styled(Menu.Item)`
-  padding: 0.75rem 1.25rem;
-  font-size: 1rem;
-  border-radius: 0;
-
-  &:nth-of-type(n + 2) {
-    border-top: 0.25px solid ${COLORS.dropdownBorder};
   }
 `

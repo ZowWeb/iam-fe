@@ -9,19 +9,17 @@ import Table from '~/components/AdvancedTable'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
 import type { PolicyTag } from '~/types/data'
-import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import { handleErrorMessage } from '~/utils/errors'
 import CreateRoleModal from './components/CreateRoleModal'
 import DeleteRoleModal from './components/DeleteRoleModal'
 import getPolicyTags from '~/queries/getPolicyTags'
 import Block from '~/components/Block'
 import { policyTagColumns } from '~/components/AdvancedTable/shared/columns'
+import DropDownMenu, { type RowAction } from '~/components/DropDownMenu'
 
-const ROW_ACTIONS = {
+const ROW_ACTIONS: RowAction = {
   DELETE: 'Delete role',
-} as const
-
-type RowAction = keyof typeof ROW_ACTIONS
+}
 
 const RolesPage = () => {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/roles' })
@@ -43,27 +41,13 @@ const RolesPage = () => {
   const navigate = useNavigate()
 
   const rowActionMenuItems = useCallback((row: MRTRow<PolicyTag>) => {
-    const handleRowAction = async (action: RowAction) => {
+    const handleRowAction = async (action: string) => {
       if (action === 'DELETE') {
         setDeleteModalConfig({ opened: true, data: row.original })
       }
     }
 
-    return (
-      <MenuDropdown>
-        {Object.entries(ROW_ACTIONS).map(([action, label]) => (
-          <MenuItem
-            key={action}
-            onClick={event => {
-              event.stopPropagation()
-              handleRowAction(action as RowAction)
-            }}
-          >
-            {label}
-          </MenuItem>
-        ))}
-      </MenuDropdown>
-    )
+    return <DropDownMenu actionClickHandler={handleRowAction} items={ROW_ACTIONS} />
   }, [])
 
   const handleCreateRoleSuccess = () => {

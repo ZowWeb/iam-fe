@@ -1,29 +1,14 @@
 import { useParams } from '@tanstack/react-router'
 import { TitleLockup } from '@vds/type-lockups'
-import { useCallback } from 'react'
 
 import { serviceAccountColumns } from '~/components/AdvancedTable/shared/columns'
 import usePrincipalsByPolicyTag from '~/hooks/usePrincipalsByPolicyTag'
-import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import Table from '~/components/AdvancedTable'
 import ActionToolbar from '~/components/ActionToolbar'
-
-const ROW_ACTIONS = {} as const
-const handleRowClick = () => {}
 
 export default function ServiceAccountsTab() {
   const { teamId, policyTagId } = useParams({ from: '/_authenticated/teams/$teamId/roles/$policyTagId/' })
   const { isLoading, serviceAccounts } = usePrincipalsByPolicyTag({ teamId, policyTagId })
-
-  const rowActionMenuItems = useCallback(() => {
-    return (
-      <MenuDropdown>
-        {Object.entries(ROW_ACTIONS).map(([action]) => (
-          <MenuItem key={action} onClick={() => {}} />
-        ))}
-      </MenuDropdown>
-    )
-  }, [])
 
   return (
     <>
@@ -48,9 +33,6 @@ export default function ServiceAccountsTab() {
           data: serviceAccounts,
           columns: serviceAccountColumns,
           isLoading,
-          enableRowActions: true,
-          rowActionMenuItems,
-          handleRowClick,
         }}
       />
     </>
