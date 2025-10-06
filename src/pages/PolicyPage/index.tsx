@@ -51,7 +51,7 @@ export default function PolicyPage() {
     <Block>
       <Link to="..">
         <FlexBox>
-          <IconChevronLeft name="arrow-left" size={20} />
+          <IconChevronLeft size={20} />
           <span>Back to policies list</span>
         </FlexBox>
       </Link>
