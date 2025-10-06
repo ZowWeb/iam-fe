@@ -9,16 +9,12 @@ import {
   StyledIconDots,
   MenuWrapper,
 } from './styles'
-import { MenuDropdown, MenuItem } from '../AdvancedTable/styles'
+import DropDownMenu, { type RowAction } from '../DropDownMenu'
 
-export type RowAction = {
-  [key: string]: string
-}
-
-type ActionButtonConfig = {
+export type ActionButtonConfig = {
   show: boolean
   menuDropdownItems: RowAction
-  actionButtonHandler: (key: string) => void
+  actionClickHandler: (key: string) => void
 }
 
 type Props = {
@@ -30,7 +26,8 @@ type Props = {
 }
 
 const IamHero = ({ title, subtitle, actionButtonConfig, children, gap = '1.5rem' }: Props) => {
-  const { show = false, menuDropdownItems = [], actionButtonHandler = () => {} } = actionButtonConfig || {}
+  const { show = false, menuDropdownItems = {}, actionClickHandler = () => {} } = actionButtonConfig || {}
+
   return (
     <Wrapper direction="column" alignItems="flex-start" gap={gap}>
       <TitleWithActionWrapper>
@@ -43,20 +40,7 @@ const IamHero = ({ title, subtitle, actionButtonConfig, children, gap = '1.5rem'
                   <StyledIconDots stroke={1.3} fill="true" />
                 </StyledActionIcon>
               </Menu.Target>
-
-              <MenuDropdown>
-                {Object.entries(menuDropdownItems).map(([action, label]) => (
-                  <MenuItem
-                    key={action}
-                    onClick={event => {
-                      event.stopPropagation()
-                      actionButtonHandler(action)
-                    }}
-                  >
-                    {label}
-                  </MenuItem>
-                ))}
-              </MenuDropdown>
+              <DropDownMenu items={menuDropdownItems} actionClickHandler={actionClickHandler} />
             </Menu>
           </MenuWrapper>
         )}

@@ -6,7 +6,7 @@ import { Notification } from '@vds/notifications'
 
 import Block from '~/components/Block'
 import FlexBox from '~/components/FlexBox'
-import IamHero, { type RowAction } from '~/components/IamHero'
+import IamHero from '~/components/IamHero'
 import Typography from '~/components/Typography'
 import getTeam from '~/queries/getTeam'
 import { COLORS } from '~/styles/constants'
@@ -14,6 +14,7 @@ import type { Team } from '~/types/data'
 import { getFormattedDate } from '~/utils/dates'
 import { handleErrorMessage } from '~/utils/errors'
 import UpdateTeamDetailsModal from './components/UpdateTeamDetailsModal'
+import type { RowAction } from '~/components/DropDownMenu'
 
 const FooterContainer = styled(FlexBox)`
   gap: 3.25rem;
@@ -146,7 +147,7 @@ export default function TeamOverviewPage() {
         actionButtonConfig={{
           show: true,
           menuDropdownItems: ROW_ACTIONS,
-          actionButtonHandler: handleActionClick,
+          actionClickHandler: handleActionClick,
         }}
       >
         {createFooterItemsJSX(team)}

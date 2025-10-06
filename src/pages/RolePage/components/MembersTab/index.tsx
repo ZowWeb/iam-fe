@@ -1,29 +1,14 @@
 import { useParams } from '@tanstack/react-router'
 import { TitleLockup } from '@vds/type-lockups'
-import { useCallback } from 'react'
 
 import Table from '~/components/AdvancedTable'
-import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import usePrincipalsByPolicyTag from '~/hooks/usePrincipalsByPolicyTag'
 import { memberColumns } from '~/components/AdvancedTable/shared/columns'
 import ActionToolbar from '~/components/ActionToolbar'
 
-const ROW_ACTIONS = {} as const
-const handleRowClick = () => {}
-
 export default function MembersTab() {
   const { teamId, policyTagId } = useParams({ from: '/_authenticated/teams/$teamId/roles/$policyTagId/' })
   const { users, isLoading } = usePrincipalsByPolicyTag({ teamId, policyTagId })
-
-  const rowActionMenuItems = useCallback(() => {
-    return (
-      <MenuDropdown>
-        {Object.entries(ROW_ACTIONS).map(([action]) => (
-          <MenuItem key={action} onClick={() => {}} />
-        ))}
-      </MenuDropdown>
-    )
-  }, [])
 
   return (
     <>
@@ -48,9 +33,6 @@ export default function MembersTab() {
           data: users,
           columns: memberColumns,
           isLoading,
-          enableRowActions: true,
-          rowActionMenuItems,
-          handleRowClick,
         }}
       />
     </>

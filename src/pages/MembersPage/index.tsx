@@ -8,7 +8,6 @@ import Table from '~/components/AdvancedTable'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
 import type { Member } from '~/types/data'
-import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import { sleep } from '~/utils'
 import { handleErrorMessage } from '~/utils/errors'
 import useMembers from '~/hooks/withSuspense/useMembers'
@@ -16,14 +15,13 @@ import InviteMembersModal from './components/InviteMembersModal'
 import Block from '~/components/Block'
 import { memberColumns } from '~/components/AdvancedTable/shared/columns'
 import RemoveMemberModal from './components/RemoveMemberModal'
+import DropDownMenu, { type RowAction } from '~/components/DropDownMenu'
 
-const ROW_ACTIONS = {
+const ROW_ACTIONS: RowAction = {
   RESEND_INVITE: 'Resend invite',
   CANCEL_INVITE: 'Cancel invite',
   REMOVE: 'Remove member',
-} as const
-
-type RowAction = keyof typeof ROW_ACTIONS
+}
 
 const MembersPage = () => {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/users' })
@@ -45,7 +43,7 @@ const MembersPage = () => {
   })
 
   const rowActionMenuItems = useCallback((row: MRTRow<Member>) => {
-    const handleRowAction = async (action: RowAction) => {
+    const handleRowAction = async (action: string) => {
       try {
         if (action === 'REMOVE') {
           setRemoveMemberModalConfig({ opened: true, data: row.original })
@@ -78,21 +76,7 @@ const MembersPage = () => {
       }
     }
 
-    return (
-      <MenuDropdown>
-        {Object.entries(ROW_ACTIONS).map(([action, label]) => (
-          <MenuItem
-            key={action}
-            onClick={event => {
-              event.stopPropagation()
-              handleRowAction(action as RowAction)
-            }}
-          >
-            {label}
-          </MenuItem>
-        ))}
-      </MenuDropdown>
-    )
+    return <DropDownMenu actionClickHandler={handleRowAction} items={ROW_ACTIONS} />
   }, [])
   const handleActionClick = () => {
     inviteMembersModalHandlers.open()

@@ -9,19 +9,18 @@ import Table from '~/components/AdvancedTable'
 import IamHero from '~/components/IamHero'
 import ActionToolbar from '~/components/ActionToolbar'
 import type { ServiceAccount } from '~/types/data'
-import { MenuDropdown, MenuItem } from '~/components/AdvancedTable/styles'
 import CreateServiceAccountModal from './components/CreateServiceAccountModal'
 import { handleErrorMessage } from '~/utils/errors'
 import DeleteServiceAccountModal from './components/DeleteServiceAccountModal'
 import getServiceAccounts from '~/queries/getServiceAccounts'
 import Block from '~/components/Block'
 import { serviceAccountColumns } from '~/components/AdvancedTable/shared/columns'
+import type { RowAction } from '~/components/DropDownMenu'
+import DropDownMenu from '~/components/DropDownMenu'
 
-const ROW_ACTIONS = {
+const ROW_ACTIONS: RowAction = {
   DELETE: 'Delete service account',
-} as const
-
-type RowAction = keyof typeof ROW_ACTIONS
+}
 
 const ServiceAccountsPage = () => {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/service-accounts/' })
@@ -43,37 +42,19 @@ const ServiceAccountsPage = () => {
   const navigate = useNavigate()
 
   const rowActionMenuItems = useCallback((row: MRTRow<ServiceAccount>) => {
-    const handleRowAction = (action: RowAction) => {
+    const handleRowAction = (action: string) => {
       if (action === 'DELETE') {
         setDeleteModalConfig({ opened: true, data: row.original })
       }
     }
 
-    return (
-      <MenuDropdown>
-        {Object.entries(ROW_ACTIONS).map(([action, label]) => (
-          <MenuItem
-            key={action}
-            onClick={event => {
-              event.stopPropagation()
-              handleRowAction(action as RowAction)
-            }}
-          >
-            {label}
-          </MenuItem>
-        ))}
-      </MenuDropdown>
-    )
+    return <DropDownMenu actionClickHandler={handleRowAction} items={ROW_ACTIONS} />
   }, [])
 
   const handleRowClick = (row: MRTRow<ServiceAccount>) => {
-    const { id } = row.original
-
-    if (!id) return
-
     navigate({
       to: '/teams/$teamId/service-accounts/$serviceAccountId',
-      params: { teamId, serviceAccountId: id },
+      params: { teamId, serviceAccountId: row.original.id },
     })
   }
 
