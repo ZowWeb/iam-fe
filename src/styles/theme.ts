@@ -1,6 +1,7 @@
 import { colorsTuple } from '@mantine/core'
 
 import { COLORS } from './constants'
+import { breakpointsInRems } from './breakpoints'
 
 export const theme = {
   white: COLORS.white,
@@ -39,11 +40,11 @@ export const theme = {
     },
   },
   breakpoints: {
-    xs: '30rem', // 480px
-    sm: '48rem', // 768px
-    md: '68.25rem', // 1092px
-    lg: '80rem', // 1280px
-    xl: '90rem', // 1440px
+    xs: breakpointsInRems.xs,
+    sm: breakpointsInRems.sm,
+    md: breakpointsInRems.md,
+    lg: breakpointsInRems.lg,
+    xl: breakpointsInRems.xl,
   },
   components: {
     AppShell: {
