@@ -149,12 +149,7 @@ export default defineConfig([
       'react/jsx-one-expression-per-line': 0,
       'react/sort-comp': 0,
 
-      'react/prop-types': [
-        2,
-        {
-          ignore: ['children', 'router'],
-        },
-      ],
+      'react/prop-types': 0,
 
       'react/jsx-filename-extension': [
         1,

@@ -83,18 +83,34 @@ export const serviceAccountColumns: MRTColumnDef<ServiceAccount>[] = [
   {
     accessorKey: 'createdAt',
     header: 'Created on',
-    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
+    Cell: ({ cell }) => (
+      <>
+        <span className="label-on-phone">Created on</span>
+        {getFormattedDate(cell.getValue<string>())}
+      </>
+    ),
     size: 100,
   },
   {
     accessorKey: 'updatedAt',
     header: 'Last updated',
-    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
+    Cell: ({ cell }) => (
+      <>
+        <span className="label-on-phone">Last updated</span>
+        {getFormattedDate(cell.getValue<string>())}
+      </>
+    ),
     size: 100,
   },
   {
     accessorKey: 'status',
     header: 'Status',
     size: 50,
+    Cell: ({ cell }) => (
+      <>
+        <span className="label-on-phone">Status</span>
+        {cell.getValue<string>() || 'Active'}
+      </>
+    ),
   },
 ]
