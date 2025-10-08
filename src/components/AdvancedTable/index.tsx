@@ -66,19 +66,12 @@ const Table = <T extends MRTRowData>({
   const table = useMantineReactTable({
     columns,
     data,
-    positionActionsColumn: 'last',
-    displayColumnDefOptions: {
-      'mrt-row-actions': {
-        header: '', // Remove actions column header text
-      },
-    },
     enableColumnFilters: false,
     enablePagination: false,
     rowCount: data.length,
     enableTopToolbar: false,
     enableBottomToolbar: false,
     enableSorting: false,
-    enableColumnActions: false,
     mantinePaperProps: {
       shadow: '',
       withBorder: false,
@@ -91,6 +84,16 @@ const Table = <T extends MRTRowData>({
     state: {
       isLoading,
       rowSelection,
+    },
+    enableColumnActions: false,
+    positionActionsColumn: 'last',
+    displayColumnDefOptions: {
+      'mrt-row-actions': {
+        header: '', // Remove actions column header text
+        mantineTableBodyCellProps: {
+          className: 'row-action',
+        },
+      },
     },
     renderRowActions: ({ row }) =>
       rowActionMenuItems && (
