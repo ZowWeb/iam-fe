@@ -12,18 +12,33 @@ export const memberColumns: MRTColumnDef<Member>[] = [
   {
     accessorKey: 'email',
     header: 'Email',
+    Cell: ({ cell }) => (
+      <>
+        <span className="label-on-phone">Email</span>
+        {cell.getValue<string>()}
+      </>
+    ),
     size: 100,
   },
   {
     accessorKey: 'createdAt',
     header: 'Date joined',
-    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
+    Cell: ({ cell }) => (
+      <>
+        <span className="label-on-phone">Date joined</span>
+        {getFormattedDate(cell.getValue<string>())}
+      </>
+    ),
     size: 100,
   },
   {
     accessorKey: 'lastSignIn',
     header: 'Last sign in',
-    Cell: () => 'Jun 22, 2025 12:24 PM', // TODO: Remove when APIFIAM-606 is ready
+    Cell: ({ cell }) => (
+      <div className="hide-on-phone">
+        {cell.getValue<string>() ? getFormattedDate(cell.getValue<string>()) : 'Never'}
+      </div>
+    ),
     size: 100,
   },
 ]
@@ -37,13 +52,23 @@ export const policyColumns: MRTColumnDef<Policy>[] = [
   {
     accessorKey: 'description',
     header: 'Description',
-    Cell: () => 'Policy description', // TODO: Remove when APIFIAM-606 is ready
+    Cell: ({ cell }) => (
+      <>
+        <span className="label-on-phone">Description</span>
+        {cell.getValue<string>() || 'Lorem ipsum dolor sit amet'}
+      </>
+    ),
     size: 100,
   },
   {
     accessorKey: 'updatedAt',
     header: 'Last updated',
-    Cell: ({ cell }) => getFormattedDate(cell.getValue<string>()),
+    Cell: ({ cell }) => (
+      <>
+        <span className="label-on-phone">Last updated</span>
+        {getFormattedDate(cell.getValue<string>())}
+      </>
+    ),
     size: 100,
   },
 ]
@@ -105,12 +130,12 @@ export const serviceAccountColumns: MRTColumnDef<ServiceAccount>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
-    size: 50,
     Cell: ({ cell }) => (
       <>
         <span className="label-on-phone">Status</span>
         {cell.getValue<string>() || 'Active'}
       </>
     ),
+    size: 50,
   },
 ]
