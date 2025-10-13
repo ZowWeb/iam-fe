@@ -6,7 +6,7 @@ import { Notification } from '@vds/notifications'
 
 import Block from '~/components/Block'
 import FlexBox from '~/components/FlexBox'
-import IamHero from '~/components/IamHero'
+import Hero from '~/components/Hero'
 import Typography from '~/components/Typography'
 import getTeam from '~/queries/getTeam'
 import { COLORS } from '~/styles/constants'
@@ -141,17 +141,16 @@ export default function TeamOverviewPage() {
         </FlexBox>
         <img height="250px" src="/hero_goraphics.png" alt="Hero" />
       </FlexBox>
-      <IamHero
+      <Hero
         title={team?.displayName || 'Team Name'}
         subtitle="We automatically created this team for you when you created  your account. Use this team to collaborate with colleagues and manage API client test credentials"
         actionButtonConfig={{
-          show: true,
           menuDropdownItems: ROW_ACTIONS,
           actionClickHandler: handleActionClick,
         }}
       >
         {createFooterItemsJSX(team)}
-      </IamHero>
+      </Hero>
       {updateModalConfig.data && (
         <UpdateTeamDetailsModal
           teamId={teamId}

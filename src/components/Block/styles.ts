@@ -15,6 +15,5 @@ export const BlockWrapper = styled(FlexBox)`
 
   > * {
     width: 100%;
-    flex-grow: 1 0 auto;
   }
 `

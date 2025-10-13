@@ -5,7 +5,7 @@ import { styled } from '@linaria/react'
 import { useParams } from '@tanstack/react-router'
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import IamHero from '~/components/IamHero'
+import Hero from '~/components/Hero'
 import FlexBox from '~/components/FlexBox'
 import Typography from '~/components/Typography'
 import Link from '~/components/Link'
@@ -103,7 +103,7 @@ export default function ServiceAccountPage() {
           },
         }}
       />
-      <IamHero title={serviceAccount.displayName}>{footerItemsJSX}</IamHero>
+      <Hero title={serviceAccount.displayName}>{footerItemsJSX}</Hero>
       <VdsTabs onClick={handleSelectTabClick} tabs={tabs} orientation="horizontal" borderLine />
       {selectedTab.id === 'credentials' && <CredentialsTab />}
       {selectedTab.id === 'roles' && <RolesTab />}

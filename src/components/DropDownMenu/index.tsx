@@ -1,4 +1,4 @@
-import { IamDropdownMenu, IamMenuItem } from './styles'
+import { MenuDropdown, MenuItem } from './styles'
 
 export type RowAction = {
   [key: string]: string
@@ -9,14 +9,11 @@ type Props = {
   actionClickHandler: (key: string) => void
 }
 
-/**
- * To be used inside Mantine <Menu>
- */
 export default function DropDownMenu({ actionClickHandler, items }: Props) {
   return (
-    <IamDropdownMenu>
+    <MenuDropdown>
       {Object.entries(items).map(([action, label]) => (
-        <IamMenuItem
+        <MenuItem
           key={action}
           onClick={event => {
             event.stopPropagation()
@@ -24,8 +21,8 @@ export default function DropDownMenu({ actionClickHandler, items }: Props) {
           }}
         >
           {label}
-        </IamMenuItem>
+        </MenuItem>
       ))}
-    </IamDropdownMenu>
+    </MenuDropdown>
   )
 }

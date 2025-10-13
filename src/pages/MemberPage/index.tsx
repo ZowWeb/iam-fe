@@ -3,7 +3,7 @@ import { TitleLockup } from '@vds/type-lockups'
 import { useNavigate, useParams } from '@tanstack/react-router'
 import { useMemo } from 'react'
 
-import IamHero from '~/components/IamHero'
+import Hero from '~/components/Hero'
 import FlexBox from '~/components/FlexBox'
 import Link from '~/components/Link'
 import { COLORS } from '~/styles/constants'
@@ -96,7 +96,7 @@ const MemberPage = () => {
           },
         }}
       />
-      <IamHero title={member?.displayName || 'Member name'}>{footerItemsJSX}</IamHero>
+      <Hero title={member?.displayName || 'Member name'}>{footerItemsJSX}</Hero>
       <TitleLockup
         data={{
           title: {

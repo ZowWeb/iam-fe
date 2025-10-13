@@ -6,7 +6,7 @@ import { useDisclosure } from '@mantine/hooks'
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 import Table from '~/components/AdvancedTable'
-import IamHero from '~/components/IamHero'
+import Hero from '~/components/Hero'
 import ActionToolbar from '~/components/ActionToolbar'
 import type { PolicyTag } from '~/types/data'
 import { handleErrorMessage } from '~/utils/errors'
@@ -91,7 +91,7 @@ const RolesPage = () => {
           onCloseButtonClick={() => setNotificationConfig({ opened: false, title: '', subtitle: '' })}
         />
       )}
-      <IamHero title="Roles" subtitle="Create roles to manage access for members and service accounts." />
+      <Hero title="Roles" subtitle="Create roles to manage access for members and service accounts." />
       <ActionToolbar ctaConfig={{ label: 'Create a role', onClick: () => createModalHandlers.open() }} />
       <Table
         {...{

@@ -9,7 +9,7 @@ const breakpoints = {
 
 type BreakpointKey = keyof typeof breakpoints
 
-type MediaQueryType = {
+type MediaQuery = {
   [K in BreakpointKey]: string
 } & {
   lessThan: { [K in BreakpointKey]: string }
@@ -31,7 +31,7 @@ const mediaQuery = (Object.keys(breakpoints) as BreakpointKey[]).reduce((acc, la
   acc.greaterThan[label] = `@media (min-width: ${breakpoints[label] + 1}px)`
 
   return acc
-}, {} as MediaQueryType)
+}, {} as MediaQuery)
 
 /**
  * Usage examples with `@linaria/react`:

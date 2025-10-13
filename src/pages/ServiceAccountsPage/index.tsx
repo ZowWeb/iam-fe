@@ -6,7 +6,7 @@ import { Notification } from '@vds/notifications'
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 import Table from '~/components/AdvancedTable'
-import IamHero from '~/components/IamHero'
+import Hero from '~/components/Hero'
 import ActionToolbar from '~/components/ActionToolbar'
 import type { ServiceAccount } from '~/types/data'
 import CreateServiceAccountModal from './components/CreateServiceAccountModal'
@@ -93,7 +93,7 @@ const ServiceAccountsPage = () => {
           onCloseButtonClick={() => setNotificationConfig({ opened: false, title: '', subtitle: '' })}
         />
       )}
-      <IamHero
+      <Hero
         title="Service accounts"
         subtitle="Create services accounts, delete them,  and manage their access."
       />

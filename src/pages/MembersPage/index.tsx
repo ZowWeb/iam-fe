@@ -5,7 +5,7 @@ import { useNavigate, useParams } from '@tanstack/react-router'
 import { useDisclosure } from '@mantine/hooks'
 
 import Table from '~/components/AdvancedTable'
-import IamHero from '~/components/IamHero'
+import Hero from '~/components/Hero'
 import ActionToolbar from '~/components/ActionToolbar'
 import type { Member } from '~/types/data'
 import { sleep } from '~/utils'
@@ -122,7 +122,7 @@ const MembersPage = () => {
           onCloseButtonClick={() => setNotificationConfig({ opened: false, message: '' })}
         />
       )}
-      <IamHero title="Members" subtitle="Invite members, remove them , and manage their access." />
+      <Hero title="Members" subtitle="Invite members, remove them , and manage their access." />
       <ActionToolbar ctaConfig={{ label: 'Invite members', onClick: handleActionClick }} />
       <Table
         {...{

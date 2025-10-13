@@ -3,7 +3,7 @@ import { Menu } from '@mantine/core'
 
 import { BUTTON_ICON_DROP_SHADOW, COLORS } from '~/styles/constants'
 
-export const IamDropdownMenu = styled(Menu.Dropdown)`
+export const MenuDropdown = styled(Menu.Dropdown)`
   padding: 0;
   min-width: 10rem;
   border-radius: 0.75rem;
@@ -11,7 +11,7 @@ export const IamDropdownMenu = styled(Menu.Dropdown)`
   box-shadow: ${BUTTON_ICON_DROP_SHADOW};
 `
 
-export const IamMenuItem = styled(Menu.Item)`
+export const MenuItem = styled(Menu.Item)`
   padding: 0.75rem 1.25rem;
   font-size: 1rem;
   border-radius: 0;

@@ -11,7 +11,7 @@ import { COLORS } from '~/styles/constants'
 import { getFormattedDate } from '~/utils/dates'
 import { FooterContainer, FooterItemWrapper, Label, Value } from './styles'
 import usePolicyTag from '~/hooks/usePolicyTag'
-import IamHero from '~/components/IamHero'
+import Hero from '~/components/Hero'
 import PoliciesTab from './components/PoliciesTab'
 import MembersTab from './components/MembersTab'
 import ServiceAccountsTab from './components/ServiceAccountsTab'
@@ -77,12 +77,12 @@ export default function RolePage() {
           },
         }}
       />
-      <IamHero
+      <Hero
         title={policyTag?.policyTagName || 'Role name'}
         subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi commodo lorem in diam hendrerit, vel vestibulum elit dapibus. Quisque facilisis justo condimentum "
       >
         {footerItemsJSX}
-      </IamHero>
+      </Hero>
       <VdsTabs onClick={handleSelectTabClick} tabs={tabs} orientation="horizontal" borderLine />
       {selectedTab.id === tabIds.POLICIES && <PoliciesTab />}
       {selectedTab.id === tabIds.MEMBERS && <MembersTab />}

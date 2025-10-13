@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 import { Notification } from '@vds/notifications'
 
-import IamHero from '~/components/IamHero'
+import Hero from '~/components/Hero'
 import FlexBox from '~/components/FlexBox'
 import Link from '~/components/Link'
 import { COLORS } from '~/styles/constants'
@@ -213,7 +213,7 @@ export default function BasePolicyTagsPage({ teamId, principalId, display }: Pro
           },
         }}
       />
-      <IamHero title={display.displayName} gap="0">
+      <Hero title={display.displayName} gap="0">
         <FlexBox direction="column" alignItems="flex-start" gap="1rem">
           {display.displayEmail && <div>{display.displayEmail}</div>}
           <FlexBox alignItems="flex-end">
@@ -243,7 +243,7 @@ export default function BasePolicyTagsPage({ teamId, principalId, display }: Pro
             </form>
           </FlexBox>
         </FlexBox>
-      </IamHero>
+      </Hero>
       <ActionToolbar />
       <Table
         {...{

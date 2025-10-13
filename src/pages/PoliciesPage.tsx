@@ -2,7 +2,7 @@ import type { MRT_Row as MRTRow } from 'mantine-react-table'
 import { useNavigate, useParams } from '@tanstack/react-router'
 
 import ActionToolbar from '~/components/ActionToolbar'
-import IamHero from '~/components/IamHero'
+import Hero from '~/components/Hero'
 import usePolicies from '~/hooks/usePolicies'
 import type { Policy } from '~/types/data'
 import Table from '~/components/AdvancedTable'
@@ -30,7 +30,7 @@ export default function PoliciesPage() {
 
   return (
     <Block>
-      <IamHero title="Policies" subtitle="Policies list." />
+      <Hero title="Policies" subtitle="Policies list." />
       <ActionToolbar />
       <Table
         {...{

@@ -12,7 +12,6 @@ import {
 import DropDownMenu, { type RowAction } from '../DropDownMenu'
 
 export type ActionButtonConfig = {
-  show: boolean
   menuDropdownItems: RowAction
   actionClickHandler: (key: string) => void
 }
@@ -25,14 +24,14 @@ type Props = {
   gap?: string
 }
 
-const IamHero = ({ title, subtitle, actionButtonConfig, children, gap = '1.5rem' }: Props) => {
-  const { show = false, menuDropdownItems = {}, actionClickHandler = () => {} } = actionButtonConfig || {}
+const Hero = ({ title, subtitle, actionButtonConfig, children, gap = '1.5rem' }: Props) => {
+  const { menuDropdownItems, actionClickHandler = () => {} } = actionButtonConfig || {}
 
   return (
     <Wrapper direction="column" alignItems="flex-start" gap={gap}>
       <TitleWithActionWrapper>
         <Title>{title}</Title>
-        {show && (
+        {menuDropdownItems && (
           <MenuWrapper direction="column" alignItems="flex-start">
             <Menu>
               <Menu.Target>
@@ -51,4 +50,4 @@ const IamHero = ({ title, subtitle, actionButtonConfig, children, gap = '1.5rem'
   )
 }
 
-export default IamHero
+export default Hero
