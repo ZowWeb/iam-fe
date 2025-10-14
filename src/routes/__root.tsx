@@ -4,17 +4,12 @@ import { useIsFetching, type QueryClient } from '@tanstack/react-query'
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
-import { media } from '~/utils/mediaQuery'
-
+import { hideOnBreakpointsCss } from '~/styles/global'
 /**
  * Global styles for the entire app can be added here
  */
 const GlobalStylesWrapper = styled.div`
-  ${media.phone} {
-    .hide-on-phone {
-      display: none;
-    }
-  }
+  ${hideOnBreakpointsCss}
 `
 
 function RootComponent() {

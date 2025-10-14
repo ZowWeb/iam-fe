@@ -1,13 +1,13 @@
 import { breakpointsInPx } from '../styles/breakpoints'
 
-const breakpoints = {
+export const breakpoints = {
   phone: breakpointsInPx.phone,
   tablet: breakpointsInPx.tablet,
   desktop: breakpointsInPx.desktop,
   wide: breakpointsInPx.wide,
 } as const
 
-type BreakpointKey = keyof typeof breakpoints
+export type BreakpointKey = keyof typeof breakpoints
 
 type MediaQuery = {
   [K in BreakpointKey]: string
