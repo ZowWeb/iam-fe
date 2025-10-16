@@ -14,31 +14,31 @@ import type { Team } from '~/types/data'
 import { getFormattedDate } from '~/utils/dates'
 import { handleErrorMessage } from '~/utils/errors'
 import UpdateTeamDetailsModal from './components/UpdateTeamDetailsModal'
-import type { RowAction } from '~/components/DropDownMenu'
+import type { DropDownMenuItem } from '~/components/DropDownMenu';
 
 const FooterContainer = styled(FlexBox)`
   gap: 3.25rem;
   flex: 0 1 auto;
-`
+`;
 
 const FooterItemWrapper = styled(FlexBox)`
   flex: 0 1 max-content;
   gap: 0.5rem;
   word-break: break-all;
-`
+`;
 
 const Label = styled(Typography.Span)`
   font-size: 0.875rem;
   font-weight: 700;
-`
+`;
 
 const Value = styled(Typography.Span)`
   font-size: 0.875rem;
-`
+`;
 
 const Subtitle = styled(Typography.Span)`
   color: ${COLORS.secondary};
-`
+`;
 
 const createFooterItemsJSX = (team: Team) => {
   const footerItems = [
@@ -54,23 +54,23 @@ const createFooterItemsJSX = (team: Team) => {
       label: 'Created',
       value: getFormattedDate(team?.createdAt || ''),
     },
-  ]
+  ];
 
   return (
     <FooterContainer alignItems="flex-start">
-      {footerItems.map(item => (
+      {footerItems.map((item) => (
         <FooterItemWrapper key={item.label} direction="column" alignItems="flex-start">
           <Label>{item.label}</Label>
           <Value>{item.value}</Value>
         </FooterItemWrapper>
       ))}
     </FooterContainer>
-  )
-}
+  );
+};
 
-const ROW_ACTIONS: RowAction = {
-  UPDATE_TEAM: 'Update team details',
-}
+const ROW_ACTIONS: DropDownMenuItem[] = [
+  { key: 'UPDATE_TEAM', label: 'Update team details' },
+];
 
 export default function TeamOverviewPage() {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId' })

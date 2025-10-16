@@ -15,12 +15,12 @@ import DeleteServiceAccountModal from './components/DeleteServiceAccountModal'
 import getServiceAccounts from '~/queries/getServiceAccounts'
 import Block from '~/components/Block'
 import { serviceAccountColumns } from '~/components/AdvancedTable/shared/columns'
-import type { RowAction } from '~/components/DropDownMenu'
-import DropDownMenu from '~/components/DropDownMenu'
+import type { DropDownMenuItem } from '~/components/DropDownMenu';
+import DropDownMenu from '~/components/DropDownMenu';
 
-const ROW_ACTIONS: RowAction = {
-  DELETE: 'Delete service account',
-}
+const ROW_ACTIONS: DropDownMenuItem[] = [
+  { key: 'DELETE', label: 'Delete service account' },
+];
 
 const ServiceAccountsPage = () => {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/service-accounts/' })

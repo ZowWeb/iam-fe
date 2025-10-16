@@ -1,28 +1,34 @@
-import { MenuDropdown, MenuItem } from './styles'
+import type { ReactNode } from 'react';
+import { MenuDropdown, MenuItem } from './styles';
 
-export type RowAction = {
-  [key: string]: string
-}
+export type DropDownMenuItem = {
+  key: string;
+  label: string;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+};
 
 type Props = {
-  items: RowAction
-  actionClickHandler: (key: string) => void
-}
+  items: DropDownMenuItem[];
+  actionClickHandler: (key: string) => void;
+};
 
 export default function DropDownMenu({ actionClickHandler, items }: Props) {
   return (
     <MenuDropdown>
-      {Object.entries(items).map(([action, label]) => (
+      {items.map(({ key, label, leftIcon, rightIcon }) => (
         <MenuItem
-          key={action}
-          onClick={event => {
-            event.stopPropagation()
-            actionClickHandler(action)
+          key={key}
+          leftSection={leftIcon}
+          rightSection={rightIcon}
+          onClick={(event) => {
+            event.stopPropagation();
+            actionClickHandler(key);
           }}
         >
           {label}
         </MenuItem>
       ))}
     </MenuDropdown>
-  )
+  );
 }

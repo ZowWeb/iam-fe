@@ -1,4 +1,4 @@
-import { useNavigate, useRouteContext } from '@tanstack/react-router'
+import { useNavigate, useRouteContext, useMatches } from '@tanstack/react-router'
 
 import Grid from '~/components/Grid'
 import { LayoutWrapper, Main } from './styles'
@@ -26,6 +26,14 @@ type Props = {
 const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
   const { isAuthenticated } = useRouteContext({ from: '/_authenticated' })
   const navigate = useNavigate()
+  const matches = useMatches()
+  let showNavMenu = true
+
+  matches.reverse().forEach(({ loaderData }) => {
+    if (loaderData && 'showNavMenu' in loaderData) {
+      showNavMenu = loaderData.showNavMenu
+    }
+  })
 
   if (!isAuthenticated) {
     return <Typography.H2>Please login to continue</Typography.H2>
@@ -41,9 +49,11 @@ const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
       <Breadcrumbs />
       <Main>
         <Grid type="container">
-          <Grid.Col span={{ base: 12, sm: 3 }}>
-            <NavMenu items={navMenuItems} onClick={handleSelection} />
-          </Grid.Col>
+          {showNavMenu && (
+            <Grid.Col span={{ base: 12, sm: 3 }}>
+              <NavMenu items={navMenuItems} onClick={handleSelection} />
+            </Grid.Col>
+          )}
           <Grid.Col span={{ base: 12, sm: 9 }}>{children}</Grid.Col>
         </Grid>
       </Main>
