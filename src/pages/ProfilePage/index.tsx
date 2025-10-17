@@ -1,10 +1,21 @@
 import { TitleLockup } from "@vds/type-lockups";
 import Block from "~/components/Block";
-import MemberCard from "./MemberCard";
 import FlexBox from "~/components/FlexBox";
+import ProfileCard, { type FooterItems } from "./ProfileCard";
+import useMember from "~/hooks/useMember";
+import { useMemo } from "react";
 
 
 export default function ProfilePage() {
+  const { member } = useMember({ userId: 'dummy' })
+
+  const memberFooterItems: FooterItems[] = useMemo(() => ([{
+    label: 'Display Name', value: member?.displayName || 'loading...'
+  }]), [member])
+
+  const emailFooterItems: FooterItems[] = useMemo(() => ([{
+    label: 'Email', value: member?.email || 'loading...'
+  }]), [member])
 
   return (
     <Block>
@@ -22,9 +33,8 @@ export default function ProfilePage() {
         }}
       />
       <FlexBox gap='2.5rem' wrap={true}>
-        <MemberCard />
-        <MemberCard />
-        <MemberCard />
+        <ProfileCard title='Member' footerItems={memberFooterItems} />
+        <ProfileCard title='Email' footerItems={emailFooterItems} />
       </FlexBox>
     </Block>
   );
