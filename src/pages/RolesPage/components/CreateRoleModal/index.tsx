@@ -1,17 +1,19 @@
 import { useEffect } from 'react'
-import { useForm, type SubmitHandler } from 'react-hook-form'
+import { Controller, useForm, type SubmitHandler } from 'react-hook-form'
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema'
 import * as z from 'zod'
+import { Input } from '@vds/inputs'
 
 import FlexBox from '~/components/FlexBox'
 import Typography from '~/components/Typography'
-import { StyledButton, StyledTextInput } from './styles'
+import { StyledButton } from './styles'
 import Modal from '~/components/Modal'
 import useCreatePolicyTag from '~/hooks/useCreatePolicyTag'
 import type { PolicyTag } from '~/types/data'
 
+const requiredFieldMessage: string = 'Required field'
 const formSchema = z.object({
-  name: z.string().nonempty({ message: 'Name is mandatory' }),
+  name: z.string().nonempty({ message: requiredFieldMessage }),
 })
 type FormSchema = z.infer<typeof formSchema>
 type CreateRoleModalProps = {
@@ -31,7 +33,7 @@ export default function CreateRoleModal({
 }: CreateRoleModalProps) {
   const { mutate, isPending } = useCreatePolicyTag({ teamId })
   const {
-    register,
+    control,
     handleSubmit,
     reset,
     formState: { isValid, errors },
@@ -69,12 +71,19 @@ export default function CreateRoleModal({
       <form onSubmit={handleSubmit(onSubmit)}>
         <FlexBox direction="column" alignItems="flex-start" gap="2rem">
           <Typography.H3>Create a role</Typography.H3>
-          <StyledTextInput
-            {...register('name')}
-            label="Name"
-            description="This is simply a name or label that will help you easily identify this role in the future. Choose a name that clearly describes its purpose or the application it will be used for."
-            error={errors.name && errors.name.message}
-            inputWrapperOrder={['label', 'input', 'error', 'description']}
+          <Controller
+            name="name"
+            control={control}
+            render={({ field }) => (
+              <Input
+                {...field}
+                label="Name"
+                helperText="This is simply a name or label that will help you easily identify this role in the future. Choose a name that clearly describes its purpose or the application it will be used for."
+                helperTextPlacement="bottom"
+                error={!!errors.name?.message}
+                errorText={errors.name?.message || requiredFieldMessage}
+              />
+            )}
           />
           <FlexBox gap="0.75rem">
             <StyledButton size="large" type="submit" disabled={!isValid || isPending}>
