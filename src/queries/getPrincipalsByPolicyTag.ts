@@ -15,12 +15,13 @@ type Response = {
   serviceAccounts: ServiceAccount[]
 }
 
+export const GET_PRINCIPALS_BY_POLICY_TAG = 'GET_PRINCIPALS_BY_POLICY_TAG'
 /**
  * TODO: Temporary logic until we have the corresponding endpoint
  */
 export const getPrincipalsByPolicyTag = ({ teamId, policyTagId }: Args) =>
   queryOptions<Response>({
-    queryKey: ['GET_PRINCIPALS_BY_POLICY_TAG', { policyTagId }],
+    queryKey: [GET_PRINCIPALS_BY_POLICY_TAG, { teamId, policyTagId }],
     queryFn: async () => {
       const response = await apiServerWithThrow({
         endpoint: `/teams/${teamId}/policy-tags/${policyTagId}`,

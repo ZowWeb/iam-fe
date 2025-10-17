@@ -72,6 +72,16 @@ export type PatchPolicyTagsFromPrincipal = {
   policyTagsToRemove: `pt-${string}`[]
 }
 
+export type PatchPoliciesFromPolicyTag = {
+  policiesToAdd: `p-${string}`[]
+  policiesToRemove: `p-${string}`[]
+}
+
+export type PatchPrincipalsFromPolicyTag = {
+  principalsToAdd: `u-${string}`[] | `s-${string}`[]
+  principalsToRemove: `u-${string}`[] | `s-${string}`[]
+}
+
 export type ServerErrorSchema = {
   error_uri?: string
   error:

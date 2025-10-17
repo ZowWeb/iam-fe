@@ -1,5 +1,5 @@
 import { TitleLockup } from '@vds/type-lockups'
-import { useParams } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 
 import Table from '~/components/AdvancedTable'
 import { policyColumns } from '~/components/AdvancedTable/shared/columns'
@@ -9,6 +9,14 @@ import ActionToolbar from '~/components/ActionToolbar'
 export default function PoliciesTab() {
   const { teamId, policyTagId } = useParams({ from: '/_authenticated/teams/$teamId/roles/$policyTagId/' })
   const { isLoading, policies } = usePoliciesByPolicyTag({ teamId, policyTagId })
+  const navigate = useNavigate()
+
+  const handleActionButtonClick = () => {
+    navigate({
+      to: '/teams/$teamId/roles/$policyTagId/policies',
+      params: { teamId, policyTagId },
+    })
+  }
 
   return (
     <>
@@ -27,7 +35,7 @@ export default function PoliciesTab() {
           },
         }}
       />
-      <ActionToolbar ctaConfig={{ label: 'Manage policies', onClick: () => {} }} />
+      <ActionToolbar ctaConfig={{ label: 'Manage policies', onClick: handleActionButtonClick }} />
       <Table
         {...{
           data: policies,

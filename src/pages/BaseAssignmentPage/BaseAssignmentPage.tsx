@@ -1,12 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { IconChevronLeft } from '@tabler/icons-react'
 import { TitleLockup } from '@vds/type-lockups'
-import type { MRT_RowSelectionState as MRTRowSelectionState } from 'mantine-react-table'
+import type {
+  MRT_RowSelectionState as MRTRowSelectionState,
+  MRT_ColumnDef as MRTColumnDef,
+} from 'mantine-react-table'
 import { Button } from '@vds/buttons'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 import { Notification } from '@vds/notifications'
+import type { UseMutateFunction } from '@tanstack/react-query'
 
 import Hero from '~/components/Hero'
 import FlexBox from '~/components/FlexBox'
@@ -14,14 +18,18 @@ import Link from '~/components/Link'
 import { COLORS } from '~/styles/constants'
 import ActionToolbar from '~/components/ActionToolbar'
 import Table from '~/components/AdvancedTable'
-import type { PatchPolicyTagsFromPrincipal } from '~/types/data'
+import type {
+  Member,
+  PatchPoliciesFromPolicyTag,
+  PatchPolicyTagsFromPrincipal,
+  PatchPrincipalsFromPolicyTag,
+  Policy,
+  PolicyTag,
+  ServiceAccount,
+} from '~/types/data'
 import Badge from '~/components/Badge'
 import { theme } from '~/styles/theme'
-import usePolicyTags from '~/hooks/usePolicyTags'
-import useAddRemovePolicyTagsFromPrincipal from '~/hooks/useAddRemovePolicyTagsFromPrincipal'
 import { handleErrorMessage } from '~/utils/errors'
-import { policyTagColumns } from '~/components/AdvancedTable/shared/columns'
-import usePolicyTagsByPrincipal from '~/hooks/usePolicyTagsByPrincipal'
 
 const tableOptions = {
   enableRowSelection: true,
@@ -29,16 +37,16 @@ const tableOptions = {
   mantineSelectAllCheckboxProps: { color: theme.black },
 }
 
-const assignPoliciesSchema = z
+const baseAssignSchema = z
   .object({
-    policyTagsToAdd: z.array(z.string()),
-    policyTagsToRemove: z.array(z.string()),
+    elementsToAdd: z.array(z.string()),
+    elementsToRemove: z.array(z.string()),
   })
-  .refine(data => data.policyTagsToAdd.length > 0 || data.policyTagsToRemove.length > 0, {
-    message: 'At least one policy must be added or removed.',
+  .refine(data => data.elementsToAdd.length > 0 || data.elementsToRemove.length > 0, {
+    message: 'At least one element must be added or removed.',
   })
 
-type AssignPoliciesSchema = z.infer<typeof assignPoliciesSchema>
+export type BaseAssignSchema = z.infer<typeof baseAssignSchema>
 
 /**
  * Display labels related to the principal
@@ -46,27 +54,48 @@ type AssignPoliciesSchema = z.infer<typeof assignPoliciesSchema>
 export type Display = {
   backTo: string
   headerTitle: string
+  headerSubtitle: string
   displayName: string
   displayEmail?: string
+  badgeSelectedOne: string
+  badgeSelectedMany: string
+  badgeRemovedOne: string
+  badgeRemovedMany: string
 }
 
-type Props = {
-  teamId: string
-  principalId: string
+type Props<
+  T extends Member | Policy | PolicyTag | ServiceAccount,
+  TPatch extends PatchPoliciesFromPolicyTag | PatchPolicyTagsFromPrincipal | PatchPrincipalsFromPolicyTag,
+> = {
+  columns: MRTColumnDef<T>[]
+  data: {
+    all: T[]
+    assigned: T[]
+  }
+  mutateFn: UseMutateFunction<TPatch, Error, TPatch, unknown>
+  mappingFn: (data: BaseAssignSchema) => TPatch
+  mutateIsPending: boolean
   display: Display
 }
 
 /**
- * Page to assign roles (policy tags) to a member or service account
+ * Base page to manage the relation among roles, members, policies or service accounts
+ * @param T type for the lists assigned and all elements
+ * @param TPatch is the object type for the PATCH API
+ * @param columns table columns
+ * @param data arrays with assigned and all elements
+ * @param mutateFn mutation function to execute when saving changes
+ * @param mappingFn it is called to pass the correct object to the mutateFn when saving changes
+ * @param mutateIsPending the pending status of the mutation fn
+ * @param display display strings
+ * @returns
  */
-export default function BasePolicyTagsPage({ teamId, principalId, display }: Props) {
-  const { policyTags: policyTagsAll } = usePolicyTags({ teamId })
-  const { policyTags: assignedPolicyTags } = usePolicyTagsByPrincipal({
-    teamId,
-    principalId,
-  })
+export default function BaseAssignmentPage<
+  T extends Member | Policy | PolicyTag | ServiceAccount,
+  TPatch extends PatchPoliciesFromPolicyTag | PatchPolicyTagsFromPrincipal | PatchPrincipalsFromPolicyTag,
+>({ columns, data, display, mutateFn, mappingFn, mutateIsPending }: Props<T, TPatch>) {
   const [rowSelection, setRowSelection] = useState<MRTRowSelectionState>({})
-  const { mutate, isPending } = useAddRemovePolicyTagsFromPrincipal({ teamId, principalId })
+
   const [notificationConfig, setNotificationConfig] = useState<{
     opened: boolean
     type?: 'success' | 'error' | 'info' | 'warning'
@@ -84,24 +113,24 @@ export default function BasePolicyTagsPage({ teamId, principalId, display }: Pro
     reset,
     trigger,
     formState: { isValid },
-  } = useForm<AssignPoliciesSchema>({
-    resolver: zodResolver(assignPoliciesSchema),
+  } = useForm<BaseAssignSchema>({
+    resolver: zodResolver(baseAssignSchema),
     mode: 'onChange',
     defaultValues: {
-      policyTagsToAdd: [],
-      policyTagsToRemove: [],
+      elementsToAdd: [],
+      elementsToRemove: [],
     },
   })
 
   // Watch for changes in the form's principals arrays
-  const policyTagsToAdd = watch('policyTagsToAdd')
-  const policyTagsToRemove = watch('policyTagsToRemove')
+  const elementsToAdd = watch('elementsToAdd')
+  const elementsToRemove = watch('elementsToRemove')
 
   const selectedPoliciesQty = Object.values(rowSelection).filter(Boolean).length // Total selected
-  const removedPoliciesQty = policyTagsToRemove.length // Total removed
+  const removedPoliciesQty = elementsToRemove.length // Total removed
   const isSaveEnabled = useMemo(
-    () => !isPending && isValid && (policyTagsToAdd.length > 0 || policyTagsToRemove.length > 0),
-    [isPending, isValid, policyTagsToAdd, policyTagsToRemove],
+    () => !mutateIsPending && isValid && (elementsToAdd.length > 0 || elementsToRemove.length > 0),
+    [mutateIsPending, isValid, elementsToAdd, elementsToRemove],
   )
 
   /**
@@ -109,9 +138,9 @@ export default function BasePolicyTagsPage({ teamId, principalId, display }: Pro
    * Mantine react uses { index: true|false } to set the selected rows
    */
   const setInitialSelectedState = useCallback(() => {
-    if (assignedPolicyTags.length > 0) {
-      const initialSelection = policyTagsAll.reduce<MRTRowSelectionState>((acc, policy, index) => {
-        if (assignedPolicyTags.some(p => p.id === policy.id)) {
+    if (data.assigned.length > 0) {
+      const initialSelection = data.all.reduce<MRTRowSelectionState>((acc, element, index) => {
+        if (data.assigned.some(p => p.id === element.id)) {
           acc[index] = true
         }
         return acc
@@ -120,22 +149,22 @@ export default function BasePolicyTagsPage({ teamId, principalId, display }: Pro
     } else {
       setRowSelection({})
     }
-  }, [policyTagsAll, assignedPolicyTags])
+  }, [data.all, data.assigned])
 
   const handleCancel = () => {
     reset()
     setInitialSelectedState()
   }
 
-  const onSubmit: SubmitHandler<AssignPoliciesSchema> = data => {
-    mutate(data as PatchPolicyTagsFromPrincipal, {
+  const onSubmit: SubmitHandler<BaseAssignSchema> = data => {
+    mutateFn(mappingFn(data), {
       onSuccess: () =>
         setNotificationConfig({
           opened: true,
           type: 'success',
           title: 'Roles updated succesfully',
         }),
-      onError: err =>
+      onError: (err: unknown) =>
         setNotificationConfig({
           opened: true,
           type: 'error',
@@ -149,39 +178,39 @@ export default function BasePolicyTagsPage({ teamId, principalId, display }: Pro
    */
   useEffect(() => {
     setInitialSelectedState()
-  }, [policyTagsAll, assignedPolicyTags])
+  }, [data.all, data.assigned])
 
   /**
    * Effect to update the form's add/remove arrays based on rowSelection changes
    */
   useEffect(() => {
-    if (!policyTagsAll.length) return
+    if (!data.all.length) return
 
     const newSelectedIds = new Set(
       Object.keys(rowSelection)
         .filter(key => rowSelection[parseInt(key, 10)])
-        .map(key => policyTagsAll[parseInt(key, 10)].id),
+        .map(key => data.all[parseInt(key, 10)]),
     )
 
     const toAdd: string[] = []
     const toRemove: string[] = []
 
-    policyTagsAll.forEach(policy => {
-      const isCurrentlySelected = newSelectedIds.has(policy.id)
-      const wasInitiallyAssigned = assignedPolicyTags.some(p => p.id === policy.id)
+    data.all.forEach(element => {
+      const isCurrentlySelected: boolean = newSelectedIds.has(element)
+      const wasInitiallyAssigned: boolean = data.assigned.some(p => p.id === element.id)
 
       if (isCurrentlySelected && !wasInitiallyAssigned) {
-        toAdd.push(policy.id)
+        toAdd.push(element.id)
       } else if (!isCurrentlySelected && wasInitiallyAssigned) {
-        toRemove.push(policy.id)
+        toRemove.push(element.id)
       }
     })
 
     // Update the form values
-    setValue('policyTagsToAdd', toAdd)
-    setValue('policyTagsToRemove', toRemove)
+    setValue('elementsToAdd', toAdd)
+    setValue('elementsToRemove', toRemove)
     trigger()
-  }, [rowSelection, policyTagsAll, assignedPolicyTags, setValue])
+  }, [rowSelection, data.all, data.assigned, setValue])
 
   return (
     <FlexBox direction="column" alignItems="flex-start" gap="2.5rem">
@@ -209,7 +238,7 @@ export default function BasePolicyTagsPage({ teamId, principalId, display }: Pro
           },
           subtitle: {
             size: 'bodyLarge',
-            children: 'Add or remove roles from the list below. Click save to commit the change.',
+            children: display.headerSubtitle,
           },
         }}
       />
@@ -220,13 +249,13 @@ export default function BasePolicyTagsPage({ teamId, principalId, display }: Pro
             <FlexBox gap="0.5rem">
               {selectedPoliciesQty > 0 && (
                 <Badge
-                  text={`${selectedPoliciesQty} ${selectedPoliciesQty === 1 ? 'Policy' : 'Policies'} assigned`}
+                  text={`${selectedPoliciesQty} ${selectedPoliciesQty === 1 ? display.badgeSelectedOne : display.badgeSelectedMany}`}
                   color="blue"
                 />
               )}
               {removedPoliciesQty > 0 && (
                 <Badge
-                  text={`${removedPoliciesQty} ${removedPoliciesQty === 1 ? 'Policy' : 'Policies'} removed`}
+                  text={`${removedPoliciesQty} ${removedPoliciesQty === 1 ? display.badgeRemovedOne : display.badgeRemovedMany}`}
                   color="yellow"
                 />
               )}
@@ -247,8 +276,8 @@ export default function BasePolicyTagsPage({ teamId, principalId, display }: Pro
       <ActionToolbar />
       <Table
         {...{
-          columns: policyTagColumns,
-          data: policyTagsAll,
+          columns,
+          data: data.all,
           rowSelection,
           onRowSelectionChange: setRowSelection,
           ...tableOptions,
