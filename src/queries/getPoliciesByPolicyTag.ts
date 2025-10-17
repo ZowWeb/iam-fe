@@ -9,12 +9,13 @@ type Args = {
   policyTagId: string
 }
 
+export const GET_POLICIES_BY_POLICY_TAG = 'GET_POLICIES_BY_POLICY_TAG'
 /**
  * TODO: Temporary logic until we have the corresponding endpoint
  */
 export const getPoliciesByPolicyTag = ({ teamId, policyTagId }: Args) =>
   queryOptions<Policy[]>({
-    queryKey: ['GET_POLICIES_BY_POLICY_TAG', { policyTagId }],
+    queryKey: [GET_POLICIES_BY_POLICY_TAG, { teamId, policyTagId }],
     queryFn: async () => {
       const response = await apiServerWithThrow({
         endpoint: `/teams/${teamId}/policy-tags/${policyTagId}`,

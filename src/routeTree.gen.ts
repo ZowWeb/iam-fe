@@ -27,6 +27,9 @@ import { Route as AuthenticatedTeamsTeamIdRolesPolicyTagIdIndexRouteImport } fro
 import { Route as AuthenticatedTeamsTeamIdPoliciesPolicyIdIndexRouteImport } from './routes/_authenticated/teams/$teamId/policies/$policyId/index'
 import { Route as AuthenticatedTeamsTeamIdUsersUserIdRolesIndexRouteImport } from './routes/_authenticated/teams/$teamId/users/$userId/roles/index'
 import { Route as AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdRolesIndexRouteImport } from './routes/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/roles/index'
+import { Route as AuthenticatedTeamsTeamIdRolesPolicyTagIdServiceAccountsIndexRouteImport } from './routes/_authenticated/teams/$teamId/roles/$policyTagId/service-accounts/index'
+import { Route as AuthenticatedTeamsTeamIdRolesPolicyTagIdPoliciesIndexRouteImport } from './routes/_authenticated/teams/$teamId/roles/$policyTagId/policies/index'
+import { Route as AuthenticatedTeamsTeamIdRolesPolicyTagIdMembersIndexRouteImport } from './routes/_authenticated/teams/$teamId/roles/$policyTagId/members/index'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -137,6 +140,26 @@ const AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdRolesIndexRoute =
       getParentRoute: () => AuthenticatedTeamsTeamIdServiceAccountsRouteRoute,
     } as any,
   )
+const AuthenticatedTeamsTeamIdRolesPolicyTagIdServiceAccountsIndexRoute =
+  AuthenticatedTeamsTeamIdRolesPolicyTagIdServiceAccountsIndexRouteImport.update(
+    {
+      id: '/$policyTagId/service-accounts/',
+      path: '/$policyTagId/service-accounts/',
+      getParentRoute: () => AuthenticatedTeamsTeamIdRolesRouteRoute,
+    } as any,
+  )
+const AuthenticatedTeamsTeamIdRolesPolicyTagIdPoliciesIndexRoute =
+  AuthenticatedTeamsTeamIdRolesPolicyTagIdPoliciesIndexRouteImport.update({
+    id: '/$policyTagId/policies/',
+    path: '/$policyTagId/policies/',
+    getParentRoute: () => AuthenticatedTeamsTeamIdRolesRouteRoute,
+  } as any)
+const AuthenticatedTeamsTeamIdRolesPolicyTagIdMembersIndexRoute =
+  AuthenticatedTeamsTeamIdRolesPolicyTagIdMembersIndexRouteImport.update({
+    id: '/$policyTagId/members/',
+    path: '/$policyTagId/members/',
+    getParentRoute: () => AuthenticatedTeamsTeamIdRolesRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -154,6 +177,9 @@ export interface FileRoutesByFullPath {
   '/teams/$teamId/roles/$policyTagId': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdIndexRoute
   '/teams/$teamId/service-accounts/$serviceAccountId': typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRoute
   '/teams/$teamId/users/$userId': typeof AuthenticatedTeamsTeamIdUsersUserIdIndexRoute
+  '/teams/$teamId/roles/$policyTagId/members': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdMembersIndexRoute
+  '/teams/$teamId/roles/$policyTagId/policies': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdPoliciesIndexRoute
+  '/teams/$teamId/roles/$policyTagId/service-accounts': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdServiceAccountsIndexRoute
   '/teams/$teamId/service-accounts/$serviceAccountId/roles': typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdRolesIndexRoute
   '/teams/$teamId/users/$userId/roles': typeof AuthenticatedTeamsTeamIdUsersUserIdRolesIndexRoute
 }
@@ -168,6 +194,9 @@ export interface FileRoutesByTo {
   '/teams/$teamId/roles/$policyTagId': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdIndexRoute
   '/teams/$teamId/service-accounts/$serviceAccountId': typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRoute
   '/teams/$teamId/users/$userId': typeof AuthenticatedTeamsTeamIdUsersUserIdIndexRoute
+  '/teams/$teamId/roles/$policyTagId/members': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdMembersIndexRoute
+  '/teams/$teamId/roles/$policyTagId/policies': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdPoliciesIndexRoute
+  '/teams/$teamId/roles/$policyTagId/service-accounts': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdServiceAccountsIndexRoute
   '/teams/$teamId/service-accounts/$serviceAccountId/roles': typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdRolesIndexRoute
   '/teams/$teamId/users/$userId/roles': typeof AuthenticatedTeamsTeamIdUsersUserIdRolesIndexRoute
 }
@@ -189,6 +218,9 @@ export interface FileRoutesById {
   '/_authenticated/teams/$teamId/roles/$policyTagId/': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdIndexRoute
   '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/': typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdIndexRoute
   '/_authenticated/teams/$teamId/users/$userId/': typeof AuthenticatedTeamsTeamIdUsersUserIdIndexRoute
+  '/_authenticated/teams/$teamId/roles/$policyTagId/members/': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdMembersIndexRoute
+  '/_authenticated/teams/$teamId/roles/$policyTagId/policies/': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdPoliciesIndexRoute
+  '/_authenticated/teams/$teamId/roles/$policyTagId/service-accounts/': typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdServiceAccountsIndexRoute
   '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/roles/': typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdRolesIndexRoute
   '/_authenticated/teams/$teamId/users/$userId/roles/': typeof AuthenticatedTeamsTeamIdUsersUserIdRolesIndexRoute
 }
@@ -210,6 +242,9 @@ export interface FileRouteTypes {
     | '/teams/$teamId/roles/$policyTagId'
     | '/teams/$teamId/service-accounts/$serviceAccountId'
     | '/teams/$teamId/users/$userId'
+    | '/teams/$teamId/roles/$policyTagId/members'
+    | '/teams/$teamId/roles/$policyTagId/policies'
+    | '/teams/$teamId/roles/$policyTagId/service-accounts'
     | '/teams/$teamId/service-accounts/$serviceAccountId/roles'
     | '/teams/$teamId/users/$userId/roles'
   fileRoutesByTo: FileRoutesByTo
@@ -224,6 +259,9 @@ export interface FileRouteTypes {
     | '/teams/$teamId/roles/$policyTagId'
     | '/teams/$teamId/service-accounts/$serviceAccountId'
     | '/teams/$teamId/users/$userId'
+    | '/teams/$teamId/roles/$policyTagId/members'
+    | '/teams/$teamId/roles/$policyTagId/policies'
+    | '/teams/$teamId/roles/$policyTagId/service-accounts'
     | '/teams/$teamId/service-accounts/$serviceAccountId/roles'
     | '/teams/$teamId/users/$userId/roles'
   id:
@@ -244,6 +282,9 @@ export interface FileRouteTypes {
     | '/_authenticated/teams/$teamId/roles/$policyTagId/'
     | '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/'
     | '/_authenticated/teams/$teamId/users/$userId/'
+    | '/_authenticated/teams/$teamId/roles/$policyTagId/members/'
+    | '/_authenticated/teams/$teamId/roles/$policyTagId/policies/'
+    | '/_authenticated/teams/$teamId/roles/$policyTagId/service-accounts/'
     | '/_authenticated/teams/$teamId/service-accounts/$serviceAccountId/roles/'
     | '/_authenticated/teams/$teamId/users/$userId/roles/'
   fileRoutesById: FileRoutesById
@@ -381,6 +422,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTeamsTeamIdServiceAccountsServiceAccountIdRolesIndexRouteImport
       parentRoute: typeof AuthenticatedTeamsTeamIdServiceAccountsRouteRoute
     }
+    '/_authenticated/teams/$teamId/roles/$policyTagId/service-accounts/': {
+      id: '/_authenticated/teams/$teamId/roles/$policyTagId/service-accounts/'
+      path: '/$policyTagId/service-accounts'
+      fullPath: '/teams/$teamId/roles/$policyTagId/service-accounts'
+      preLoaderRoute: typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdServiceAccountsIndexRouteImport
+      parentRoute: typeof AuthenticatedTeamsTeamIdRolesRouteRoute
+    }
+    '/_authenticated/teams/$teamId/roles/$policyTagId/policies/': {
+      id: '/_authenticated/teams/$teamId/roles/$policyTagId/policies/'
+      path: '/$policyTagId/policies'
+      fullPath: '/teams/$teamId/roles/$policyTagId/policies'
+      preLoaderRoute: typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdPoliciesIndexRouteImport
+      parentRoute: typeof AuthenticatedTeamsTeamIdRolesRouteRoute
+    }
+    '/_authenticated/teams/$teamId/roles/$policyTagId/members/': {
+      id: '/_authenticated/teams/$teamId/roles/$policyTagId/members/'
+      path: '/$policyTagId/members'
+      fullPath: '/teams/$teamId/roles/$policyTagId/members'
+      preLoaderRoute: typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdMembersIndexRouteImport
+      parentRoute: typeof AuthenticatedTeamsTeamIdRolesRouteRoute
+    }
   }
 }
 
@@ -405,6 +467,9 @@ const AuthenticatedTeamsTeamIdPoliciesRouteRouteWithChildren =
 interface AuthenticatedTeamsTeamIdRolesRouteRouteChildren {
   AuthenticatedTeamsTeamIdRolesIndexRoute: typeof AuthenticatedTeamsTeamIdRolesIndexRoute
   AuthenticatedTeamsTeamIdRolesPolicyTagIdIndexRoute: typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdIndexRoute
+  AuthenticatedTeamsTeamIdRolesPolicyTagIdMembersIndexRoute: typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdMembersIndexRoute
+  AuthenticatedTeamsTeamIdRolesPolicyTagIdPoliciesIndexRoute: typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdPoliciesIndexRoute
+  AuthenticatedTeamsTeamIdRolesPolicyTagIdServiceAccountsIndexRoute: typeof AuthenticatedTeamsTeamIdRolesPolicyTagIdServiceAccountsIndexRoute
 }
 
 const AuthenticatedTeamsTeamIdRolesRouteRouteChildren: AuthenticatedTeamsTeamIdRolesRouteRouteChildren =
@@ -413,6 +478,12 @@ const AuthenticatedTeamsTeamIdRolesRouteRouteChildren: AuthenticatedTeamsTeamIdR
       AuthenticatedTeamsTeamIdRolesIndexRoute,
     AuthenticatedTeamsTeamIdRolesPolicyTagIdIndexRoute:
       AuthenticatedTeamsTeamIdRolesPolicyTagIdIndexRoute,
+    AuthenticatedTeamsTeamIdRolesPolicyTagIdMembersIndexRoute:
+      AuthenticatedTeamsTeamIdRolesPolicyTagIdMembersIndexRoute,
+    AuthenticatedTeamsTeamIdRolesPolicyTagIdPoliciesIndexRoute:
+      AuthenticatedTeamsTeamIdRolesPolicyTagIdPoliciesIndexRoute,
+    AuthenticatedTeamsTeamIdRolesPolicyTagIdServiceAccountsIndexRoute:
+      AuthenticatedTeamsTeamIdRolesPolicyTagIdServiceAccountsIndexRoute,
   }
 
 const AuthenticatedTeamsTeamIdRolesRouteRouteWithChildren =

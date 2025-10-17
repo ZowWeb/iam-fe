@@ -1,4 +1,4 @@
-import { useParams } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 import { TitleLockup } from '@vds/type-lockups'
 
 import Table from '~/components/AdvancedTable'
@@ -9,6 +9,14 @@ import ActionToolbar from '~/components/ActionToolbar'
 export default function MembersTab() {
   const { teamId, policyTagId } = useParams({ from: '/_authenticated/teams/$teamId/roles/$policyTagId/' })
   const { users, isLoading } = usePrincipalsByPolicyTag({ teamId, policyTagId })
+  const navigate = useNavigate()
+
+  const handleActionButtonClick = () => {
+    navigate({
+      to: '/teams/$teamId/roles/$policyTagId/members',
+      params: { teamId, policyTagId },
+    })
+  }
 
   return (
     <>
@@ -27,7 +35,7 @@ export default function MembersTab() {
           },
         }}
       />
-      <ActionToolbar ctaConfig={{ label: 'Assign to members', onClick: () => {} }} />
+      <ActionToolbar ctaConfig={{ label: 'Assign to members', onClick: handleActionButtonClick }} />
       <Table
         {...{
           data: users,

@@ -82,7 +82,7 @@ export const policyTagColumns: MRTColumnDef<PolicyTag>[] = [
   {
     accessorKey: 'description',
     header: 'Description',
-    Cell: () => 'Can log in to this team and view public details', // TODO: Remove when APIFIAM-606 is ready
+    Cell: () => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit', // TODO: Remove when APIFIAM-606 is ready
     size: 100,
   },
   {

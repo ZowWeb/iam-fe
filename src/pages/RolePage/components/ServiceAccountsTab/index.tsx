@@ -1,4 +1,4 @@
-import { useParams } from '@tanstack/react-router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 import { TitleLockup } from '@vds/type-lockups'
 
 import { serviceAccountColumns } from '~/components/AdvancedTable/shared/columns'
@@ -9,6 +9,14 @@ import ActionToolbar from '~/components/ActionToolbar'
 export default function ServiceAccountsTab() {
   const { teamId, policyTagId } = useParams({ from: '/_authenticated/teams/$teamId/roles/$policyTagId/' })
   const { isLoading, serviceAccounts } = usePrincipalsByPolicyTag({ teamId, policyTagId })
+  const navigate = useNavigate()
+
+  const handleActionButtonClick = () => {
+    navigate({
+      to: '/teams/$teamId/roles/$policyTagId/service-accounts',
+      params: { teamId, policyTagId },
+    })
+  }
 
   return (
     <>
@@ -27,7 +35,7 @@ export default function ServiceAccountsTab() {
           },
         }}
       />
-      <ActionToolbar ctaConfig={{ label: 'Assign to service accounts', onClick: () => {} }} />
+      <ActionToolbar ctaConfig={{ label: 'Assign to service accounts', onClick: handleActionButtonClick }} />
       <Table
         {...{
           data: serviceAccounts,

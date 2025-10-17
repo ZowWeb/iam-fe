@@ -1,22 +1,22 @@
-import type { PatchPolicyTagsFromPrincipal } from '~/types/data'
+import type { PatchPrincipalsFromPolicyTag } from '~/types/data'
 import apiServerWithThrow from '~/utils/apiServerWithThrow'
 
 type Args = {
   teamId: string
-  principalId: string
-  data: PatchPolicyTagsFromPrincipal
+  policyTagId: string
+  data: PatchPrincipalsFromPolicyTag
 }
 
 /**
  * Add or remove policy tags attached to a principal
  */
-export default async function addRemovePolicyTagsFromPrincipal({
+export default async function addRemovePrincipalsFromPolicyTag({
   data,
   teamId,
-  principalId,
-}: Args): Promise<PatchPolicyTagsFromPrincipal> {
+  policyTagId,
+}: Args): Promise<PatchPrincipalsFromPolicyTag> {
   const response = await apiServerWithThrow({
-    endpoint: `/teams/${teamId}/principals/${principalId}/policy-tags`,
+    endpoint: `/teams/${teamId}/policy-tags/${policyTagId}/principals`,
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
