@@ -38,6 +38,7 @@
     "@vds/button-icons": "4.0.15",
     "@vds/buttons": "^4.0.16",
     "@vds/icons": "4.7.0",
+    "@vds/inputs": "^4.0.37",
     "@vds/notifications": "4.0.32",
     "@vds/pagination": "^4.0.8",
     "@vds/tabs": "4.1.8",

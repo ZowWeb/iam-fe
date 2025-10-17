@@ -1,20 +1,23 @@
 import { useEffect } from 'react'
-import { useForm, type SubmitHandler } from 'react-hook-form'
+import { Controller, useForm, type SubmitHandler } from 'react-hook-form'
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema'
 import * as z from 'zod'
+import { Input } from '@vds/inputs'
 
 import FlexBox from '~/components/FlexBox'
 import Typography from '~/components/Typography'
-import { StyledButton, StyledTextInput } from './styles'
+import { CharCounter, InputContainer, StyledButton } from './styles'
 import type { Team } from '~/types/data'
 import Modal from '~/components/Modal'
 import useUpdateTeam from '~/hooks/useUpdateTeam'
+import { theme } from '~/styles/theme'
 
+const requiredFieldMessage: string = 'Required field'
 const displayNameMax: number = 50
 const formSchema = z.object({
   displayName: z
     .string()
-    .nonempty({ message: 'Name is mandatory' })
+    .nonempty({ message: requiredFieldMessage })
     .max(displayNameMax)
     .min(10, { error: 'Must be at least # characters' }),
 })
@@ -36,7 +39,7 @@ const getCharsQty = (length: number, max: number): string => {
 export default function UpdateTeamDetailsModal({ opened, onClose, teamId, team, onSuccess, onError }: Props) {
   const { mutate, isPending } = useUpdateTeam({ teamId })
   const {
-    register,
+    control,
     handleSubmit,
     reset,
     watch,
@@ -80,12 +83,24 @@ export default function UpdateTeamDetailsModal({ opened, onClose, teamId, team, 
         <FlexBox direction="column" alignItems="flex-start" gap="1.5rem">
           <Typography.H3>Update team details</Typography.H3>
           <FlexBox direction="column" alignItems="flex-start" gap="0.75">
-            <StyledTextInput
-              {...register('displayName')}
-              label="Team name"
-              description={getCharsQty(displayNameInput?.length, displayNameMax)}
-              error={errors.displayName && errors.displayName.message}
-              inputWrapperOrder={['label', 'input', 'error', 'description']}
+            <Controller
+              name="displayName"
+              control={control}
+              render={({ field }) => (
+                <InputContainer withError={!!errors.displayName}>
+                  <Input
+                    {...field}
+                    label="Team name"
+                    error={!!errors.displayName?.message}
+                    errorText={errors.displayName?.message || requiredFieldMessage}
+                  />
+                  <CharCounter>
+                    <Typography.Span size={theme.fontSizes.sm}>
+                      {getCharsQty(displayNameInput?.length, displayNameMax)}
+                    </Typography.Span>
+                  </CharCounter>
+                </InputContainer>
+              )}
             />
           </FlexBox>
           <FlexBox gap="0.75rem">
