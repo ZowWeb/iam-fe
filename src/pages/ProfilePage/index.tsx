@@ -1,27 +1,17 @@
 import { TitleLockup } from "@vds/type-lockups";
-import { useState } from "react";
 import Block from "~/components/Block";
-import { VdsTabs, type TabItem } from "~/components/Vds/Tabs";
-import AccountTab from "./AccountTab";
-import TeamsTab from "./TeamsTab";
+import MemberCard from "./MemberCard";
+import FlexBox from "~/components/FlexBox";
 
-const tabs: TabItem[] = [
-  { id: 'account', label: 'Account', selected: true },
-  { id: 'teams', label: 'Teams' },
-]
 
 export default function ProfilePage() {
-  const [selectedTab, setSelectedTab] = useState<TabItem>(tabs[0])
-  const handleSelectTabClick = (tab: TabItem) => {
-    setSelectedTab(tab)
-  }
 
   return (
     <Block>
       <TitleLockup
         data={{
           title: {
-            size: 'titleLarge',
+            size: 'titleXLarge',
             bold: false,
             children: 'My Profile',
           },
@@ -31,9 +21,11 @@ export default function ProfilePage() {
           },
         }}
       />
-      <VdsTabs onClick={handleSelectTabClick} tabs={tabs} orientation="horizontal" borderLine />
-      {selectedTab.id === 'account' && <AccountTab />}
-      {selectedTab.id === 'teams' && <TeamsTab />}
+      <FlexBox gap='2.5rem' wrap={true}>
+        <MemberCard />
+        <MemberCard />
+        <MemberCard />
+      </FlexBox>
     </Block>
   );
 };
