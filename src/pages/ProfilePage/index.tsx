@@ -1,21 +1,35 @@
-import { TitleLockup } from "@vds/type-lockups";
-import Block from "~/components/Block";
-import FlexBox from "~/components/FlexBox";
-import ProfileCard, { type FooterItems } from "./ProfileCard";
-import useMember from "~/hooks/useMember";
-import { useMemo } from "react";
+import { TitleLockup } from '@vds/type-lockups'
+import { useMemo } from 'react'
 
+import Block from '~/components/Block'
+import FlexBox from '~/components/FlexBox'
+import ProfileCard, { type FooterItems } from './ProfileCard'
+import { members } from '~/mocks/member'
+
+const member = members[0]
 
 export default function ProfilePage() {
-  const { member } = useMember({ userId: 'dummy' })
+  const memberFooterItems: FooterItems[] = useMemo(
+    () => [
+      {
+        label: 'Display Name',
+        value: member?.displayName || 'loading...',
+      },
+    ],
+    [member],
+  )
 
-  const memberFooterItems: FooterItems[] = useMemo(() => ([{
-    label: 'Display Name', value: member?.displayName || 'loading...'
-  }]), [member])
+  const emailFooterItems: FooterItems[] = useMemo(
+    () => [
+      {
+        label: 'Email',
+        value: member?.email || 'loading...',
+      },
+    ],
+    [member],
+  )
 
-  const emailFooterItems: FooterItems[] = useMemo(() => ([{
-    label: 'Email', value: member?.email || 'loading...'
-  }]), [member])
+  const handleMemberEdit = () => {}
 
   return (
     <Block>
@@ -32,11 +46,10 @@ export default function ProfilePage() {
           },
         }}
       />
-      <FlexBox gap='2.5rem' wrap={true}>
-        <ProfileCard title='Member' footerItems={memberFooterItems} />
-        <ProfileCard title='Email' footerItems={emailFooterItems} />
+      <FlexBox gap="2.5rem" wrap>
+        <ProfileCard title="Member" onEdit={handleMemberEdit} footerItems={memberFooterItems} />
+        <ProfileCard title="Email" footerItems={emailFooterItems} />
       </FlexBox>
     </Block>
-  );
-};
-
+  )
+}

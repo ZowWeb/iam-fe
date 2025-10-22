@@ -1,5 +1,5 @@
+import { rem, Menu } from '@mantine/core'
 import { styled } from '@linaria/react'
-import { Menu } from '@mantine/core'
 
 import { BUTTON_ICON_DROP_SHADOW, COLORS } from '~/styles/constants'
 
@@ -12,6 +12,9 @@ export const MenuDropdown = styled(Menu.Dropdown)`
 `
 
 export const MenuItem = styled(Menu.Item)`
+  display: flex;
+  align-items: center;
+  gap: ${rem(8)};
   padding: 0.75rem 1.25rem;
   font-size: 1rem;
   border-radius: 0;
