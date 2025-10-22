@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Avatar, Image, Menu } from '@mantine/core'
 import { Icon } from '@vds/icons'
 import { useDisclosure } from '@mantine/hooks'
@@ -53,19 +55,6 @@ const externalLinksJSX = (
       </ExternalLink>
     </li>
   </ExternalLinksUl>
-)
-
-const profileLinksJSX = (
-  <ProfileLinksUl>
-    <li className="border-top">
-      <Icon name="my-account" size={24} /> My profile
-    </li>
-    <li className="border-top">
-      <Icon name="group-family" size={24} /> My teams
-    </li>
-    <li className="border-top">Talk to an expert</li>
-    <li>Sign out</li>
-  </ProfileLinksUl>
 )
 
 const profileDrawerHeader = (
