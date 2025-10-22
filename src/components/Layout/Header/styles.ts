@@ -29,17 +29,6 @@ export const Right = styled(FlexBox)`
   flex: 0 0 auto;
   align-items: center;
   gap: 1.5rem;
-
-  ${media.tablet} {
-    &.above-tablet {
-      display: none;
-    }
-  }
-  ${media.greaterThan.tablet} {
-    &.below-tablet {
-      display: none;
-    }
-  }
 `
 
 export const ExternalLinksUl = styled.ul`

@@ -16,6 +16,7 @@ import Typography from '~/components/Typography'
 import { ExternalLink } from '~/components/Link'
 import Drawer from '~/components/Drawer'
 import TouchArea from '~/components/TouchArea'
+import useMediaQuery from '~/hooks/useMediaQuery'
 
 const LOGO_HEIGHT = '25px'
 
@@ -70,6 +71,7 @@ const profileDrawerHeader = (
 const Header = () => {
   const [isLinksDrawerOpened, { open: openLinksDrawer, close: closeLinksDrawer }] = useDisclosure(false)
   const [isProfileDrawerOpened, { open: openProfileDrawer, close: closeProfileDrawer }] = useDisclosure(false)
+  const { isBelowTablet } = useMediaQuery()
 
   const handleDrawerClose = () => {
     closeLinksDrawer()
@@ -83,26 +85,29 @@ const Header = () => {
           <Image src="/vz.svg" alt="VZ Logo" height={LOGO_HEIGHT} fit="contain" width="auto" />
           <Typography.Span size={LOGO_HEIGHT}>API Developer</Typography.Span>
         </Left>
-        <Right className="above-tablet">
-          {externalLinksJSX}
-          <AvatarWrapper className="avatar" justifyContent="flex-end">
-            <Avatar radius="xl">JD</Avatar>
-            <FlexBox direction="column" alignItems="flex-start">
-              <span className="avatar__name">John Doe</span>
-              <span className="avatar__team">Teamname</span>
-            </FlexBox>
-          </AvatarWrapper>
-        </Right>
-        <Right className="below-tablet">
-          <TouchArea onClick={openProfileDrawer}>
+        {isBelowTablet ? (
+          <Right>
+            <TouchArea onClick={openProfileDrawer}>
+              <AvatarWrapper className="avatar" justifyContent="flex-end">
+                <Avatar radius="xl">JD</Avatar>
+              </AvatarWrapper>
+            </TouchArea>
+            <TouchArea onClick={openLinksDrawer} withPadding>
+              <Icon name="menu" size={24} />
+            </TouchArea>
+          </Right>
+        ) : (
+          <Right>
+            {externalLinksJSX}
             <AvatarWrapper className="avatar" justifyContent="flex-end">
               <Avatar radius="xl">JD</Avatar>
+              <FlexBox direction="column" alignItems="flex-start">
+                <span className="avatar__name">John Doe</span>
+                <span className="avatar__team">Teamname</span>
+              </FlexBox>
             </AvatarWrapper>
-          </TouchArea>
-          <TouchArea onClick={openLinksDrawer} withPadding>
-            <Icon name="menu" size={24} />
-          </TouchArea>
-        </Right>
+          </Right>
+        )}
       </HeaderContainer>
       <Drawer opened={isLinksDrawerOpened} onClose={handleDrawerClose} title="Links">
         {externalLinksJSX}
