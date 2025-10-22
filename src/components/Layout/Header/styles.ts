@@ -2,12 +2,7 @@ import { styled } from '@linaria/react'
 
 import FlexBox from '~/components/FlexBox'
 import { COLORS, FLUID_LAYOUT_MAX_WIDTH, STD_LAYOUT_MAX_WIDTH } from '~/styles/constants'
-
-export const HeaderWrapper = styled.header`
-  width: 100%;
-  display: flex;
-  border-bottom: 1px solid ${COLORS.vdsGray85};
-`
+import { media } from '~/utils/mediaQuery'
 
 export const HeaderContainer = styled(FlexBox)`
   width: 100%;
@@ -35,23 +30,43 @@ export const Right = styled(FlexBox)`
   align-items: center;
   gap: 1.5rem;
 
-  ul {
-    width: auto;
-    padding: 0;
-    margin-left: auto;
-    flex: 1 0 auto;
-    display: flex;
-    justify-content: flex-end;
-    list-style: none;
-    gap: 1.5rem;
+  ${media.tablet} {
+    &.above-tablet {
+      display: none;
+    }
+  }
+  ${media.greaterThan.tablet} {
+    &.below-tablet {
+      display: none;
+    }
+  }
+`
 
-    li {
-      cursor: pointer;
+export const ExternalLinksUl = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+
+  ${media.tablet} {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  li {
+    cursor: pointer;
+
+    ${media.tablet} {
+      padding: 1rem 0;
     }
   }
 `
 
 export const AvatarWrapper = styled(FlexBox)`
+  position: relative;
   flex: 1 auto;
   gap: 0.5rem;
 
@@ -69,6 +84,29 @@ export const AvatarWrapper = styled(FlexBox)`
     &__team {
       font-size: 0.75rem;
       color: ${COLORS.secondary};
+    }
+  }
+`
+
+export const HeaderWrapper = styled.header`
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid ${COLORS.vdsGray85};
+`
+
+export const ProfileLinksUl = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding-block: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    &.border-top {
+      border-top: 1px solid ${COLORS.vdsGray85};
     }
   }
 `
