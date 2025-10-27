@@ -49,12 +49,16 @@ const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
       <Breadcrumbs />
       <Main>
         <Grid type="container">
-          {showNavMenu && (
-            <Grid.Col span={{ base: 12, sm: 3 }}>
-              <NavMenu items={navMenuItems} onClick={handleSelection} />
-            </Grid.Col>
+          {showNavMenu ? (
+            <>
+              <Grid.Col span={{ base: 12, sm: 3 }}>
+                <NavMenu items={navMenuItems} onClick={handleSelection} />
+              </Grid.Col>
+              <Grid.Col span={{ base: 12, sm: 9 }}>{children}</Grid.Col>
+            </>
+          ) : (
+            <Grid.Col span={{ base: 12, sm: 12 }}>{children}</Grid.Col>
           )}
-          <Grid.Col span={{ base: 12, sm: 9 }}>{children}</Grid.Col>
         </Grid>
       </Main>
       <footer />

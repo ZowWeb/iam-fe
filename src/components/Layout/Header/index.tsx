@@ -86,6 +86,19 @@ const Header = () => {
     }
   }
 
+  const profileLinksJSX = (
+    <ProfileLinksUl>
+      <li className="border-top" onClick={() => actionClickHandler('MY_PROFILE')}>
+        <Icon name="my-account" size={24} /> My profile
+      </li>
+      <li className="border-top">
+        <Icon name="group-family" size={24} /> My teams
+      </li>
+      <li className="border-top">Talk to an expert</li>
+      <li>Sign out</li>
+    </ProfileLinksUl>
+  )
+
   return (
     <BorderedHeader>
       <ContentContainer>
@@ -97,14 +110,6 @@ const Header = () => {
           <Right alignItems="center" flex="0 0 auto" gap="0.5rem">
             <TouchArea onClick={openProfileDrawer}>
               <AvatarWrapper className="avatar" justifyContent="flex-end">
-                <Menu>
-                  <Menu.Target>
-                    <StyledActionIcon variant="transparent" size="xl">
-                      <Avatar radius="xl">JD</Avatar>
-                    </StyledActionIcon>
-                  </Menu.Target>
-                  <DropDownMenu items={MENU_ITEMS} actionClickHandler={actionClickHandler} />
-                </Menu>
                 <FlexBox direction="column" alignItems="flex-start">
                   <span className="avatar__name">{user?.displayName}</span>
                   <span className="avatar__team">Teamname</span>
@@ -119,7 +124,14 @@ const Header = () => {
           <Right alignItems="center" flex="0 0 auto" gap="1.5rem">
             {externalLinksJSX}
             <AvatarWrapper className="avatar" justifyContent="flex-end">
-              <Avatar radius="xl">JD</Avatar>
+              <Menu>
+                <Menu.Target>
+                  <StyledActionIcon variant="transparent" size="xl">
+                    <Avatar radius="xl">JD</Avatar>
+                  </StyledActionIcon>
+                </Menu.Target>
+                <DropDownMenu items={MENU_ITEMS} actionClickHandler={actionClickHandler} />
+              </Menu>
               <FlexBox direction="column" alignItems="flex-start">
                 <span className="avatar__name">John Doe</span>
                 <span className="avatar__team">Teamname</span>
