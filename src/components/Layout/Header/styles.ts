@@ -8,6 +8,7 @@ import {
   GLOBAL_INLINE_PADDING,
   STD_LAYOUT_MAX_WIDTH,
 } from '~/styles/constants'
+import { theme } from '~/styles/theme'
 import { media } from '~/utils/mediaQuery'
 
 export const BorderedHeader = styled.header`
@@ -100,4 +101,9 @@ export const ProfileLinksUl = styled.ul`
 `
 export const StyledActionIcon = styled(ActionIcon)`
   border-radius: 50%;
+`
+
+export const StyledItem = styled.div`
+  display: flex;
+  gap: ${theme.spacing.md};
 `

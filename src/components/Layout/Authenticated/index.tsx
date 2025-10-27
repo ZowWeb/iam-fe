@@ -1,4 +1,4 @@
-import { useNavigate, useRouteContext, useMatches } from '@tanstack/react-router'
+import { useNavigate, useRouteContext, useLocation } from '@tanstack/react-router'
 
 import Grid from '~/components/Grid'
 import { LayoutWrapper, Main } from './styles'
@@ -9,6 +9,7 @@ import { TEAM_ID, USER_ID } from '~/constants/params'
 import Typography from '~/components/Typography'
 import type { NavMenuItem } from '../NavMenu'
 import NavMenu from '../NavMenu'
+import { PROFILE_ROUTE } from '~/constants/routes'
 
 const navMenuItems: NavMenuItem[] = [
   { id: 'teamPage', label: 'Team Details', link: '/teams/$teamId' },
@@ -26,14 +27,9 @@ type Props = {
 const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
   const { isAuthenticated } = useRouteContext({ from: '/_authenticated' })
   const navigate = useNavigate()
-  const matches = useMatches()
-  let showNavMenu = true
 
-  matches.reverse().forEach(({ loaderData }) => {
-    if (loaderData && 'showNavMenu' in loaderData) {
-      showNavMenu = loaderData.showNavMenu
-    }
-  })
+  // Check if routing to /profile to avoid rendering the NavMenu
+  const showNavMenu: boolean = !useLocation().pathname.endsWith(PROFILE_ROUTE)
 
   if (!isAuthenticated) {
     return <Typography.H2>Please login to continue</Typography.H2>
@@ -57,7 +53,7 @@ const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
               <Grid.Col span={{ base: 12, sm: 9 }}>{children}</Grid.Col>
             </>
           ) : (
-            <Grid.Col span={{ base: 12, sm: 12 }}>{children}</Grid.Col>
+            <Grid.Col>{children}</Grid.Col>
           )}
         </Grid>
       </Main>
