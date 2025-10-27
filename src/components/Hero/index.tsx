@@ -9,7 +9,7 @@ import {
   StyledIconDots,
   MenuWrapper,
 } from './styles'
-import DropDownMenu, { type DropDownMenuItem } from '../DropDownMenu';
+import DropDownMenu, { type DropDownMenuItem } from '../DropDownMenu'
 
 export type ActionButtonConfig = {
   menuDropdownItems: DropDownMenuItem[]
@@ -25,7 +25,7 @@ type Props = {
 }
 
 const Hero = ({ title, subtitle, actionButtonConfig, children, gap = '1.5rem' }: Props) => {
-  const { menuDropdownItems, actionClickHandler = () => { } } = actionButtonConfig || {}
+  const { menuDropdownItems, actionClickHandler = () => {} } = actionButtonConfig || {}
 
   return (
     <Wrapper direction="column" alignItems="flex-start" gap={gap}>

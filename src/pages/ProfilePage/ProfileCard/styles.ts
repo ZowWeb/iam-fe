@@ -7,12 +7,12 @@ export const Card = styled(FlexBox)`
   border-radius: 0.75rem;
   background: ${COLORS.vdsGray95};
   padding: 1.25rem;
-  min-height: 248px;
-  flex: 0 1 calc(50% - 1.25rem);
+  min-height: 250px;
+  flex: 1;
 `
 
 export const FooterItem = styled(FlexBox)`
-  flex: 0 1 calc(50% - 0.75rem);
+  flex: 1;
 `
 
 export const Divider = styled.div`
