@@ -1,14 +1,14 @@
 import { Breadcrumbs as MantineBreadcrumbs } from '@mantine/core'
 import { useMatches } from '@tanstack/react-router'
 
-import { BreadcrumbsContainer } from './styles'
+import { BreadcrumbsWrapper } from './styles'
 import Link from '../Link'
 
 const Breadcrumbs = () => {
   const matches = useMatches()
 
   return (
-    <BreadcrumbsContainer>
+    <BreadcrumbsWrapper>
       <MantineBreadcrumbs aria-label="Breadcrumbs">
         {matches.map(({ pathname, loaderData }) => {
           if (loaderData && 'crumbTitle' in loaderData) {
@@ -22,7 +22,7 @@ const Breadcrumbs = () => {
           return null
         })}
       </MantineBreadcrumbs>
-    </BreadcrumbsContainer>
+    </BreadcrumbsWrapper>
   )
 }
 

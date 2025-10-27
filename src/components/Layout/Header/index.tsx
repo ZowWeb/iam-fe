@@ -5,8 +5,8 @@ import { useDisclosure } from '@mantine/hooks'
 import FlexBox from '~/components/FlexBox'
 import {
   AvatarWrapper,
-  HeaderContainer,
-  HeaderWrapper,
+  BorderedHeader,
+  ContentContainer,
   Left,
   Right,
   ExternalLinksUl,
@@ -79,14 +79,14 @@ const Header = () => {
   }
 
   return (
-    <HeaderWrapper>
-      <HeaderContainer>
-        <Left>
+    <BorderedHeader>
+      <ContentContainer>
+        <Left alignItems="center" flex="1 0 auto">
           <Image src="/vz.svg" alt="VZ Logo" height={LOGO_HEIGHT} fit="contain" width="auto" />
           <Typography.Span size={LOGO_HEIGHT}>API Developer</Typography.Span>
         </Left>
         {isBelowTablet ? (
-          <Right>
+          <Right alignItems="center" flex="0 0 auto" gap="0.5rem">
             <TouchArea onClick={openProfileDrawer}>
               <AvatarWrapper className="avatar" justifyContent="flex-end">
                 <Avatar radius="xl">JD</Avatar>
@@ -97,7 +97,7 @@ const Header = () => {
             </TouchArea>
           </Right>
         ) : (
-          <Right>
+          <Right alignItems="center" flex="0 0 auto" gap="1.5rem">
             {externalLinksJSX}
             <AvatarWrapper className="avatar" justifyContent="flex-end">
               <Avatar radius="xl">JD</Avatar>
@@ -108,14 +108,14 @@ const Header = () => {
             </AvatarWrapper>
           </Right>
         )}
-      </HeaderContainer>
+      </ContentContainer>
       <Drawer opened={isLinksDrawerOpened} onClose={handleDrawerClose} title="Links">
         {externalLinksJSX}
       </Drawer>
       <Drawer opened={isProfileDrawerOpened} onClose={handleDrawerClose} title={profileDrawerHeader}>
         {profileLinksJSX}
       </Drawer>
-    </HeaderWrapper>
+    </BorderedHeader>
   )
 }
 

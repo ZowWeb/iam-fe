@@ -1,7 +1,7 @@
 import { useNavigate, useRouteContext } from '@tanstack/react-router'
 
 import Grid from '~/components/Grid'
-import { LayoutWrapper } from './styles'
+import { LayoutWrapper, Main } from './styles'
 import type { LayoutType } from '~/types'
 import Breadcrumbs from '~/components/Breadcrumbs'
 import Header from '../Header'
@@ -39,14 +39,14 @@ const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
     <LayoutWrapper className={`layout--${type}`}>
       <Header />
       <Breadcrumbs />
-      <main style={{ marginTop: '2.5rem' }}>
-        <Grid>
-          <Grid.Col span={3}>
+      <Main>
+        <Grid type="container">
+          <Grid.Col span={{ base: 12, sm: 3 }}>
             <NavMenu items={navMenuItems} onClick={handleSelection} />
           </Grid.Col>
-          <Grid.Col span={9}>{children}</Grid.Col>
+          <Grid.Col span={{ base: 12, sm: 9 }}>{children}</Grid.Col>
         </Grid>
-      </main>
+      </Main>
       <footer />
     </LayoutWrapper>
   )
