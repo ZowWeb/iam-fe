@@ -1,17 +1,15 @@
 import { styled } from '@linaria/react'
 
-import { FLUID_LAYOUT_MAX_WIDTH, STD_LAYOUT_MAX_WIDTH } from '~/styles/constants'
+import { GLOBAL_INLINE_PADDING } from '~/styles/constants'
 
 export const LayoutWrapper = styled.div`
+  .mantine-Grid-root {
+    margin: 0 auto;
+  }
+`
+
+export const Main = styled.main`
   width: 100%;
-
-  &.layout--standard main {
-    max-width: ${STD_LAYOUT_MAX_WIDTH};
-    margin: 0 auto;
-  }
-
-  &.layout--fluid main {
-    max-width: ${FLUID_LAYOUT_MAX_WIDTH};
-    margin: 0 auto;
-  }
+  padding: 2.5rem ${GLOBAL_INLINE_PADDING};
+  container: mantine-grid/inline-size;
 `

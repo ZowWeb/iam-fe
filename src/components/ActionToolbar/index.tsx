@@ -6,6 +6,7 @@ import { Button } from '@vds/buttons'
 import { Right } from './styles'
 import FlexBox from '~/components/FlexBox'
 import SearchInput from '~/components/SearchInput'
+import useMediaQuery from '~/hooks/useMediaQuery'
 
 export type ActionToolbarProps = Partial<{
   onSearch: (data: string) => void
@@ -23,6 +24,7 @@ export default function ActionToolbar({
 }: ActionToolbarProps) {
   const [searchText, setSearchText] = useState('')
   const [showFilters, setShowFilters] = useState(false)
+  const { isBelowPhone } = useMediaQuery()
 
   const handleSearchChange = (value: string) => {
     setSearchText(value)
@@ -66,13 +68,23 @@ export default function ActionToolbar({
               renderIcon={(props: IconProps) => <Icon name="customize" {...props} />}
               onClick={handleOpenFilters}
             />
-            <SearchInput
-              clearSearch={handleClear}
-              onChange={value => handleSearchChange(value)}
-              value={searchText}
-              variant="primary"
-              searchPlaceHolderText={searchPlaceHolderText}
-            />
+            {isBelowPhone ? (
+              <ButtonIcon
+                kind="lowContrast"
+                size="large"
+                surfaceType="colorFill"
+                renderIcon={(props: IconProps) => <Icon name="search" {...props} />}
+                onClick={handleOpenFilters}
+              />
+            ) : (
+              <SearchInput
+                clearSearch={handleClear}
+                onChange={value => handleSearchChange(value)}
+                value={searchText}
+                variant="primary"
+                searchPlaceHolderText={searchPlaceHolderText}
+              />
+            )}
           </FlexBox>
           <Right>{ctaBtn}</Right>
         </>

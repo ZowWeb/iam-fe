@@ -1,10 +1,16 @@
 import { styled } from '@linaria/react'
 
-import { COLORS, FLUID_LAYOUT_MAX_WIDTH, STD_LAYOUT_MAX_WIDTH } from '~/styles/constants'
+import {
+  COLORS,
+  FLUID_LAYOUT_MAX_WIDTH,
+  GLOBAL_INLINE_PADDING,
+  STD_LAYOUT_MAX_WIDTH,
+} from '~/styles/constants'
 import { theme } from '~/styles/theme'
 
-export const BreadcrumbsContainer = styled.div`
-  padding: 0.75rem 0;
+export const BreadcrumbsWrapper = styled.div`
+  width: 100%;
+  padding: 0.75rem ${GLOBAL_INLINE_PADDING};
   font-size: 0.75rem;
   border-bottom: 1px solid ${COLORS.vdsGray85};
 
@@ -21,7 +27,7 @@ export const BreadcrumbsContainer = styled.div`
   }
 
   .mantine-Breadcrumbs-separator {
-    margin: 0 ${theme.spacing?.xs || '0.5rem'} 0;
+    margin: 0 ${theme.spacing.xs} 0;
   }
 
   a {

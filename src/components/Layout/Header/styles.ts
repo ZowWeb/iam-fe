@@ -1,13 +1,22 @@
 import { styled } from '@linaria/react'
 
 import FlexBox from '~/components/FlexBox'
-import { COLORS, FLUID_LAYOUT_MAX_WIDTH, STD_LAYOUT_MAX_WIDTH } from '~/styles/constants'
+import {
+  COLORS,
+  FLUID_LAYOUT_MAX_WIDTH,
+  GLOBAL_INLINE_PADDING,
+  STD_LAYOUT_MAX_WIDTH,
+} from '~/styles/constants'
 import { media } from '~/utils/mediaQuery'
 
-export const HeaderContainer = styled(FlexBox)`
+export const BorderedHeader = styled.header`
+  border-bottom: 1px solid ${COLORS.vdsGray85};
+  padding: 1.5rem ${GLOBAL_INLINE_PADDING};
+`
+
+export const ContentContainer = styled(FlexBox)`
   width: 100%;
   margin: 0 auto;
-  padding: 1.5rem 0;
 
   .layout--standard & {
     max-width: ${STD_LAYOUT_MAX_WIDTH};
@@ -19,16 +28,10 @@ export const HeaderContainer = styled(FlexBox)`
 
 export const Left = styled(FlexBox)`
   width: auto;
-  flex: 1 0 auto;
-  align-items: center;
-  flex-wrap: nowrap;
 `
 
 export const Right = styled(FlexBox)`
   width: auto;
-  flex: 0 0 auto;
-  align-items: center;
-  gap: 1.5rem;
 `
 
 export const ExternalLinksUl = styled.ul`
@@ -36,7 +39,7 @@ export const ExternalLinksUl = styled.ul`
   padding: 0;
   margin: 0;
   flex: 1 0 auto;
-  display: flex;
+  display: inline-flex;
   justify-content: flex-end;
   gap: 1.5rem;
 
@@ -75,12 +78,6 @@ export const AvatarWrapper = styled(FlexBox)`
       color: ${COLORS.secondary};
     }
   }
-`
-
-export const HeaderWrapper = styled.header`
-  width: 100%;
-  display: flex;
-  border-bottom: 1px solid ${COLORS.vdsGray85};
 `
 
 export const ProfileLinksUl = styled.ul`
