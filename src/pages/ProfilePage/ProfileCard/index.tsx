@@ -2,7 +2,7 @@ import { ButtonIcon } from '@vds/button-icons'
 import { Icon, type IconProps } from '@vds/icons'
 import { useCallback } from 'react'
 
-import { Card, Divider, FooterItem } from './styles'
+import { Wrapper, Header, FooterItem } from './styles'
 import FlexBox from '~/components/FlexBox'
 import Typography from '~/components/Typography'
 import { FONT_WEIGHTS } from '~/styles/constants'
@@ -38,11 +38,11 @@ export default function ProfileCard({ title, onEdit, footerItems }: Props) {
   )
 
   return (
-    <Card direction="column" alignItems="flex-start" gap="0">
-      <FlexBox alignItems="center">
-        <Typography.Span weight={FONT_WEIGHTS.bold} size="1.5rem">
+    <Wrapper direction="column" alignItems="flex-start" gap="1.5rem">
+      <Header alignItems="center">
+        <Typography.CustomTitle order={4} size="1.5rem">
           {title}
-        </Typography.Span>
+        </Typography.CustomTitle>
         {onEdit && (
           <FlexBox justifyContent="flex-end">
             <ButtonIcon
@@ -53,9 +53,8 @@ export default function ProfileCard({ title, onEdit, footerItems }: Props) {
             />
           </FlexBox>
         )}
-      </FlexBox>
-      <Divider />
+      </Header>
       {footerItemsJSX()}
-    </Card>
+    </Wrapper>
   )
 }
