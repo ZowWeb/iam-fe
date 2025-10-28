@@ -15,7 +15,7 @@ export const MenuDropdown = styled(Menu.Dropdown)`
 export const MenuItem = styled(Menu.Item)`
   display: flex;
   align-items: center;
-  gap: ${theme.spacing.md};
+  gap: ${theme.spacing.sm};
   padding: 0.75rem 1.25rem;
   font-size: 1rem;
   border-radius: 0;
