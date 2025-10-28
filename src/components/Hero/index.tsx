@@ -9,10 +9,10 @@ import {
   StyledIconDots,
   MenuWrapper,
 } from './styles'
-import DropDownMenu, { type RowAction } from '../DropDownMenu'
+import DropDownMenu, { type DropDownMenuItem } from '../DropDownMenu'
 
 export type ActionButtonConfig = {
-  menuDropdownItems: RowAction
+  menuDropdownItems: DropDownMenuItem[]
   actionClickHandler: (key: string) => void
 }
 

@@ -1,4 +1,5 @@
 import { styled } from '@linaria/react'
+import { ActionIcon } from '@mantine/core'
 
 import FlexBox from '~/components/FlexBox'
 import {
@@ -7,6 +8,7 @@ import {
   GLOBAL_INLINE_PADDING,
   STD_LAYOUT_MAX_WIDTH,
 } from '~/styles/constants'
+import { theme } from '~/styles/theme'
 import { media } from '~/utils/mediaQuery'
 
 export const BorderedHeader = styled.header`
@@ -68,6 +70,7 @@ export const AvatarWrapper = styled(FlexBox)`
   }
 
   .avatar {
+    cursor: pointer;
     &__name {
       font-size: 0.875rem;
       font-weight: 500;
@@ -95,4 +98,12 @@ export const ProfileLinksUl = styled.ul`
       border-top: 1px solid ${COLORS.vdsGray85};
     }
   }
+`
+export const StyledActionIcon = styled(ActionIcon)`
+  border-radius: 50%;
+`
+
+export const StyledItem = styled.div`
+  display: flex;
+  gap: ${theme.spacing.md};
 `

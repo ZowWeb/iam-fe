@@ -5,6 +5,7 @@ import { FLUID_LAYOUT_MAX_WIDTH, STD_LAYOUT_MAX_WIDTH } from '~/styles/constants
 
 export const BlockWrapper = styled(FlexBox)`
   width: 100%;
+  margin: 0 auto;
 
   .layout--standard & {
     max-width: ${STD_LAYOUT_MAX_WIDTH};

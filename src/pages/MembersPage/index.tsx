@@ -15,13 +15,13 @@ import InviteMembersModal from './components/InviteMembersModal'
 import Block from '~/components/Block'
 import { memberColumns } from '~/components/AdvancedTable/shared/columns'
 import RemoveMemberModal from './components/RemoveMemberModal'
-import DropDownMenu, { type RowAction } from '~/components/DropDownMenu'
+import DropDownMenu, { type DropDownMenuItem } from '~/components/DropDownMenu';
 
-const ROW_ACTIONS: RowAction = {
-  RESEND_INVITE: 'Resend invite',
-  CANCEL_INVITE: 'Cancel invite',
-  REMOVE: 'Remove member',
-}
+const ROW_ACTIONS: DropDownMenuItem[] = [
+  { key: 'RESEND_INVITE', label: 'Resend invite' },
+  { key: 'CANCEL_INVITE', label: 'Cancel invite' },
+  { key: 'REMOVE', label: 'Remove member' },
+];
 
 const MembersPage = () => {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/users' })

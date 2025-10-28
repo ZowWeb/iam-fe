@@ -14,7 +14,7 @@ import type { Team } from '~/types/data'
 import { getFormattedDate } from '~/utils/dates'
 import { handleErrorMessage } from '~/utils/errors'
 import UpdateTeamDetailsModal from './components/UpdateTeamDetailsModal'
-import type { RowAction } from '~/components/DropDownMenu'
+import type { DropDownMenuItem } from '~/components/DropDownMenu'
 
 const FooterContainer = styled(FlexBox)`
   gap: 3.25rem;
@@ -68,9 +68,7 @@ const createFooterItemsJSX = (team: Team) => {
   )
 }
 
-const ROW_ACTIONS: RowAction = {
-  UPDATE_TEAM: 'Update team details',
-}
+const ROW_ACTIONS: DropDownMenuItem[] = [{ key: 'UPDATE_TEAM', label: 'Update team details' }]
 
 export default function TeamOverviewPage() {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId' })
