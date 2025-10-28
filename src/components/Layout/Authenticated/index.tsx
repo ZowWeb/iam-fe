@@ -9,7 +9,6 @@ import { TEAM_ID, USER_ID } from '~/constants/params'
 import Typography from '~/components/Typography'
 import type { NavMenuItem } from '../NavMenu'
 import NavMenu from '../NavMenu'
-import { PROFILE_ROUTE } from '~/constants/routes'
 
 const navMenuItems: NavMenuItem[] = [
   { id: 'teamPage', label: 'Team Details', link: '/teams/$teamId' },
@@ -27,9 +26,8 @@ type Props = {
 const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
   const { isAuthenticated } = useRouteContext({ from: '/_authenticated' })
   const navigate = useNavigate()
-
-  // Check if routing to /profile to avoid rendering the NavMenu
-  const showNavMenu: boolean = !useLocation().pathname.endsWith(PROFILE_ROUTE)
+  const { pathname } = useLocation()
+  const hideNavTab = pathname.endsWith('/profile')
 
   if (!isAuthenticated) {
     return <Typography.H2>Please login to continue</Typography.H2>
@@ -44,18 +42,16 @@ const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
       <Header />
       <Breadcrumbs />
       <Main>
-        <Grid type="container">
-          {showNavMenu ? (
-            <>
-              <Grid.Col span={{ base: 12, sm: 3 }}>
-                <NavMenu items={navMenuItems} onClick={handleSelection} />
-              </Grid.Col>
-              <Grid.Col span={{ base: 12, sm: 9 }}>{children}</Grid.Col>
-            </>
-          ) : (
-            <Grid.Col>{children}</Grid.Col>
-          )}
-        </Grid>
+        {hideNavTab ? (
+          children
+        ) : (
+          <Grid type="container">
+            <Grid.Col span={{ base: 12, sm: 3 }}>
+              <NavMenu items={navMenuItems} onClick={handleSelection} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, sm: 9 }}>{children}</Grid.Col>
+          </Grid>
+        )}
       </Main>
       <footer />
     </LayoutWrapper>

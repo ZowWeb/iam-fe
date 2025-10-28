@@ -7,7 +7,6 @@ export const Route = createFileRoute('/_authenticated/teams/$teamId/profile/')({
   loader: async () => {
     return {
       crumbTitle: 'My Profile',
-      showNavMenu: false,
     }
   },
 })
