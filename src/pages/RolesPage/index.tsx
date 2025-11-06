@@ -15,11 +15,9 @@ import DeleteRoleModal from './components/DeleteRoleModal'
 import getPolicyTags from '~/queries/getPolicyTags'
 import Block from '~/components/Block'
 import { policyTagColumns } from '~/components/AdvancedTable/shared/columns'
-import DropDownMenu, { type DropDownMenuItem } from '~/components/DropDownMenu';
+import DropDownMenu, { type DropDownMenuItem } from '~/components/DropDownMenu'
 
-const ROW_ACTIONS: DropDownMenuItem[] = [
-  { key: 'DELETE', label: 'Delete role' },
-];
+const ROW_ACTIONS: DropDownMenuItem[] = [{ key: 'DELETE', label: 'Delete role' }]
 
 const RolesPage = () => {
   const { teamId } = useParams({ from: '/_authenticated/teams/$teamId/roles' })
