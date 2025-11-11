@@ -1,4 +1,4 @@
-import { Avatar, Image, Menu } from '@mantine/core'
+import { Avatar, Image, Menu, UnstyledButton } from '@mantine/core'
 import { Icon } from '@vds/icons'
 import { useDisclosure } from '@mantine/hooks'
 import { IconUserCircle } from '@tabler/icons-react'
@@ -13,7 +13,6 @@ import {
   Right,
   ExternalLinksUl,
   ProfileLinksUl,
-  StyledActionIcon,
   StyledItem,
 } from './styles'
 import Typography from '~/components/Typography'
@@ -22,7 +21,6 @@ import Drawer from '~/components/Drawer'
 import TouchArea from '~/components/TouchArea'
 import useMediaQuery from '~/hooks/useMediaQuery'
 import type { DropDownMenuItem } from '~/components/DropDownMenu'
-import { useUser } from '~/hooks/useUser'
 import { TEAM_ID } from '~/constants/params'
 import DropDownMenu from '~/components/DropDownMenu'
 
@@ -61,11 +59,11 @@ const externalLinksJSX = (
 )
 
 const profileDrawerHeader = (
-  <AvatarWrapper className="avatar" direction="column" alignItems="flex-start">
+  <AvatarWrapper direction="column" alignItems="flex-start">
     <Avatar radius="xl">JD</Avatar>
     <FlexBox direction="column" alignItems="flex-start">
-      <span className="avatar__name">John Doe</span>
-      <span className="avatar__team">Teamname</span>
+      <span className="userName">John Doe</span>
+      <span className="teamName">Teamname</span>
     </FlexBox>
   </AvatarWrapper>
 )
@@ -74,7 +72,6 @@ const Header = () => {
   const [isLinksDrawerOpened, { open: openLinksDrawer, close: closeLinksDrawer }] = useDisclosure(false)
   const [isProfileDrawerOpened, { open: openProfileDrawer, close: closeProfileDrawer }] = useDisclosure(false)
   const { isBelowTablet } = useMediaQuery()
-  const { user } = useUser()
   const navigate = useNavigate()
 
   const handleDrawerClose = () => {
@@ -129,11 +126,8 @@ const Header = () => {
         {isBelowTablet ? (
           <Right alignItems="center" flex="0 0 auto" gap="0.5rem">
             <TouchArea onClick={openProfileDrawer}>
-              <AvatarWrapper className="avatar" justifyContent="flex-end">
-                <FlexBox direction="column" alignItems="flex-start">
-                  <span className="avatar__name">{user?.displayName}</span>
-                  <span className="avatar__team">Teamname</span>
-                </FlexBox>
+              <AvatarWrapper justifyContent="flex-end">
+                <Avatar radius="xl">JD</Avatar>
               </AvatarWrapper>
             </TouchArea>
             <TouchArea onClick={openLinksDrawer} withPadding>
@@ -143,20 +137,20 @@ const Header = () => {
         ) : (
           <Right alignItems="center" flex="0 0 auto" gap="1.5rem">
             {externalLinksJSX}
-            <AvatarWrapper className="avatar" justifyContent="flex-end">
-              <Menu>
-                <Menu.Target>
-                  <StyledActionIcon variant="transparent" size="xl">
+            <Menu trigger="click-hover">
+              <Menu.Target>
+                <UnstyledButton>
+                  <AvatarWrapper justifyContent="flex-end">
                     <Avatar radius="xl">JD</Avatar>
-                  </StyledActionIcon>
-                </Menu.Target>
-                <DropDownMenu items={MENU_ITEMS} actionClickHandler={actionClickHandler} />
-              </Menu>
-              <FlexBox direction="column" alignItems="flex-start">
-                <span className="avatar__name">John Doe</span>
-                <span className="avatar__team">Teamname</span>
-              </FlexBox>
-            </AvatarWrapper>
+                    <FlexBox direction="column" alignItems="flex-start">
+                      <span className="userName">John Doe</span>
+                      <span className="teamName">Teamname</span>
+                    </FlexBox>
+                  </AvatarWrapper>
+                </UnstyledButton>
+              </Menu.Target>
+              <DropDownMenu items={MENU_ITEMS} actionClickHandler={actionClickHandler} />
+            </Menu>
           </Right>
         )}
       </ContentContainer>

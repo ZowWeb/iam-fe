@@ -1,5 +1,4 @@
 import { styled } from '@linaria/react'
-import { ActionIcon } from '@mantine/core'
 
 import FlexBox from '~/components/FlexBox'
 import {
@@ -69,17 +68,14 @@ export const AvatarWrapper = styled(FlexBox)`
     color: ${COLORS.white};
   }
 
-  .avatar {
-    cursor: pointer;
-    &__name {
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
+  .userName {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
 
-    &__team {
-      font-size: 0.75rem;
-      color: ${COLORS.secondary};
-    }
+  .teamName {
+    font-size: 0.75rem;
+    color: ${COLORS.secondary};
   }
 `
 
@@ -98,9 +94,6 @@ export const ProfileLinksUl = styled.ul`
       border-top: 1px solid ${COLORS.vdsGray85};
     }
   }
-`
-export const StyledActionIcon = styled(ActionIcon)`
-  border-radius: 50%;
 `
 
 export const StyledItem = styled.div`
