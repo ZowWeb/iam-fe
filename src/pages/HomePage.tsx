@@ -18,21 +18,21 @@ function useAuthFallback(passedIsAuthenticated?: boolean, passedUserName?: strin
 
 export default function HomePage(props: HomePageProps) {
   const { isAuthenticated, userName } = useAuthFallback(props.isAuthenticated, props.userName)
-  const { data, isLoading } = useAuthentication()
+  const data = useAuthentication()
 
-  console.info('Login attempt', { isAuthenticated, data, userName })
+  console.info('Login attempt for whoami', { data, userName, isAuthenticated })
 
   useEffect(() => {
-    if (!isLoading && !data) {
+    console.info('Authentication data changed', { data })
+    /*     if (!data) {
       console.info('No data found, redirecting to initiate PKCE login')
       window.location.href = 'https://console.apideveloper-dev.verizon.com/auth/login'
-    }
-  }, [isLoading, data])
+    } */
+  }, [data])
 
   return (
     <Layout>
       <Typography.H1>Home</Typography.H1>
-      <Typography.H4>Not authenticated</Typography.H4>
     </Layout>
   )
 }
