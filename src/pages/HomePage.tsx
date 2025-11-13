@@ -24,7 +24,7 @@ export default function HomePage(props: HomePageProps) {
 
   useEffect(() => {
     console.info('Authentication data changed', { result })
-    if (!result) {
+    if (!result || (typeof result === 'object' && 'error' in result)) {
       console.info('No data found, redirecting to initiate PKCE login')
       window.location.href = 'https://console.apideveloper-dev.verizon.com/auth/login'
     }
