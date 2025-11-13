@@ -18,9 +18,9 @@ function useAuthFallback(passedIsAuthenticated?: boolean, passedUserName?: strin
 
 export default function HomePage(props: HomePageProps) {
   const { isAuthenticated, userName } = useAuthFallback(props.isAuthenticated, props.userName)
-  const data = useAuthentication()
+  const { data, rest } = useAuthentication()
 
-  console.info('Login attempt for whoami', { data, userName, isAuthenticated })
+  console.info('Login attempt for whoami', { data, rest, userName, isAuthenticated })
 
   useEffect(() => {
     console.info('Authentication data changed', { data })
