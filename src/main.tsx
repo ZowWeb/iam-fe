@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -27,17 +27,7 @@ const queryClient = new QueryClient({
 })
 
 // Create a new router instance
-const router = createRouter({
-  routeTree,
-  basepath: '/iam',
-  context: { queryClient, isAuthenticated: false },
-  defaultNotFoundComponent: NotFoundPage,
-  defaultErrorComponent: Error,
-  defaultOnCatch: error => {
-    // can be used to log or report errors on Sentry etc
-    console.info(`[defaultOnCatch] error:`, error)
-  },
-})
+const router = createRouter({})
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -45,7 +35,29 @@ declare module '@tanstack/react-router' {
     router: typeof router
     queryClient: typeof queryClient
     isAuthenticated: boolean
+    setIsAuthenticated: (authenticated: boolean) => void
   }
+}
+
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  router.update({
+    routeTree,
+    basepath: '/iam',
+    context: {
+      queryClient,
+      isAuthenticated,
+      setIsAuthenticated,
+    },
+    defaultNotFoundComponent: NotFoundPage,
+    defaultErrorComponent: Error,
+    defaultOnCatch: error => {
+      // can be used to log or report errors on Sentry etc
+      console.info(`[defaultOnCatch] error:`, error)
+    },
+  })
+
+  return <RouterProvider router={router} />
 }
 
 const rootElement = document.getElementById('app')
@@ -55,7 +67,7 @@ if (rootElement && !rootElement.innerHTML) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <MantineProvider theme={theme}>
-          <RouterProvider router={router} />
+          <App />
         </MantineProvider>
       </QueryClientProvider>
     </StrictMode>,
