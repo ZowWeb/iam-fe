@@ -5,15 +5,20 @@ import Block from '~/components/Block'
 import FlexBox from '~/components/FlexBox'
 import ProfileCard, { type FooterItems } from './ProfileCard'
 import { members } from '~/mocks/member'
+import useAuthentication from '~/hooks/useAuthentication'
 
 const member = members[0]
 
 export default function ProfilePage() {
+  const { data: authData } = useAuthentication()
+
+  console.info('Auth Data in Profile Page:', authData)
+
   const memberFooterItems: FooterItems[] = useMemo(
     () => [
       {
         label: 'Display Name',
-        value: member?.displayName || 'loading...',
+        value: authData?.principal.displayName || 'loading...',
       },
     ],
     [member],
@@ -23,7 +28,7 @@ export default function ProfilePage() {
     () => [
       {
         label: 'Email',
-        value: member?.email || 'loading...',
+        value: authData?.principal.email || 'loading...',
       },
     ],
     [member],
