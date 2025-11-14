@@ -1,4 +1,4 @@
-import { useNavigate, useRouteContext, useLocation } from '@tanstack/react-router'
+import { useNavigate, useLocation } from '@tanstack/react-router'
 
 import Grid from '~/components/Grid'
 import { LayoutWrapper, Main } from './styles'
@@ -9,6 +9,7 @@ import { TEAM_ID, USER_ID } from '~/constants/params'
 import Typography from '~/components/Typography'
 import type { NavMenuItem } from '../NavMenu'
 import NavMenu from '../NavMenu'
+import useAuthentication from '~/hooks/useAuthentication'
 
 const navMenuItems: NavMenuItem[] = [
   { id: 'teamPage', label: 'Team Details', link: '/teams/$teamId' },
@@ -24,12 +25,12 @@ type Props = {
 }
 
 const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
-  const { isAuthenticated } = useRouteContext({ from: '/_authenticated' })
+  const { data: authData } = useAuthentication()
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const hideNavTab = pathname.endsWith('/profile')
 
-  if (!isAuthenticated) {
+  if (!authData) {
     return <Typography.H2>Please login to continue</Typography.H2>
   }
 
