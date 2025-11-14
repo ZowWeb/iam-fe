@@ -27,7 +27,7 @@ export default function HomePage() {
       console.info('No data found, redirecting to initiate PKCE login')
       window.location.href = 'https://console.apideveloper-dev.verizon.com/auth/login'
     }
-  }, [result])
+  }, [result, isAuthenticated, setAuth])
 
   return (
     <Layout>
