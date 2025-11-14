@@ -86,6 +86,8 @@ const ProfileDrawerHeader = () => {
 }
 
 const Header = () => {
+  const { data: authData } = useAuthentication()
+
   const [isLinksDrawerOpened, { open: openLinksDrawer, close: closeLinksDrawer }] = useDisclosure(false)
   const [isProfileDrawerOpened, { open: openProfileDrawer, close: closeProfileDrawer }] = useDisclosure(false)
   const { isBelowTablet, isAbovePhone } = useMediaQuery()
