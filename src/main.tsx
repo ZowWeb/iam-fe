@@ -1,4 +1,4 @@
-import { StrictMode, useState } from 'react'
+import { createContext, StrictMode, useMemo, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -31,18 +31,43 @@ const router = createRouter({})
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
-  /*   export interface Register {
+  export interface Register {
     router: typeof router
     queryClient: typeof queryClient
     isAuthenticated: boolean
     setIsAuthenticated: (authenticated: boolean) => {
       isAuthenticated(authenticated: boolean): void
     }
-  } */
+  }
 }
+
+interface AuthContextType {
+  isAuthenticated: boolean
+  setAuth: (status: boolean) => void
+}
+
+const defaultAuthContext: AuthContextType = {
+  isAuthenticated: false,
+  setAuth: (_status: boolean) => {},
+}
+
+export const AuthContext = createContext<AuthContextType>(defaultAuthContext)
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  const setAuth = (status: boolean) => {
+    setIsAuthenticated(status)
+  }
+
+  const contextValue = useMemo(
+    () => ({
+      isAuthenticated,
+      setAuth,
+    }),
+    [isAuthenticated, setAuth],
+  )
+
   router.update({
     routeTree,
     basepath: '/iam',
@@ -59,7 +84,11 @@ const App = () => {
     },
   })
 
-  return <RouterProvider router={router} />
+  return (
+    <AuthContext.Provider value={contextValue}>
+      <RouterProvider router={router} />
+    </AuthContext.Provider>
+  )
 }
 
 const rootElement = document.getElementById('app')
