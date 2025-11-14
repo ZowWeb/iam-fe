@@ -31,11 +31,13 @@ const router = createRouter({})
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
-  interface Register {
+  export interface Register {
     router: typeof router
     queryClient: typeof queryClient
     isAuthenticated: boolean
-    setIsAuthenticated: (authenticated: boolean) => void
+    setIsAuthenticated: (authenticated: boolean) => {
+      isAuthenticated(authenticated: boolean): void
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 import { styled } from '@linaria/react'
 import { LoadingOverlay } from '@mantine/core'
-import { useIsFetching, type QueryClient } from '@tanstack/react-query'
-import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
+import { useIsFetching } from '@tanstack/react-query'
+import { createRootRouteWithContext, Outlet, type Register } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 
 import { hideOnBreakpointsCss } from '~/styles/global'
@@ -24,11 +24,7 @@ function RootComponent() {
   )
 }
 
-export const Route = createRootRouteWithContext<{
-  queryClient: QueryClient
-  isAuthenticated: boolean
-  setIsAuthenticated: (authenticated: boolean) => void
-}>()({
+export const Route = createRootRouteWithContext<Register>()({
   component: RootComponent,
   loader: () => ({
     crumbTitle: 'Home / Identity & Access Management',
