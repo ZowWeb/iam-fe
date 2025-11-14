@@ -26,6 +26,7 @@ import type { DropDownMenuItem } from '~/components/DropDownMenu'
 import { TEAM_ID } from '~/constants/params'
 import DropDownMenu from '~/components/DropDownMenu'
 import Typography from '~/components/Typography'
+import useAuthentication from '~/hooks/useAuthentication'
 
 enum MENU_ITEM_KEYS {
   MY_PROFILE = 'MY_PROFILE',
@@ -61,6 +62,7 @@ const externalLinksJSX = (
   </ExternalLinksUl>
 )
 
+
 const topHeaderLinksJSX = (
   <TopHeaderLinksUl>
     <li>
@@ -69,15 +71,19 @@ const topHeaderLinksJSX = (
   </TopHeaderLinksUl>
 )
 
-const profileDrawerHeader = (
-  <AvatarWrapper direction="column" alignItems="flex-start">
-    <Avatar radius="xl">JD</Avatar>
-    <FlexBox direction="column" alignItems="flex-start">
-      <span className="userName">John Doe</span>
-      <span className="teamName">Teamname</span>
-    </FlexBox>
-  </AvatarWrapper>
-)
+const ProfileDrawerHeader = () => {
+  const { data: authData } = useAuthentication()
+
+  return (
+    <AvatarWrapper className="avatar" direction="column" alignItems="flex-start">
+      <Avatar radius="xl">JD</Avatar>
+      <FlexBox direction="column" alignItems="flex-start">
+        <span className="avatar__name">{authData.principal.displayName}</span>
+        <span className="avatar__team">{authData.team.displayName}</span>
+      </FlexBox>
+    </AvatarWrapper>
+  )
+}
 
 const Header = () => {
   const [isLinksDrawerOpened, { open: openLinksDrawer, close: closeLinksDrawer }] = useDisclosure(false)
@@ -171,12 +177,12 @@ const Header = () => {
             </Right>
           )}
         </ContentContainer>
-        <Drawer opened={isLinksDrawerOpened} onClose={handleDrawerClose} title="Links">
-          {externalLinksJSX}
-        </Drawer>
-        <Drawer opened={isProfileDrawerOpened} onClose={handleDrawerClose} title={profileDrawerHeader}>
-          {profileLinksJSX}
-        </Drawer>
+             <Drawer opened={isLinksDrawerOpened} onClose={handleDrawerClose} title="Links">
+        {externalLinksJSX}
+      </Drawer>
+      <Drawer opened={isProfileDrawerOpened} onClose={handleDrawerClose} title={ProfileDrawerHeader()}>
+        {profileLinksJSX}
+      </Drawer>
       </BorderedHeader>
     </div>
   )
