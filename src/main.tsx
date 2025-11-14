@@ -1,4 +1,4 @@
-import { createContext, StrictMode, useMemo, useState } from 'react'
+import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -27,68 +27,28 @@ const queryClient = new QueryClient({
 })
 
 // Create a new router instance
-const router = createRouter({})
+const router = createRouter({
+  routeTree,
+  basepath: '/iam',
+  context: {
+    queryClient,
+    isAuthenticated: false,
+  },
+  defaultNotFoundComponent: NotFoundPage,
+  defaultErrorComponent: Error,
+  defaultOnCatch: error => {
+    // can be used to log or report errors on Sentry etc
+    console.info(`[defaultOnCatch] error:`, error)
+  },
+})
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
-  export interface Register {
+  interface Register {
     router: typeof router
     queryClient: typeof queryClient
     isAuthenticated: boolean
-    setIsAuthenticated: (authenticated: boolean) => {
-      isAuthenticated(authenticated: boolean): void
-    }
   }
-}
-
-interface AuthContextType {
-  isAuthenticated: boolean
-  setAuth: (status: boolean) => void
-}
-
-const defaultAuthContext: AuthContextType = {
-  isAuthenticated: false,
-  setAuth: (_status: boolean) => {},
-}
-
-export const AuthContext = createContext<AuthContextType>(defaultAuthContext)
-
-const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-
-  const setAuth = (status: boolean) => {
-    setIsAuthenticated(status)
-  }
-
-  const contextValue = useMemo(
-    () => ({
-      isAuthenticated,
-      setAuth,
-    }),
-    [isAuthenticated, setAuth],
-  )
-
-  router.update({
-    routeTree,
-    basepath: '/iam',
-    context: {
-      queryClient,
-      isAuthenticated,
-      setIsAuthenticated,
-    },
-    defaultNotFoundComponent: NotFoundPage,
-    defaultErrorComponent: Error,
-    defaultOnCatch: error => {
-      // can be used to log or report errors on Sentry etc
-      console.info(`[defaultOnCatch] error:`, error)
-    },
-  })
-
-  return (
-    <AuthContext.Provider value={contextValue}>
-      <RouterProvider router={router} />
-    </AuthContext.Provider>
-  )
 }
 
 const rootElement = document.getElementById('app')
@@ -98,7 +58,7 @@ if (rootElement && !rootElement.innerHTML) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <MantineProvider theme={theme}>
-          <App />
+          <RouterProvider router={router} />
         </MantineProvider>
       </QueryClientProvider>
     </StrictMode>,
