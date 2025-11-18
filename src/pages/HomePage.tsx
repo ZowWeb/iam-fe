@@ -12,7 +12,7 @@ export default function HomePage() {
   console.info('Login attempt for whoami', { result })
 
   useEffect(() => {
-    console.info('Authentication data changed', { result })
+    console.info('Authentication data changed', JSON.stringify(result))
     if (result && !(typeof result === 'object' && 'error' in result)) {
       console.info('Effect', { result: result.team.id })
       navigate({ to: '/teams/$teamId/profile', params: { teamId: result.team.id } })
