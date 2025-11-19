@@ -89,7 +89,7 @@ export default async function apiServerWithThrow({ endpoint, ...fetchConfig }: C
 
 export async function apiCloudfrontWithThrow({ endpoint, ...fetchConfig }: Config): Promise<Response> {
   try {
-    const cloudFrontUrl = `${import.meta.env.VITE_IAM_CLOUDFRONT_URL}/${import.meta.env.VITE_CLOUDFRONT_PREFIX}`
+    const cloudFrontUrl = `${import.meta.env.VITE_CLOUDFRONT_URL}/${import.meta.env.VITE_CLOUDFRONT_PREFIX}`
     const serverUrl = cloudFrontUrl as string | undefined
 
     console.info('apiCloudfrontWithThrow serverUrl', serverUrl)
