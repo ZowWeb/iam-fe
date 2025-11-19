@@ -91,6 +91,8 @@ export async function apiCloudfrontWithThrow({ endpoint, ...fetchConfig }: Confi
   try {
     const cloudFrontUrl = `${import.meta.env.VITE_IAM_CLOUDFRONT_URL}/${import.meta.env.VITE_CLOUDFRONT_PREFIX}`
     const serverUrl = cloudFrontUrl as string | undefined
+
+    console.info('apiCloudfrontWithThrow serverUrl', serverUrl)
     if (!serverUrl) {
       console.error(`ENV_ERROR: Please provide VITE_IAM_CLOUDFRONT_URL`)
       throw new Error(
