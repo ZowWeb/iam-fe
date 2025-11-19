@@ -90,7 +90,12 @@ export default async function apiServerWithThrow({ endpoint, ...fetchConfig }: C
 export async function apiCloudfrontWithThrow({ endpoint, ...fetchConfig }: Config): Promise<Response> {
   try {
     const serverUrl = `${import.meta.env.VITE_CLOUDFRONT_URL}/`
-    const prefixedEndpoint = `${import.meta.env.VITE_CLOUDFRONT_PREFIX}${endpoint}`
+    const prefixedEndpoint = !endpoint.includes('whoami')
+      ? `${import.meta.env.VITE_CLOUDFRONT_PREFIX}${endpoint}`
+      : 'api/proxy/oauth2/v3/whoami'
+
+    console.info('Prefixed Endpoint:', prefixedEndpoint)
+
     if (!serverUrl) {
       console.error(`ENV_ERROR: Please provide VITE_IAM_CLOUDFRONT_URL`)
       throw new Error(
