@@ -101,13 +101,14 @@ export async function apiCloudfrontWithThrow({ endpoint, ...fetchConfig }: Confi
     const response = await fetch(url, fetchConfig)
     console.info('apiCloudfrontWithThrow response', response)
 
-    /*     if (response.status > 400) {
-      const resData = (await response.json()) as ServerErrorSchema
-
-      if ('error' in resData) {
-        throw new Error(`SERVER_ERROR_RESPONSE: ${resData.error_description}`)
+    if (response.status >= 400) {
+      const errorResponse = {
+        status: response.status,
+        statusText: response.statusText,
+        message: 'An error occurred while fetching data.',
       }
-    } */
+      throw errorResponse
+    }
 
     return response
   } catch (error) {
