@@ -89,10 +89,7 @@ export default async function apiServerWithThrow({ endpoint, ...fetchConfig }: C
 
 export async function apiCloudfrontWithThrow({ endpoint, ...fetchConfig }: Config): Promise<Response> {
   try {
-    const cloudFrontUrl = `${import.meta.env.VITE_CLOUDFRONT_URL}/${import.meta.env.VITE_CLOUDFRONT_PREFIX}`
-    const serverUrl = cloudFrontUrl as string | undefined
-
-    console.info('apiCloudfrontWithThrow serverUrl', serverUrl)
+    const serverUrl = import.meta.env.VITE_CLOUDFRONT_URL as string | undefined
     if (!serverUrl) {
       console.error(`ENV_ERROR: Please provide VITE_IAM_CLOUDFRONT_URL`)
       throw new Error(
@@ -102,7 +99,7 @@ export async function apiCloudfrontWithThrow({ endpoint, ...fetchConfig }: Confi
 
     const url = new URL(endpoint, serverUrl)
     const response = await fetch(url, fetchConfig)
-    console.info('apiCloudfrontWithThrow response', response)
+    console.info('Url-response of apiCloudfrontWithThrow', url, response)
 
     if (response.status >= 400) {
       const errorResponse = {
