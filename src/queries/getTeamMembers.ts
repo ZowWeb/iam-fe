@@ -7,7 +7,7 @@ export default function getTeamMembers({ teamId }: { teamId: string }) {
   return queryOptions<Member[]>({
     queryKey: ['GET_MEMBERS', { teamId }],
     queryFn: async () => {
-      const response = await apiCloudfrontWithThrow({ endpoint: `/api/proxy/teams/${teamId}/users` })
+      const response = await apiCloudfrontWithThrow({ endpoint: `/teams/${teamId}/users` })
 
       return response.json()
     },

@@ -1,5 +1,5 @@
 import type { PatchPolicyTagsFromPrincipal } from '~/types/data'
-import apiServerWithThrow from '~/utils/apiServerWithThrow'
+import { apiCloudfrontWithThrow } from '~/utils/apiServerWithThrow'
 
 type Args = {
   teamId: string
@@ -15,7 +15,7 @@ export default async function addRemovePolicyTagsFromPrincipal({
   teamId,
   principalId,
 }: Args): Promise<PatchPolicyTagsFromPrincipal> {
-  const response = await apiServerWithThrow({
+  const response = await apiCloudfrontWithThrow({
     endpoint: `/teams/${teamId}/principals/${principalId}/policy-tags`,
     method: 'PATCH',
     headers: {

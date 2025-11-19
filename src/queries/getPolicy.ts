@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query'
 
 import type { Policy } from '~/types/data'
-import apiServerWithThrow from '~/utils/apiServerWithThrow'
+import { apiCloudfrontWithThrow } from '~/utils/apiServerWithThrow'
 
 type Args = {
   teamId: string
@@ -9,7 +9,7 @@ type Args = {
 }
 
 export const fetchPolicy = async ({ teamId, policyId }: Args) => {
-  const response = await apiServerWithThrow({
+  const response = await apiCloudfrontWithThrow({
     endpoint: `/teams/${teamId}/policies/${policyId}`,
   })
 

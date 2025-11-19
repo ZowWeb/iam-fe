@@ -30,7 +30,7 @@ export const getAuthentication = () =>
     queryKey: ['WHOAMI'],
     queryFn: async () => {
       try {
-        const response = await apiCloudfrontWithThrow({ endpoint: `/api/proxy/oauth2/v3/whoami` })
+        const response = await apiCloudfrontWithThrow({ endpoint: `/whoami` })
         return response.json()
       } catch (e) {
         if (e && typeof e === 'object' && 'status' in e) {

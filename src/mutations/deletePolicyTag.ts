@@ -1,4 +1,4 @@
-import apiServerWithThrow from '~/utils/apiServerWithThrow'
+import { apiCloudfrontWithThrow } from '~/utils/apiServerWithThrow'
 
 type Args = {
   teamId: string
@@ -6,7 +6,7 @@ type Args = {
 }
 
 const deletePolicyTag = async ({ teamId, policyTagId }: Args): Promise<boolean> => {
-  const response = await apiServerWithThrow({
+  const response = await apiCloudfrontWithThrow({
     endpoint: `/teams/${teamId}/policy-tags/${policyTagId}`,
     method: 'DELETE',
   })
