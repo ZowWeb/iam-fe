@@ -1,9 +1,11 @@
 import { styled } from '@linaria/react'
+import { Image } from '@mantine/core'
 
 import FlexBox from '~/components/FlexBox'
 import {
   COLORS,
   FLUID_LAYOUT_MAX_WIDTH,
+  FONT_WEIGHTS,
   GLOBAL_INLINE_PADDING,
   STD_LAYOUT_MAX_WIDTH,
 } from '~/styles/constants'
@@ -11,7 +13,7 @@ import { theme } from '~/styles/theme'
 import { media } from '~/utils/mediaQuery'
 
 export const BorderedHeader = styled.header`
-  border-bottom: 1px solid ${COLORS.vdsGray85};
+  border-top: 1px solid ${COLORS.vdsGray85};
   padding: 1.5rem ${GLOBAL_INLINE_PADDING};
 `
 
@@ -24,6 +26,14 @@ export const ContentContainer = styled(FlexBox)`
   }
   .layout--fluid & {
     max-width: ${FLUID_LAYOUT_MAX_WIDTH};
+  }
+`
+
+export const TopHeaderLinksContentContainer = styled(ContentContainer)`
+  padding: 0.5rem 0;
+
+  ${media.tablet} {
+    padding: 0.5rem ${GLOBAL_INLINE_PADDING};
   }
 `
 
@@ -99,4 +109,17 @@ export const ProfileLinksUl = styled.ul`
 export const StyledItem = styled.div`
   display: flex;
   gap: ${theme.spacing.md};
+`
+
+export const FixedTopImage = styled(Image)`
+  position: relative;
+  top: -3px;
+`
+
+export const TopHeaderLinksUl = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-weight: ${FONT_WEIGHTS.medium};
+  font-size: ${theme.fontSizes.sm};
 `

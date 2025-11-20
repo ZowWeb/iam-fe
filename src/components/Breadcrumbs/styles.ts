@@ -12,7 +12,7 @@ export const BreadcrumbsWrapper = styled.div`
   width: 100%;
   padding: 0.75rem ${GLOBAL_INLINE_PADDING};
   font-size: 0.75rem;
-  border-bottom: 1px solid ${COLORS.vdsGray85};
+  background-color: ${COLORS.vdsGray95};
 
   .mantine-Breadcrumbs-root {
     margin: 0 auto;
