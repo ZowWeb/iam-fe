@@ -5,7 +5,6 @@ import { LayoutWrapper, Main } from './styles'
 import type { LayoutType } from '~/types'
 import Breadcrumbs from '~/components/Breadcrumbs'
 import Header from '../Header'
-import { TEAM_ID, USER_ID } from '~/constants/params'
 import Typography from '~/components/Typography'
 import type { NavMenuItem } from '../NavMenu'
 import NavMenu from '../NavMenu'
@@ -35,7 +34,10 @@ const AuthenticatedLayout = ({ children, type = 'standard' }: Props) => {
   }
 
   const handleSelection = (item: NavMenuItem) => {
-    navigate({ to: item.link, params: { teamId: TEAM_ID, userId: USER_ID } })
+    navigate({
+      to: item.link,
+      params: { teamId: authData.team.id, userId: authData.principal.id },
+    })
   }
 
   return (

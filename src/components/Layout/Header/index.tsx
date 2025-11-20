@@ -23,7 +23,7 @@ import Drawer from '~/components/Drawer'
 import TouchArea from '~/components/TouchArea'
 import useMediaQuery from '~/hooks/useMediaQuery'
 import type { DropDownMenuItem } from '~/components/DropDownMenu'
-import { TEAM_ID } from '~/constants/params'
+import { useUser } from '~/hooks/useUser'
 import DropDownMenu from '~/components/DropDownMenu'
 import Typography from '~/components/Typography'
 import useAuthentication from '~/hooks/useAuthentication'
@@ -100,7 +100,7 @@ const Header = () => {
 
   const closeDrawerAndNavigateToProfilePage = () => {
     handleDrawerClose()
-    navigate({ to: '/teams/$teamId/profile', params: { teamId: TEAM_ID } })
+    navigate({ to: '/teams/$teamId/profile', params: { teamId: authData.team.id } })
   }
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
