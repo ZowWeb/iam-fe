@@ -17,6 +17,7 @@ export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async ({ context: { queryClient } }) => {
     const authData = await queryClient.fetchQuery(getAuthentication())
     if (!authData) {
+      console.info('[beforeLoad] redirecting to /auth/login...')
       throw redirect({
         href: `${cloudfrontUrl}/auth/login`,
       })
@@ -29,7 +30,7 @@ export const Route = createFileRoute('/_authenticated')({
   },
   errorComponent: ErrorPage,
   onError: error => {
-    console.error('Error in _authenticated route:', error)
+    console.info('[/_authenticated onError] redirecting to /auth/login...', error)
     throw redirect({
       href: `${cloudfrontUrl}/auth/login`,
     })
