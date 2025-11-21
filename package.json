@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "vite --port 3000",
     "start": "vite --port 3000",
-    "build": "vite build --base=/iam/$(git rev-parse HEAD) && tsc",
+    "build:dev": "vite build --mode dev --base=/iam/$(git rev-parse HEAD) && tsc",
+    "build:qat": "vite build --mode qat --base=/iam/$(git rev-parse HEAD) && tsc",
+    "build:stg": "vite build --mode stg --base=/iam/$(git rev-parse HEAD) && tsc",
+    "build:prd": "vite build --mode prd --base=/iam/$(git rev-parse HEAD) && tsc",
     "serve": "vite preview",
     "test": "vitest run",
     "prepare": "husky",

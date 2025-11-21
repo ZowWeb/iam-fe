@@ -18,7 +18,8 @@ export default function HomePage() {
       navigate({ to: '/teams/$teamId/profile', params: { teamId: result.team.id } })
     } else {
       console.info('No data found, redirecting to initiate PKCE login')
-      window.location.href = 'https://console.apideveloper-dev.verizon.com/auth/login'
+      const cloudfrontUrl = import.meta.env.VITE_CLOUDFRONT_URL
+      window.location.href = `${cloudfrontUrl}/auth/login`
     }
   }, [result])
 
