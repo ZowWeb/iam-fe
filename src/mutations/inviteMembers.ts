@@ -1,3 +1,4 @@
+import { apiCloudfrontWithThrow } from '~/utils/apiServerWithThrow'
 import type { InviteMember } from '~/types/data'
 
 type InviteMembersProp = {
@@ -10,7 +11,8 @@ type InviteMembersProp = {
  * @returns "ok"
  */
 export default async function inviteMembers({ data, teamId }: InviteMembersProp): Promise<string> {
-  const response = await fetch(`https://iamservice.dev.api.aws.tpd-soe.net/teams/${teamId}/users`, {
+  const response = await apiCloudfrontWithThrow({
+    endpoint: `/teams/${teamId}/users`,
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -1,5 +1,5 @@
 import type { ServiceAccount } from '~/types/data'
-import apiServerWithThrow from '~/utils/apiServerWithThrow'
+import { apiCloudfrontWithThrow } from '~/utils/apiServerWithThrow'
 
 type Args = {
   teamId: string
@@ -7,7 +7,7 @@ type Args = {
 }
 
 export default async function createServiceAccount({ data, teamId }: Args) {
-  const response = await apiServerWithThrow({
+  const response = await apiCloudfrontWithThrow({
     endpoint: `/teams/${teamId}/service-accounts`,
     method: 'POST',
     headers: {

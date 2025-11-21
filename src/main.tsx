@@ -30,7 +30,10 @@ const queryClient = new QueryClient({
 const router = createRouter({
   routeTree,
   basepath: '/iam',
-  context: { queryClient, isAuthenticated: false },
+  context: {
+    queryClient,
+    isAuthenticated: false,
+  },
   defaultNotFoundComponent: NotFoundPage,
   defaultErrorComponent: Error,
   defaultOnCatch: error => {

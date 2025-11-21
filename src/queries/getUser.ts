@@ -1,12 +1,12 @@
 import { queryOptions } from '@tanstack/react-query'
 
 import type { User } from '~/types/data'
-import apiServerWithThrow from '~/utils/apiServerWithThrow'
+import { apiCloudfrontWithThrow } from '~/utils/apiServerWithThrow'
 
 export const GET_USER_QUERY_KEY = ['GET_USER']
 
 export const fetchUser = async (userId: string) => {
-  const response = await apiServerWithThrow({ endpoint: `/users/${userId}` })
+  const response = await apiCloudfrontWithThrow({ endpoint: `/users/${userId}` })
 
   return response.json()
 }

@@ -24,7 +24,10 @@ function RootComponent() {
   )
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient; isAuthenticated: boolean }>()({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient
+  isAuthenticated: boolean
+}>()({
   component: RootComponent,
   loader: () => ({
     crumbTitle: 'Home / Identity & Access Management',

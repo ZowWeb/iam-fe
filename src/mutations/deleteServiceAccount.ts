@@ -1,4 +1,4 @@
-import apiServerWithThrow from '~/utils/apiServerWithThrow'
+import { apiCloudfrontWithThrow } from '~/utils/apiServerWithThrow'
 
 type Args = {
   teamId: string
@@ -6,7 +6,7 @@ type Args = {
 }
 
 const deleteServiceAccount = async ({ teamId, serviceAccountId }: Args) => {
-  const response = await apiServerWithThrow({
+  const response = await apiCloudfrontWithThrow({
     endpoint: `/teams/${teamId}/service-accounts/${serviceAccountId}`,
     method: 'DELETE',
   })

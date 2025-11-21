@@ -1,5 +1,5 @@
 import type { Team } from '~/types/data'
-import apiServerWithThrow from '~/utils/apiServerWithThrow'
+import { apiCloudfrontWithThrow } from '~/utils/apiServerWithThrow'
 
 type Args = {
   teamId: string
@@ -11,7 +11,7 @@ type Args = {
  * Requires appropriate permissions to modify team data. Changes are applied immediately.
  */
 export default async function updateTeam({ data, teamId }: Args): Promise<Team> {
-  const response = await apiServerWithThrow({
+  const response = await apiCloudfrontWithThrow({
     endpoint: `/teams/${teamId}`,
     method: 'PUT',
     headers: {

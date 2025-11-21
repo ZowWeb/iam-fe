@@ -1,7 +1,7 @@
 import { queryOptions } from '@tanstack/react-query'
 
 import type { ServiceAccount } from '~/types/data'
-import apiServerWithThrow from '~/utils/apiServerWithThrow'
+import { apiCloudfrontWithThrow } from '~/utils/apiServerWithThrow'
 
 type Args = {
   teamId: string
@@ -11,7 +11,7 @@ export default function getServiceAccounts({ teamId }: Args) {
   return queryOptions<ServiceAccount[]>({
     queryKey: ['GET_SERVICE_ACCOUNTS', { teamId }],
     queryFn: async () => {
-      const response = await apiServerWithThrow({
+      const response = await apiCloudfrontWithThrow({
         endpoint: `/teams/${teamId}/service-accounts`,
       })
 
