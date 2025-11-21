@@ -89,19 +89,19 @@ export default async function apiServerWithThrow({ endpoint, ...fetchConfig }: C
 
 export async function apiCloudfrontWithThrow({ endpoint, ...fetchConfig }: Config): Promise<Response> {
   try {
-    const serverUrl = `${import.meta.env.VITE_CLOUDFRONT_URL}/`
-    const prefixedEndpoint = !endpoint.includes('whoami')
-      ? `${import.meta.env.VITE_CLOUDFRONT_PREFIX}${endpoint}`
-      : 'api/proxy/oauth2/v3/whoami'
-
-    console.info('Prefixed Endpoint:', prefixedEndpoint)
-
+    const serverUrl = `${import.meta.env.VITE_CLOUDFRONT_URL}`
     if (!serverUrl) {
       console.error(`ENV_ERROR: Please provide VITE_IAM_CLOUDFRONT_URL`)
       throw new Error(
         `ENV_ERROR: Server Base URL is not configured. Please check VITE_IAM_CLOUDFRONT_URL environment variable.`,
       )
     }
+
+    const prefixedEndpoint = !endpoint.includes('whoami')
+      ? `/${import.meta.env.VITE_CLOUDFRONT_PREFIX}${endpoint}`
+      : '/api/proxy/oauth2/v3/whoami'
+
+    console.info('Prefixed Endpoint:', prefixedEndpoint)
 
     const url = new URL(prefixedEndpoint, serverUrl)
     const response = await fetch(url, fetchConfig)
