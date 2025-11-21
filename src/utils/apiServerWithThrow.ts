@@ -125,6 +125,9 @@ export async function apiCloudfrontWithThrow({ endpoint, ...fetchConfig }: Confi
        */
       throw new Error(`ERR_NAME_NOT_RESOLVED: Either VPN or DNS issue!`)
     }
+    if (error && typeof error === 'object' && 'status' in error) {
+      throw error
+    }
     throw new Error(handleErrorMessage(error))
   }
 }
