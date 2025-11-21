@@ -29,14 +29,8 @@ export const getAuthentication = () =>
   queryOptions<AuthenticationData>({
     queryKey: ['WHOAMI'],
     queryFn: async () => {
-      try {
-        const response = await apiCloudfrontWithThrow({ endpoint: `/whoami` })
-        return response.json()
-      } catch (e) {
-        if (e && typeof e === 'object' && 'status' in e) {
-          return { error: true, status: e.status }
-        }
-        return { error: true, status: 500 }
-      }
+      const response = await apiCloudfrontWithThrow({ endpoint: `/whoami` })
+
+      return response.json()
     },
   })
